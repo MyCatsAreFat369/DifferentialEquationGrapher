@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\DifferentialEquationGrapher\src\main.cpp(60,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\DifferentialEquationGrapher\src\main.cpp(61,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\DifferentialEquationGrapher\src\main.cpp(153,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\DifferentialEquationGrapher\src\main.cpp(154,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\DifferentialEquationGrapher\src\main.cpp(166,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\DifferentialEquationGrapher\src\main.cpp(173,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  DifferentialEquationGrapher.vcxproj -> C:\Users\X\3D Objects\Core\Coding\C++\Other\DifferentialEquationGrapher\x64\Debug\DifferentialEquationGrapher.exe
