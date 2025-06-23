@@ -185,18 +185,27 @@ int main()
 		//	curve = redrawCurve(curve, 0);
 		//}
 		bool curveRedraw_isTooZoomed = ((curve->points->t0_right - curve->points->t0_left) * curve->scaleX >= 2 * CURVE_MAX_RADIUS_PER_WIDTH);
+		bool curveRedraw_middleShows = (abs(curve->points->t0 * curve->scaleX + curve->x) <= 1.0f);
 		bool curveRedraw_leftShows = (curve->points->t0_left * curve->scaleX + curve->x >= -1.0f);
 		bool curveRedraw_rightShows = (curve->points->t0_right * curve->scaleX + curve->x <= 1.0);
-		if (curveRedraw_leftShows && curveRedraw_rightShows || (curveRedraw_isTooZoomed))
+		if ((curveRedraw_leftShows && curveRedraw_rightShows) ||
+			(curveRedraw_isTooZoomed) ||
+			(curveRedraw_middleShows && (curveRedraw_leftShows || curveRedraw_rightShows)))
 		{
 			curve = redrawCurve(curve, 0);
 		}
 		else if (curveRedraw_leftShows)
 		{
+			std::cout << "Test from the left: " << curve->points->t0_left * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the middle: " << curve->points->t0 * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the right: " << curve->points->t0_right * curve->scaleX + curve->x << std::endl;
 			curve = redrawCurve(curve, -1);
 		}
 		else if (curveRedraw_rightShows)
 		{
+			std::cout << "Test from the left: " << curve->points->t0_left * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the middle: " << curve->points->t0 * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the right: " << curve->points->t0_right * curve->scaleX + curve->x << std::endl;
 			curve = redrawCurve(curve, 1);
 		}
 		/*
