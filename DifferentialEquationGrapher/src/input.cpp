@@ -39,6 +39,46 @@ void Input::Update()
 
 std::vector<Input*> Input::_instances;
 
+Input::Input() : _isEnabled(true)
+{
+	/*
+		32
+		39
+		44-57
+		59
+		61
+		65-93
+		96
+		256-269
+		280-284
+		290-314
+	*/
+
+	// im lazy so hardcode
+	std::vector<int> keys;
+	keys.push_back(32);
+	keys.push_back(39);
+	for (int i = 44; i <= 57; i++) { keys.push_back(i); }
+	keys.push_back(59);
+	keys.push_back(61);
+	for (int i = 65; i <= 93; i++) { keys.push_back(i); }
+	keys.push_back(96);
+	for (int i = 256; i <= 269; i++) { keys.push_back(i); }
+	for (int i = 280; i <= 284; i++) { keys.push_back(i); }
+	for (int i = 290; i <= 314; i++) { keys.push_back(i); }
+	for (int i = 330; i <= 336; i++) { keys.push_back(i); }
+	for (int i = 340; i <= 348; i++) { keys.push_back(i); }
+
+	// Initialize input object (you can make more later)
+
+    for (int key : keys)
+    {
+        _keys[key] = false;
+    }
+    // Add this instance to the list of instances
+    Input::_instances.push_back(this);
+}
+
 Input::Input(std::vector<int> keysToMonitor) : _isEnabled(true)
 {
     for (int key : keysToMonitor)

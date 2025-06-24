@@ -11,6 +11,7 @@ class Input {
     // Main Input functionality
     public:
         // Takes a list of which keys to keep state for
+        Input();
         Input(std::vector<int> keysToMonitor);
         ~Input();
 

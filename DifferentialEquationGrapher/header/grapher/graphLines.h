@@ -20,6 +20,13 @@ class GraphLines
 		int spacingCoefficientX = 1, spacingCoefficientY = 1;
 		float spacingFactorX = 1.0f, spacingFactorY = 1.0f;
 
+		// Loading progress
+		int linesLoaded = 0;
+
+		void loadNextLines();
+		bool allLinesLoaded();
+		int linesToLoad();
+
 		void UpdatePosition(float x, float y);
 		void UpdateZoom(float zoomX, float zoomY);
 		void Draw();
@@ -32,6 +39,8 @@ class GraphLines
 		// lines surrounding the axes
 		Line* linesX;
 		Line* linesY;
+
+		GLuint vertexShader, fragmentShader;
 
 		// Increment/Decrement spacing for each axis
 

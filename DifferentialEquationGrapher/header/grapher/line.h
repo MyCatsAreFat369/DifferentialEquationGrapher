@@ -1,10 +1,10 @@
 #ifndef LINE_CLASS_H
 #define LINE_CLASS_H
 
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
-#include "shaderClass.h"
+#include "rendering/VAO.h"
+#include "rendering/VBO.h"
+#include "rendering/EBO.h"
+#include "rendering/shaderClass.h"
 
 
 class Line

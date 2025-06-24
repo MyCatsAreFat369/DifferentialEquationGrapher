@@ -1,35 +1,30 @@
-/*#include <iostream>
+/*
+
+#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb/stb_image.h>
 
-#include "shaderClass.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h";
-#include "texture2d.h"
-//#include "grapher/curve.h"
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
 
-// Vertices coordinates
-GLfloat oldvertices[] =
-{ //               COORDINATES                  /     COLORS           //
-	-0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower left corner
-	 0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower right corner
-	 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,     1.0f, 0.6f,  0.32f, // Upper corner
-	-0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner left
-	 0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner right
-	 0.0f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f  // Inner down
-};
+#include "rendering/shaderClass.h"
+#include "rendering/VAO.h"
+#include "rendering/VBO.h"
+#include "rendering/EBO.h"
+#include "rendering/texture2d.h"
+#include "grapher/curve.h"
+#include "grapher/points.h"
+#include "grapher/calculator.h"
+#include "grapher/line.h"
+#include "grapher/graphLines.h"
+#include "input.h"
+#include <vector>
 
-// Indices for vertices order
-GLuint oldindices[] =
-{
-	0, 3, 5, // Lower left triangle
-	3, 2, 4, // Lower right triangle
-	5, 4, 1 // Upper triangle
-};
+const int SCREEN_WIDTH_DEFAULT = 1920;
+const int SCREEN_HEIGHT_DEFAULT = 1080;
 
-int oldmain()
+int main()
 {
 	// Initialize GLFW
 	glfwInit();
@@ -42,171 +37,181 @@ int oldmain()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create a window with a resolution x,y, and a title
-	GLFWwindow* window = glfwCreateWindow(800, 800, "Hello!", NULL, NULL);
+	int initialWidth = 1600, initialHeight = 900;
+	GLFWwindow* window = glfwCreateWindow(initialWidth, initialHeight, "Hello!", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create window." << std::endl;
 		glfwTerminate();
 		return -1;
 	}
+
+	//FT_Library free_type;
+	//FT_Error error_code = FT_Init_FreeType(&free_type);
+	//if (error_code)
+	//{
+	//	std::cout << "\nError code: " << error_code << " --- An error occurred during initialization of the FT_Library.\n";
+	//	int keep_console_open;
+	//	std::cin >> keep_console_open;
+	//}
+
 	// make the window we created be the context for this program's GLFW
 	glfwMakeContextCurrent(window);
 
 	// Load Glad
 	gladLoadGL();
 
-	// set viewport to the whole window
-	glViewport(0, 0, 800, 800);
+	/// SCREEN RESIZING AND REPOSITIONING
+
+	// Get screen width and height of current monitor (the one window opened in)
+	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+	//std::cout << "I am " << currentMonitor << ". Am I a nullptr? " << (currentMonitor == nullptr) << std::endl;
+	const GLFWvidmode* vidMode = glfwGetVideoMode(primaryMonitor);
+	int screenWidth = vidMode->width, screenHeight = vidMode->height;
+	std::cout << "Screen Size: " << screenWidth << "x" << screenHeight << std::endl;
+
+	// scale down window size based on which screen size the app started in.
+	int setWidth = initialWidth * ((double)screenWidth / SCREEN_WIDTH_DEFAULT);
+	int setHeight = initialHeight * ((double)screenHeight / SCREEN_HEIGHT_DEFAULT);
+	glfwSetWindowSize(window, setWidth, setHeight);
+	glfwSetWindowPos(window, screenWidth / 2 - setWidth / 2, screenHeight / 2 - setHeight / 2);
+
+	/// INPUTS
+
+	Input::setupInputs(window);
+
+	// im lazy so hardcode
+	std::vector<int> keys;
+	keys.push_back(32);
+	keys.push_back(39);
+	for (int i = 44; i <= 57; i++) { keys.push_back(i); }
+	keys.push_back(59);
+	keys.push_back(61);
+	for (int i = 65; i <= 93; i++) { keys.push_back(i); }
+	keys.push_back(96);
+	for (int i = 256; i <= 269; i++) { keys.push_back(i); }
+	for (int i = 280; i <= 284; i++) { keys.push_back(i); }
+	for (int i = 290; i <= 314; i++) { keys.push_back(i); }
+	for (int i = 330; i <= 336; i++) { keys.push_back(i); }
+	for (int i = 340; i <= 348; i++) { keys.push_back(i); }
+
+	// Initialize input object (you can make more later)
+	Input input(keys);
+
 	// flip the image vertically because OpenGL and stb read images differently
-	//stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(true);
 
 	//Texture2D crepeGirlTexture("res/Textures/crepe_girl.png", GL_TEXTURE0, GL_NEAREST, GL_REPEAT, GL_RGBA, GL_UNSIGNED_BYTE);
 	//crepeGirlTexture.texUnit(shaderProgram, "tex0", 0);
 
-	GLfloat points[CURVE_POINTS_SIZE * 6];
+	GLuint vertexShader = Shader::CompileShader(GL_VERTEX_SHADER, "res/Shaders/default.vert");
+	GLuint fragmentShader = Shader::CompileShader(GL_FRAGMENT_SHADER, "res/Shaders/default.frag");
+
+	float t0 = 0.0f;
+	float x0 = 1.0f, v0 = 1.0f;
 	float zoomX = 1.0f, zoomY = 1.0f;
-	float dt = (2 * zoomX) / (CURVE_POINTS_SIZE - 1);
-	float x0 = 1.0f;
-	float v0 = 0.0f;
 
-	float x = x0;
-	float v = v0;
-	float a;
-	float time = 0.0f;
-	for (int i = (CURVE_POINTS_SIZE - 1) / 2; i < CURVE_POINTS_SIZE; i++)
-	{
-		std::cout << i << ": " << time * zoomX << ", " << x * zoomY << std::endl;
-		points[i * 6] = time * zoomX;
-		points[i * 6 + 1] = x * zoomY;
-		points[i * 6 + 2] = 0.0f;
-		points[i * 6 + 3] = 1.0f;
-		points[i * 6 + 4] = 1.0f;
-		points[i * 6 + 5] = 1.0f;
+	// Initialize Curve
+	Points* points = new Points();
+	getPoints(points, t0, x0, v0, zoomX, zoomY, 0);
+	Curve* curve = new Curve(points, zoomX, zoomY);
+	curve->AttachShaders(vertexShader, fragmentShader);
+	curve->x = 0.0f, curve->y = 0.0f;
 
-		a = -100.0f * x;
-		v += a * dt;
-		x += v * dt;
-		time += dt;
+	// Consider moving GraphLines creation before Curve
+	GraphLines* graphLines = new GraphLines(vertexShader, fragmentShader, 0.0f, 0.0f, zoomX, zoomY);
+	graphLines->UpdatePosition(0.0f, 0.0f);
 
-		//std::cout << i << " " << time << std::endl;
-	}
-	for (int i = (CURVE_POINTS_SIZE - 1) / 2; i > 0;)
-	{
-		i--;
-		a = -100.0f * x;
-		v -= a * dt;
-		x -= v * dt;
-		time -= dt;
-
-		points[i * 6] = time * zoomX;
-		points[i * 6 + 1] = x * zoomY;
-		points[i * 6 + 2] = 0.0f;
-		points[i * 6 + 3] = 1.0f;
-		points[i * 6 + 4] = 1.0f;
-		points[i * 6 + 5] = 1.0f;
-	}
-	GLfloat verticesCurve[] =
-	{
-		0.0f, 0.0f, 0.0f,		1.0f, 1.0f, 1.0f,
-		0.1f, 0.1f, 0.0f,		1.0f, 1.0f, 1.0f,
-		0.2f, 0.4f, 0.0f,		1.0f, 1.0f, 1.0f,
-		0.3f, 0.9f, 0.0f,		1.0f, 1.0f, 1.0f,
-		0.31f, 0.91f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.32f, 0.92f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.33f, 0.93f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.34f, 0.94f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.35f, 0.95f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.36f, 0.96f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.37f, 0.97f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.38f, 0.98f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.39f, 0.99f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.40f, 1.00f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.50f, 0.90f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.60f, 0.80f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.70f, 0.70f, 0.0f,     1.0f, 1.0f, 1.0f,
-		0.80f, 0.60f, 0.0f,     1.0f, 1.0f, 1.0f
-	};
-	GLuint indicesCurve[] =
-	{
-		0, 1,
-		1, 2,
-		2, 3,
-		3, 4,
-		4, 5,
-		5, 6,
-		6, 7,
-		7, 8,
-		8, 9,
-		9, 10,
-		10, 11,
-		11, 12,
-		12, 13,
-		13, 14,
-		14, 15,
-		15, 16,
-		16, 17
-	};
-
-	// Create Shader Program for vertex and fragment shaders
-	Shader shaderProgram("res/Shaders/default.vert", "res/Shaders/default.frag");
-	// Gets ID of uniform called "scale"
-	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
-
-	VAO VAOcurve;
-	VAOcurve.Bind();
-
-	VBO VBOcurve(verticesCurve, sizeof(verticesCurve));
-	EBO EBOcurve(indicesCurve, sizeof(indicesCurve));
-
-	VAOcurve.LinkAttrib(VBOcurve, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-	VAOcurve.LinkAttrib(VBOcurve, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAOcurve.Unbind();
-	VBOcurve.Unbind();
-	EBOcurve.Unbind();
-	//Curve curve(verticesCurve, sizeof(verticesCurve));
-	//curve.SetZoomX(zoomX);
-	//curve.SetZoomY(zoomY);
-
-	// Generates Shader object using shaders defualt.vert and default.frag
-	Shader shaderProgram("res/Shaders/default.vert", "res/Shaders/default.frag");
-
-	// Generates Vertex Array Object and binds it
-	VAO VAO1;
-	VAO1.Bind();
-	std::cout << "Once was " << VAO1.ID << std::endl;
-
-	// Generates Vertex Buffer Object and links it to vertices
-	VBO VBO1(oldvertices, sizeof(oldvertices));
-	// Generates Element Buffer Object and links it to indices
-	EBO EBO1(oldindices, sizeof(oldindices));
-
-	std::cout << VBO1.ID << " " << EBO1.ID << std::endl;
-	// Links VBO attributes such as coordinates and colors to VAO
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	// Unbind all to prevent accidentally modifying them
-	VAO1.Unbind();
-	VBO1.Unbind();
-	EBO1.Unbind();
-
-	// Gets ID of uniform called "scale"
-	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+	double preMouseX = 0.0, preMouseY = 0.0;
+	double preCurveX = curve->x, preCurveY = curve->y;
+	bool isDragging = false;
 
 	// Main loop
 	while (!glfwWindowShouldClose(window))
 	{
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
+		// set viewport
+		int graphWidth = width - 400;
+		int graphHeight = height - 100;
+		glViewport(400, 0, graphWidth, graphHeight);
+
 		// change bg color
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Tell OpenGL which Shader Program we want to use
-		shaderProgram.Activate();
-		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
-		glUniform1f(uniID, 1.0f);
-		// Bind the VAO so OpenGL knows to use it
-		VAO1.Bind();
-		// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		/// Pan
+		if (input.leftMouseButtonDown())
+		{
+			if (!isDragging)
+			{
+				preMouseX = input.getMouseX(), preMouseY = input.getMouseY();
+				preCurveX = curve->x, preCurveY = curve->y;
+				isDragging = true;
+			}
+
+			/// Consider making graphLines the first one to get the new position, or perhaps make the position a variable in main class
+			curve->x = preCurveX + (input.getMouseX() - preMouseX) / 800.0;
+			curve->y = preCurveY - (input.getMouseY() - preMouseY) / 800.0;
+			graphLines->UpdatePosition(curve->x, curve->y);
+		}
+		else if (isDragging) isDragging = false;
+
+		/// Zoom
+		/// TODO: Make it so that zooming zooms to the mouse, not the center of the screen
+		double mouseScrollY = input.getMouseScrollY();
+		if (mouseScrollY != 0)
+		{
+			if (input.getKeyDown(GLFW_KEY_LEFT_SHIFT))
+			{
+				float scalingFactor = mouseScrollY / 20.0f;
+				curve->scaleX += scalingFactor * curve->scaleX;
+				curve->x += scalingFactor * curve->x;
+				zoomX += scalingFactor * zoomX;
+			}
+			else
+			{
+				float scalingFactor = mouseScrollY / 20.0f;
+				curve->scaleY += scalingFactor * curve->scaleY;
+				curve->y += scalingFactor * curve->y;
+				zoomY += scalingFactor * zoomY;
+			}
+
+			graphLines->UpdateZoom(zoomX, zoomY);
+		}
+
+		/// Check if we should draw new curve
+		bool curveRedraw_isTooZoomed = ((curve->points->t0_right - curve->points->t0_left) * curve->scaleX >= 2 * CURVE_MAX_RADIUS_PER_WIDTH);
+		bool curveRedraw_middleShows = (abs(curve->points->t0 * curve->scaleX + curve->x) <= 1.0f);
+		bool curveRedraw_leftShows = (curve->points->t0_left * curve->scaleX + curve->x >= -1.0f);
+		bool curveRedraw_rightShows = (curve->points->t0_right * curve->scaleX + curve->x <= 1.0);
+		if ((curveRedraw_leftShows && curveRedraw_rightShows) ||
+			(curveRedraw_isTooZoomed) ||
+			(curveRedraw_middleShows && (curveRedraw_leftShows || curveRedraw_rightShows)))
+		{
+			curve = redrawCurve(curve, 0);
+		}
+		else if (curveRedraw_leftShows)
+		{
+			std::cout << "Test from the left: " << curve->points->t0_left * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the middle: " << curve->points->t0 * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the right: " << curve->points->t0_right * curve->scaleX + curve->x << std::endl;
+			curve = redrawCurve(curve, -1);
+		}
+		else if (curveRedraw_rightShows)
+		{
+			std::cout << "Test from the left: " << curve->points->t0_left * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the middle: " << curve->points->t0 * curve->scaleX + curve->x << std::endl;
+			std::cout << "Test from the right: " << curve->points->t0_right * curve->scaleX + curve->x << std::endl;
+			curve = redrawCurve(curve, 1);
+		}
+		
+
+		/// Draw graphLines
+		graphLines->Draw();
+
+		/// Draw curve
+		curve->Draw();
 
 		// switch buffers to update
 		glfwSwapBuffers(window);
@@ -215,12 +220,21 @@ int oldmain()
 		glfwPollEvents();
 	}
 
-	VAO1.Delete();
-	VBO1.Delete();
-	EBO1.Delete();
-	shaderProgram.Delete();
+	curve->Delete();
+	delete curve;
+
+	graphLines->Delete();
+	delete graphLines;
+
+	// Delete the shaders you created
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 
 	// Destroy window and terminate GLFW
 	glfwDestroyWindow(window);
 	glfwTerminate();
-}*/
+}
+*/
+
+
+// OLD MAIN FUNCTION!

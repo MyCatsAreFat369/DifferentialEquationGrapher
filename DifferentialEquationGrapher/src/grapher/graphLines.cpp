@@ -1,5 +1,7 @@
 #include <grapher/graphLines.h>
 
+#include <future>
+
 GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, float initialPosX, float initialPosY, float initialZoomX, float initialZoomY)
 {
 	UpdatePosition(initialPosX, initialPosY);
@@ -15,16 +17,32 @@ GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, float initial
 	// Initialize Lines
 	linesX = new Line[MAX_NUMBER_OF_LINES_PER_AXIS - 1];
 	linesY = new Line[MAX_NUMBER_OF_LINES_PER_AXIS - 1];
-	for (int i = 0; i < MAX_NUMBER_OF_LINES_PER_AXIS - 1; i++)
-	{
-		linesX[i] = Line(0.0f, -1.0f, 0.0f, 2.0f); // 0.6f x 3
-		linesY[i] = Line(-1.0f, 0.0f, 2.0f, 0.0f);
 
-		linesX[i].AttachShaders(vertexShader, fragmentShader);
-		linesY[i].AttachShaders(vertexShader, fragmentShader);
+	this->vertexShader = vertexShader, this->fragmentShader = fragmentShader;
+}
 
-		std::cout << "Taking a hell lot of time..." << std::endl;
-	}
+void GraphLines::loadNextLines()
+{
+	if(allLinesLoaded()) return;
+	linesX[linesLoaded] = Line(0.0f, -1.0f, 0.0f, 2.0f);
+	linesY[linesLoaded] = Line(-1.0f, 0.0f, 2.0f, 0.0f);
+
+	linesX[linesLoaded].AttachShaders(vertexShader, fragmentShader);
+	linesY[linesLoaded].AttachShaders(vertexShader, fragmentShader);
+
+	linesLoaded++;
+
+	std::cout << "Taking a hell lot of time..." << std::endl;
+}
+
+bool GraphLines::allLinesLoaded()
+{
+	return linesLoaded >= linesToLoad();
+}
+
+int GraphLines::linesToLoad()
+{
+	return MAX_NUMBER_OF_LINES_PER_AXIS - 1;
 }
 
 void GraphLines::UpdatePosition(float x, float y)

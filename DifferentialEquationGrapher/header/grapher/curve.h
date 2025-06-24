@@ -2,10 +2,10 @@
 #define CURVE_CLASS_H
 
 #include <glad/glad.h>
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
-#include "shaderClass.h"
+#include "rendering/VAO.h"
+#include "rendering/VBO.h"
+#include "rendering/EBO.h"
+#include "rendering/shaderClass.h"
 #include "points.h"
 
 class Curve
@@ -14,8 +14,11 @@ class Curve
 		Curve(Points* points, float initialScaleX, float initialScaleY);
 		void AttachShaders(GLuint vertexShader, GLuint fragmentShader);
 
-		void Draw();
-		void Delete();
+		void UpdatePosition(float x, float y);
+		void UpdateScale(float scaleX, float scaleY);
+
+		void Draw(float* color);
+		void Delete(bool deletePoints = false);
 
 		Points* points;
 
@@ -28,7 +31,7 @@ class Curve
 		VBO* VBO1;
 		EBO* EBO1;
 		Shader* shader;
-		GLuint scalexID, scaleyID, xID, yID;
+		GLuint scalexID, scaleyID, xID, yID, colorID;
 };
 
 #endif

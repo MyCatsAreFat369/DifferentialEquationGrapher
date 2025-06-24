@@ -74,6 +74,10 @@
     <IncludePath>$(SolutionDir)/Linking/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)/Linking/lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)/Linking/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)/Linking/lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -126,16 +130,32 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>imgui;$(ProjectDir)/header;$(SolutionDir)/x64/Release/res</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;freetype.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\EBO.cpp" />
+    <ClCompile Include="src\application.cpp" />
+    <ClCompile Include="src\equation\equation.cpp" />
+    <ClCompile Include="src\equation\equationGUI.cpp" />
+    <ClCompile Include="src\equation\equationList.cpp" />
+    <ClCompile Include="src\equation\variableList.cpp" />
+    <ClCompile Include="src\grapher\graphManager.cpp" />
+    <ClCompile Include="src\imgui\imgui.cpp" />
+    <ClCompile Include="src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\oldmain.cpp" />
+    <ClCompile Include="src\rendering\EBO.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\grapher\calculator.cpp" />
     <ClCompile Include="src\grapher\curve.cpp" />
@@ -143,32 +163,46 @@
     <ClCompile Include="src\grapher\line.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\oldmain.cpp" />
-    <ClCompile Include="src\shaderClass.cpp" />
-    <ClCompile Include="src\stb.cpp" />
-    <ClCompile Include="src\texture2d.cpp" />
-    <ClCompile Include="src\VAO.cpp" />
-    <ClCompile Include="src\VBO.cpp" />
+    <ClCompile Include="src\rendering\shaderClass.cpp" />
+    <ClCompile Include="src\rendering\stb.cpp" />
+    <ClCompile Include="src\rendering\texture2d.cpp" />
+    <ClCompile Include="src\rendering\VAO.cpp" />
+    <ClCompile Include="src\rendering\VBO.cpp" />
+    <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shaders\default.frag" />
     <None Include="res\Shaders\default.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\EBO.h" />
+    <ClInclude Include="header\application.h" />
+    <ClInclude Include="header\calculator\equation.h" />
+    <ClInclude Include="header\calculator\equationGUI.h" />
+    <ClInclude Include="header\calculator\equationList.h" />
+    <ClInclude Include="header\calculator\variableList.h" />
+    <ClInclude Include="header\grapher\graphManager.h" />
+    <ClInclude Include="header\imgui\imconfig.h" />
+    <ClInclude Include="header\imgui\imgui.h" />
+    <ClInclude Include="header\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="header\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="header\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="header\imgui\imgui_internal.h" />
+    <ClInclude Include="header\imgui\imstb_rectpack.h" />
+    <ClInclude Include="header\imgui\imstb_textedit.h" />
+    <ClInclude Include="header\imgui\imstb_truetype.h" />
+    <ClInclude Include="header\rendering\EBO.h" />
     <ClInclude Include="header\grapher\calculator.h" />
     <ClInclude Include="header\grapher\curve.h" />
     <ClInclude Include="header\grapher\graphLines.h" />
     <ClInclude Include="header\grapher\line.h" />
     <ClInclude Include="header\grapher\points.h" />
     <ClInclude Include="header\input.h" />
-    <ClInclude Include="header\shaderClass.h" />
-    <ClInclude Include="header\texture2d.h" />
-    <ClInclude Include="header\VAO.h" />
-    <ClInclude Include="header\VBO.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="src\my_beautiful_triange.txt" />
+    <ClInclude Include="header\rendering\shaderClass.h" />
+    <ClInclude Include="header\rendering\texture2d.h" />
+    <ClInclude Include="header\text_fonts_glyphs.h" />
+    <ClInclude Include="header\rendering\VAO.h" />
+    <ClInclude Include="header\rendering\VBO.h" />
+    <ClInclude Include="header\window.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\myOpenGLImage.png" />
