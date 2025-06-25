@@ -4,7 +4,9 @@
 #include <unordered_map>
 #include <string>
 
-const int VARIABLE_MAX_NAME_LENGTH = 4;
+#include "calculator/variable.h"
+
+// Change the many std::vectors to a single vector containing Variable objects
 
 class VariableList
 {
@@ -13,25 +15,28 @@ class VariableList
 
 		void setVariable(std::string name, float value);
 		void changeVariableBy(std::string name, float value);
-		float* getVariablePtr(std::string name);
-		float getVariableValue(std::string name);
-
+		Variable* getVariable(std::string name);
 		std::string getVariableNameStr(int id);
-		char* getVariableNameChar(int id);
-		char* getVariableNameCache(int id);
-		int updateVariableName(int id, char* newName);
 
+		int updateVariableName(int id, char* newName);
 		void removeVariable(std::string name);
 
 		int VariableCount();
 	private:
-		std::unordered_map<std::string, float> variableList;
+	/*
+	std::unordered_map<std::string, float> variableList;
 		std::vector<std::string> variableOrder;
 		std::vector<char*> variableNames;
 
 		std::vector<char*> variableNameCache;
+	*/
+		std::unordered_map<std::string, Variable*> variableList;
+		std::vector<std::string> variableOrder;
 
-		char* generateNameChar(std::string nameStr);
+		void addVariableIfNotExists(std::string name);
+		
+
+		//char* generateNameChar(std::string nameStr);
 };
 
 

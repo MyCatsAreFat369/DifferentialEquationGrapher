@@ -63,7 +63,7 @@ Application::Application()
 	variableList = new VariableList();
 
 	Equation* someEquation = new Equation();
-	someEquation->SetFormula("-10 * x");
+	someEquation->SetFormula("10 * x");
 	equationList->AddEquation(someEquation);
 	std::cout << "My beautiful equation is: " << someEquation->formula << ", " << someEquation->formulaChar << std::endl;
 

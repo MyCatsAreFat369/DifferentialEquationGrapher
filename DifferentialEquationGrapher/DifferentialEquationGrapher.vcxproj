@@ -142,10 +142,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\application.cpp" />
-    <ClCompile Include="src\equation\equation.cpp" />
-    <ClCompile Include="src\equation\equationGUI.cpp" />
-    <ClCompile Include="src\equation\equationList.cpp" />
-    <ClCompile Include="src\equation\variableList.cpp" />
+    <ClCompile Include="src\calculator\equation.cpp" />
+    <ClCompile Include="src\calculator\equationGUI.cpp" />
+    <ClCompile Include="src\calculator\equationList.cpp" />
+    <ClCompile Include="src\calculator\variable.cpp" />
+    <ClCompile Include="src\calculator\variableList.cpp" />
     <ClCompile Include="src\grapher\graphManager.cpp" />
     <ClCompile Include="src\imgui\imgui.cpp" />
     <ClCompile Include="src\imgui\imgui_demo.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="header\calculator\equationGUI.h" />
     <ClInclude Include="header\calculator\equationList.h" />
     <ClInclude Include="header\calculator\tooltips.h" />
+    <ClInclude Include="header\calculator\variable.h" />
     <ClInclude Include="header\calculator\variableList.h" />
     <ClInclude Include="header\grapher\graphManager.h" />
     <ClInclude Include="header\imgui\imconfig.h" />

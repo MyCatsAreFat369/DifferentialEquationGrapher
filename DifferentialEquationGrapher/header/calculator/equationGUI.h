@@ -23,6 +23,8 @@ class EquationGUI
 		bool construct_variable_element(int id);
 
 		void CreateTooltip(const char* name, const char* desc);
+
+		void EquationDebugPanel(Equation* equation);
 };
 
 

@@ -87,16 +87,19 @@
     <ClCompile Include="src\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\equation\equation.cpp">
+    <ClCompile Include="src\calculator\equation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\equation\variableList.cpp">
+    <ClCompile Include="src\calculator\variableList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\equation\equationList.cpp">
+    <ClCompile Include="src\calculator\equationList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\equation\equationGUI.cpp">
+    <ClCompile Include="src\calculator\equationGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\calculator\variable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -190,6 +193,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\calculator\tooltips.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\calculator\variable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

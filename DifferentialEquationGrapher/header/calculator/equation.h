@@ -30,7 +30,17 @@ class Equation
 		};
 
 		EquationType equationType = FIRST_ORDER;
+
+		std::vector<std::string> tokens;
+		std::vector<char*> tokensChar;
 	private:
+		void Tokenize();
+		void Pemdas();
+		void Postfix();
+		
+		void encloseInParenthesis(int i, bool ignoreNextToken);
+		void encloseSinudosialInParenthesis(int i);
+
 		void generateFormulaChar();
 };
 
