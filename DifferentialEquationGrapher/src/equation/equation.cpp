@@ -4,7 +4,8 @@
 
 Equation::Equation()
 {
-
+	this->formula = "";
+	generateFormulaChar();
 }
 
 void Equation::SetFormula(char* formula)

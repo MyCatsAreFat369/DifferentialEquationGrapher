@@ -60,13 +60,16 @@ Application::Application()
 									1.0f, 0.0f);
 
 	equationList = new EquationList();
+	variableList = new VariableList();
 
 	Equation* someEquation = new Equation();
 	someEquation->SetFormula("-10 * x");
 	equationList->AddEquation(someEquation);
 	std::cout << "My beautiful equation is: " << someEquation->formula << ", " << someEquation->formulaChar << std::endl;
 
-	equationGUI = new EquationGUI(equationList, graphManager);
+	variableList->setVariable("kA", 19.0f);
+
+	equationGUI = new EquationGUI(equationList, variableList, graphManager);
 }
 
 void Application::loop()

@@ -39,7 +39,13 @@ void EquationList::RemoveEquation(int id)
 	delete equations[id];
 
 	equations.erase(std::next(std::begin(equations), id));
-	equationNames.erase(std::next(std::begin(equationNames), id));
+	equationNames.pop_back();
+	//equationNames.erase(std::next(std::begin(equationNames), id));
+
+	for (int i = 0; i < equations.size(); i++)
+	{
+		std::cout << equationNames[i] << ": " << equations[i]->formula << std::endl;
+	}
 }
 
 Equation* EquationList::GetEquation(int id)
