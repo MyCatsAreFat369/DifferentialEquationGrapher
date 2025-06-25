@@ -3,12 +3,15 @@
 #include "imgui/imgui.h"
 
 #include "calculator/equation.h"
+#include "calculator/tooltips.h"
 
 EquationGUI::EquationGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager)
 {
 	this->equationList = equationList;
 	this->variableList = variableList;
 	this->graphManager = graphManager;
+
+	keepWindowActive = NULL;
 }
 
 void EquationGUI::construct(int width, int height)
@@ -29,6 +32,8 @@ void EquationGUI::construct(int width, int height)
 		Equation* newEquation = new Equation();
 		equationList->AddEquation(newEquation);
 	}
+	ImGui::SameLine();
+	CreateTooltip("(?)", equationTooltip);
 	
 	ImGui::BeginChild("Equations");
 	int uniqueID = 0;
@@ -49,6 +54,8 @@ void EquationGUI::construct(int width, int height)
 	{
 		variableList->setVariable("", 0.0f);
 	}
+	ImGui::SameLine();
+	CreateTooltip("(?)", variableTooltip);
 
 	ImGui::BeginChild("Variables");
 	std::cout << "Variable count: " << variableList->VariableCount() << std::endl;

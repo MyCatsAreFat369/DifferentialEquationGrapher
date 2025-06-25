@@ -189,6 +189,9 @@
     <ClInclude Include="header\calculator\equationGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\calculator\tooltips.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\myOpenGLImage.png">

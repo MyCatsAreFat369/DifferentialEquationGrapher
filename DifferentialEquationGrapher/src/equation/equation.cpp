@@ -24,7 +24,7 @@ void Equation::SetFormula(std::string formula)
 // Consider passing in the variable list 
 void Equation::Compile(VariableList* variableList)
 {
-
+	
 }
 
 

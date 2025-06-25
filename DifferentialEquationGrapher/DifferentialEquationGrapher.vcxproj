@@ -179,6 +179,7 @@
     <ClInclude Include="header\calculator\equation.h" />
     <ClInclude Include="header\calculator\equationGUI.h" />
     <ClInclude Include="header\calculator\equationList.h" />
+    <ClInclude Include="header\calculator\tooltips.h" />
     <ClInclude Include="header\calculator\variableList.h" />
     <ClInclude Include="header\grapher\graphManager.h" />
     <ClInclude Include="header\imgui\imconfig.h" />
