@@ -26,18 +26,27 @@ const std::string floatDigits = "1234567890.";
 const std::string variableRequirementStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
 // The above string might be the problem in case of a bug cause UTF-8 stuff
 const std::string basicOperatorStr = "()+-/*^";
+const int OPERATORS_COUNT = 17;
 const std::string _operators[] = {
-	"+", "-", "*", "/", "^", "sin", "cos", "tan", "asin", "acos", "atan"
+	"+", "-", "*", "/", "^",
+	"sin", "-sin", "asin", "-asin",
+	"cos", "-cos", "acos", "-acos",
+	"tan", "-tan", "atan", "-atan"
 };
-const std::string sinudosials[] = {
+const int SINUSOIDALS_COUNT = 12;
+const std::string sinusoidals[] = {
 	"sin", "-sin", "asin", "-asin",
 	"cos", "-cos", "acos", "-acos",
 	"tan", "-tan", "atan", "-atan"
 };
 
-std::string getArcSinudosialFunc(std::string formula, int i);
-std::string getSinudosialFunc(std::string formula, int i);
+std::string getArcSinusoidalFunc(std::string formula, int i);
+std::string getSinusoidalFunc(std::string formula, int i);
 std::string getTickMarks(std::string formula, int i);
+bool isOperator(std::string token);
+bool isSinusoidal(std::string token);
+bool isFloat(std::string token);
+bool isVariable(std::string token);
 
 // Consider passing in the variable list 
 void Equation::Compile(VariableList* variableList)
@@ -53,10 +62,19 @@ void Equation::Compile(VariableList* variableList)
 	Pemdas();
 	Postfix();
 
+	/*
 	for (int i = 0; i < tokens.size(); i++)
 	{
 		char* tokenChar = new char [tokens[i].length() + 1];
 		strcpy_s(tokenChar, (tokens[i].length() + 1) * sizeof(char), tokens[i].c_str());
+		tokensChar.push_back(tokenChar);
+	}
+	*/
+	// Get preQueue characters
+	for (int i = 0; i < preQueue.size(); i++)
+	{
+		char* tokenChar = new char [preQueue[i].length() + 1];
+		strcpy_s(tokenChar, (preQueue[i].length() + 1) * sizeof(char), preQueue[i].c_str());
 		tokensChar.push_back(tokenChar);
 	}
 }
@@ -93,7 +111,7 @@ void Equation::Tokenize()
 		// Not a number
 
 		// Check if sin, cos, tan or asin, acos, atan
-		std::string possibleArcfunc = getArcSinudosialFunc(formula, i);
+		std::string possibleArcfunc = getArcSinusoidalFunc(formula, i);
 		if (possibleArcfunc != "0")
 		{
 			if (prevTokenType == "negativeSign") tokens[tokens.size() - 1] += possibleArcfunc;
@@ -106,7 +124,7 @@ void Equation::Tokenize()
 			prevTokenType = "sincostan";
 			continue;
 		}
-		std::string possibleFunc = getSinudosialFunc(formula, i);
+		std::string possibleFunc = getSinusoidalFunc(formula, i);
 		if (possibleFunc != "0")
 		{
 			if (prevTokenType == "negativeSign") tokens[tokens.size() - 1] += possibleFunc;
@@ -120,7 +138,7 @@ void Equation::Tokenize()
 			continue;
 		}
 
-		// Not a sinudosial function
+		// Not a sinusoidal function
 
 		// Check if variable
 		if (variableRequirementStr.find(letter) != std::string::npos)
@@ -189,7 +207,7 @@ void Equation::Pemdas()
 	// Check for sinudosial
 	for (int i = 0; i < tokens.size(); i++)
 	{
-		if (isSinudosial(tokens[i]))
+		if (isSinusoidal(tokens[i]))
 		{
 			encloseSinudosialInParenthesis(i);
 			i++;
@@ -204,7 +222,7 @@ void Equation::Pemdas()
 		std::string nextToken = "";
 		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
 
-		if (isSinudosial(nextToken))
+		if (isSinusoidal(nextToken))
 		{
 			encloseInParenthesis(i, true);
 		}
@@ -221,7 +239,7 @@ void Equation::Pemdas()
 		std::string nextToken = "";
 		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
 
-		if (isSinudosial(nextToken))
+		if (isSinusoidal(nextToken))
 		{
 			encloseInParenthesis(i, true);
 		}
@@ -238,7 +256,7 @@ void Equation::Pemdas()
 		std::string nextToken = "";
 		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
 
-		if (isSinudosial(nextToken))
+		if (isSinusoidal(nextToken))
 		{
 			encloseInParenthesis(i, true);
 		}
@@ -252,7 +270,92 @@ void Equation::Pemdas()
 
 void Equation::Postfix()
 {
+	stack.clear();
+	preQueue.clear();
 
+	for (int i = 0; i < tokens.size(); i++)
+	{
+		std::string token = tokens[i];
+		std::cout << "Token is " << token << std::endl;
+
+		if (isFloat(token) || isVariable(token))
+		{
+			preQueue.push_back(token);
+			continue;
+		}
+		if (isOperator(token))
+		{
+			std::cout << "I am an operator! " << token << std::endl;
+			if (stack.size() >= 1)
+			{
+				while (stack[0] != "(" && stack[0] != token)
+				{
+					preQueue.push_back(stack[0]);
+					stack.erase(std::next(stack.begin(), 0));
+					if(stack.size() <= 0) break; // Break if no more stack elements
+				}
+			}
+			stack.insert(stack.begin(), token);
+			continue;
+		}
+		if (token == "(")
+		{
+			stack.insert(stack.begin(), token);
+			continue;
+		}
+		if (token == ")")
+		{
+			if (stack.size() >= 1)
+			{
+				while(stack[0] != "(")
+				{
+					preQueue.push_back(stack[0]);
+					stack.erase(std::next(stack.begin(), 0));
+					if(stack.size() <= 0) break;
+				}
+			}
+			if (stack.size() >= 1)
+			{
+				if (stack[0] == "(")
+				{
+					stack.erase(std::next(stack.begin(), 0));
+				}
+			}
+		}
+	}
+
+	while (stack.size() >= 1)
+	{
+		preQueue.push_back(stack[0]);
+		stack.erase(std::next(stack.begin(), 0));
+	}
+
+	queue.clear();
+
+	// Convert queue's tokens to Token objects for faster reading during computation
+	for (int i = 0; i < preQueue.size(); i++)
+	{
+		if (isFloat(preQueue[i]))
+		{
+			float tokenAsFloat = std::stof(preQueue[i]);
+			queue.push_back(Token(Token::CONSTANT, preQueue[i], tokenAsFloat));
+			continue;
+		}
+		if (isVariable(preQueue[i]))
+		{
+			queue.push_back(Token(Token::VARIABLE, preQueue[i]));
+			continue;
+		}
+		if (isOperator(preQueue[i]))
+		{
+			queue.push_back(Token(Token::OPERATOR, preQueue[i]));
+			continue;
+		}
+		//std::cout << "MY ELEMENT IS NONE OF THE ABOVE!! LOOK BELOW:\n";
+		//std::cout << preQueue[i] << std::endl;
+	}
+	
+	// Done!
 }
 
 // Please do i++ after calling this
@@ -278,7 +381,17 @@ void Equation::encloseInParenthesis(int i, bool ignoreNextToken)
 		else if(tokens[i] == ")") nesting--;
 		i--;
 	}
-	tokens.insert(tokens.begin() + i + 1, "(");
+	std::string currentToken = "";
+	if(i >= 0) currentToken = tokens[i];
+
+	if (isSinusoidal(currentToken))
+	{
+		tokens.insert(tokens.begin() + i, "(");
+	}
+	else
+	{
+		tokens.insert(tokens.begin() + i + 1, "(");
+	}
 }
 
 void Equation::encloseSinudosialInParenthesis(int i)
@@ -287,7 +400,7 @@ void Equation::encloseSinudosialInParenthesis(int i)
 	i++;
 
 	int nesting = 0;
-	while (i <= tokens.size() - 1 && (nesting != 0 || i <= prei + 1 + ignoreNextToken))
+	while (i <= tokens.size() - 1 && (nesting != 0 || i <= prei + 1))
 	{
 		if(tokens[i] == "(") nesting++;
 		else if(tokens[i] == ")") nesting--;
@@ -298,7 +411,7 @@ void Equation::encloseSinudosialInParenthesis(int i)
 	tokens.insert(tokens.begin() + i, "(");
 }
 
-std::string getArcSinudosialFunc(std::string formula, int i)
+std::string getArcSinusoidalFunc(std::string formula, int i)
 {
 	if (i + 3 > formula.length() - 1) return "0";
 
@@ -309,7 +422,7 @@ std::string getArcSinudosialFunc(std::string formula, int i)
 	return "0";
 }
 
-std::string getSinudosialFunc(std::string formula, int i)
+std::string getSinusoidalFunc(std::string formula, int i)
 {
 	std::cout << "Boutta get me a sinudosial!\n";
 	if(i + 2 > formula.length() - 1) return "0";
@@ -336,9 +449,57 @@ std::string getTickMarks(std::string formula, int i)
 	return tickMarkStr;
 }
 
-bool isSinudosial(std::string token)
+bool isOperator(std::string token)
 {
-	return std::find(sinudosials->begin(), sinudosials->end(), token) != sinudosials->end();
+	for (int i = 0; i < OPERATORS_COUNT; i++)
+	{
+		if(token == _operators[i]) return true;
+	}
+	return false;
+}
+
+bool isSinusoidal(std::string token)
+{
+	for (int i = 0; i < SINUSOIDALS_COUNT; i++)
+	{
+		if(token == sinusoidals[i]) return true;
+	}
+	return false;
+}
+
+bool isFloat(std::string token)
+{
+	// If token empty it's not a number
+	if(token.empty()) return false;
+
+	// Check second digit in case it's a -10 or -4
+	// but if it's a y5 or something, don't do it
+	if (token.length() >= 2 && token[0] == '-')
+	{
+		return floatDigits.find(token[1]) != std::string::npos;
+	}
+
+	// If single digit
+	return floatDigits.find(token[0]) != std::string::npos;
+}
+
+bool isVariable(std::string token)
+{
+	// If it's empty it's not a variable
+	if(token.empty()) return false;
+
+	// Check if it has letters but is actually sinusoidal
+	if(isSinusoidal(token)) return false;
+
+	// Check second digit in case it's a -kA or -bM_a
+	// but if it's a y5 or something, don't do it
+	if (token.length() >= 2 && token[0] == '-')
+	{
+		return variableRequirementStr.find(token[1]) != std::string::npos;
+	}
+
+	// If single digit
+	return variableRequirementStr.find(token[0]) != std::string::npos;
 }
 
 

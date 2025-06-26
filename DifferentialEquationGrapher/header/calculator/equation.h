@@ -8,6 +8,28 @@
 
 const int EQUATION_MAX_LENGTH = 4096;
 
+class Token
+{
+	public:
+		enum TokenType
+		{
+			CONSTANT,
+			VARIABLE,
+			OPERATOR
+		};
+
+		Token(TokenType tokenType, std::string tokenStr, float value = 0.0f)
+		{
+			this->tokenType = tokenType;
+			this->tokenStr = tokenStr;
+			this->value = value;
+		}
+
+		TokenType tokenType;
+		std::string tokenStr;
+		float value; // if CONSTANT
+};
+
 class Equation
 {
 	public:
@@ -32,6 +54,10 @@ class Equation
 		EquationType equationType = FIRST_ORDER;
 
 		std::vector<std::string> tokens;
+		std::vector<std::string> stack;
+		std::vector<std::string> preQueue;
+		std::vector<Token> queue;
+
 		std::vector<char*> tokensChar;
 	private:
 		void Tokenize();
@@ -43,6 +69,5 @@ class Equation
 
 		void generateFormulaChar();
 };
-
 
 #endif
