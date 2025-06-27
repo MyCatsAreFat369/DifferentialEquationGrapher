@@ -3,104 +3,119 @@
   "WorkspaceRootPath": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\equation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationGUI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\equationGUI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\equation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\equationList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\equationList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\calculator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\calculator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variableList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\variableList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variableList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\variableList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\variable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\variable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\tooltips.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\tooltips.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\graphManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\graphManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\imgui\\imgui_demo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\imgui\\imgui_demo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\equation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\calculator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\calculator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\PROGRAM FILES\\MICROSOFT VISUAL STUDIO\\2022\\COMMUNITY\\VC\\TOOLS\\MSVC\\14.39.33519\\INCLUDE\\XSTRING||{3B902123-F8A7-4915-9F01-361F908088D0}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\graphManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variableList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\variableList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphLines.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\graphLines.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\calculator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\calculator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\curve.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\curve.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\variable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\points.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\points.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\curve.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\curve.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphLines.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\graphLines.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\line.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\grapher\\line.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\calculator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\grapher\\calculator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\equation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\calculator\\variable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\equationList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variableList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\variableList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationGUI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\equationGUI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\calculatorDefs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\calculatorDefs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\tooltips.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\calculator\\tooltips.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\imgui\\imgui_demo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\imgui\\imgui_demo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\header\\window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|solutionrelative:DifferentialEquationGrapher\\src\\window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2BECCAB7-83B3-4284-B3FC-1B08D8C90F08}|DifferentialEquationGrapher\\DifferentialEquationGrapher.vcxproj|C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\res\\Shaders\\default.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -118,11 +133,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 5,
+              "Title": "xstring",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\xstring",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\xstring",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\xstring",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\include\\xstring",
+              "ViewState": "AQIAAPYBAAAAAAAAAAAhwAQCAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-27T08:24:14.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "line.cpp",
+              "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\line.cpp",
+              "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\grapher\\line.cpp",
+              "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\line.cpp",
+              "RelativeToolTip": "DifferentialEquationGrapher\\src\\grapher\\line.cpp",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAACQAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-27T07:51:59.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "calculatorDefs.h",
+              "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\calculatorDefs.h",
+              "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\calculatorDefs.h",
+              "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\calculatorDefs.h",
+              "RelativeToolTip": "DifferentialEquationGrapher\\header\\calculator\\calculatorDefs.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-26T06:55:27.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "tooltips.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\tooltips.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\tooltips.h",
@@ -134,133 +188,137 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "equationGUI.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\calculator\\equationGUI.cpp",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAUwFMAAAAJAAAA",
+              "ViewState": "AQIAAIsAAAAAAAAAAAAmwJ8AAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-25T10:23:26.77Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 23,
               "Title": "equationGUI.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationGUI.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\equationGUI.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationGUI.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\calculator\\equationGUI.h",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABoAAAAuAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB0AAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-06-24T16:32:17.629Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "equationList.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationList.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\calculator\\equationList.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equationList.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\calculator\\equationList.cpp",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAmwEEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-25T10:23:33.878Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 21,
               "Title": "equationList.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationList.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\equationList.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equationList.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\calculator\\equationList.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-06-24T14:39:26.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "variableList.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variableList.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\calculator\\variableList.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variableList.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\calculator\\variableList.cpp",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAAEkAAAABAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAmwFcAAAB9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-24T14:12:53.941Z"
+              "WhenOpened": "2025-06-24T14:12:53.941Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 22,
               "Title": "variableList.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variableList.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\variableList.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variableList.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\calculator\\variableList.h",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAALAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAAB8AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-24T14:05:57.478Z"
+              "WhenOpened": "2025-06-24T14:05:57.478Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "variable.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variable.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\calculator\\variable.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\variable.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\calculator\\variable.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-25T10:06:25.721Z"
+              "WhenOpened": "2025-06-25T10:06:25.721Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 10,
               "Title": "variable.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variable.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\variable.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\variable.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\calculator\\variable.h",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAAANAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAAAUwCgAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-25T10:01:32.623Z"
+              "WhenOpened": "2025-06-25T10:01:32.623Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "equation.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equation.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\calculator\\equation.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\calculator\\equation.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\calculator\\equation.cpp",
-              "ViewState": "AQIAAEwBAAAAAAAAAAAAAMYBAAACAAAA",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAmwFIAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-24T11:54:16.359Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 18,
               "Title": "equation.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equation.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\calculator\\equation.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\calculator\\equation.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\calculator\\equation.h",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABkAAAADAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAAFYAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-06-24T11:51:46.031Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 26,
               "Title": "imgui_demo.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\imgui\\imgui_demo.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\imgui\\imgui_demo.cpp",
@@ -272,55 +330,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 11,
+              "Title": "points.h",
+              "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\points.h",
+              "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\grapher\\points.h",
+              "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\points.h",
+              "RelativeToolTip": "DifferentialEquationGrapher\\header\\grapher\\points.h",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABgAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-27T04:31:10.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "curve.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\curve.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\grapher\\curve.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\curve.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\grapher\\curve.cpp",
-              "ViewState": "AQIAADMAAAAAAAAAAAAAAEQAAAACAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAF8AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-24T05:57:19.014Z"
+              "WhenOpened": "2025-06-24T05:57:19.014Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 12,
               "Title": "curve.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\curve.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\grapher\\curve.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\curve.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\grapher\\curve.h",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAACEAAAAvAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-24T05:57:21.03Z"
+              "WhenOpened": "2025-06-24T05:57:21.03Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 3,
               "Title": "graphManager.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphManager.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\grapher\\graphManager.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphManager.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\grapher\\graphManager.cpp",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAQwBQAAABPAAAA",
+              "ViewState": "AQIAAJYAAAAAAAAAAAAAAMMAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-23T16:12:59.219Z"
+              "WhenOpened": "2025-06-23T16:12:59.219Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 2,
               "Title": "graphManager.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphManager.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\grapher\\graphManager.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphManager.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\grapher\\graphManager.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAbAAAA",
+              "ViewState": "AQIAACMAAAAAAAAAAAAUwDYAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-23T16:13:26.47Z"
+              "WhenOpened": "2025-06-23T16:13:26.47Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 28,
               "Title": "window.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\window.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\window.cpp",
@@ -332,7 +407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "window.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\window.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\window.h",
@@ -344,79 +419,85 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "application.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\application.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\application.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\application.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\application.cpp",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAAD8AAAAAAAAA",
+              "ViewState": "AQIAAIAAAAAAAAAAAAAUwJUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-23T15:41:12.345Z"
+              "WhenOpened": "2025-06-23T15:41:12.345Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 14,
               "Title": "application.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\application.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\application.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\application.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\application.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAQAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABsAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-23T15:48:40.521Z"
+              "WhenOpened": "2025-06-23T15:48:40.521Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "graphLines.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\grapher\\graphLines.cpp",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAhwNQAAAACAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABoAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-22T04:22:36.071Z"
+              "WhenOpened": "2025-06-22T04:22:36.071Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 15,
               "Title": "graphLines.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphLines.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\grapher\\graphLines.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\graphLines.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\grapher\\graphLines.h",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAgwBsAAAAUAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-24T17:48:02.411Z"
+              "WhenOpened": "2025-06-24T17:48:02.411Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "calculator.cpp",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\calculator.cpp",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\grapher\\calculator.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\grapher\\calculator.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\grapher\\calculator.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEAAAAABAAAA",
+              "ViewState": "AQIAAHkAAAAAAAAAAAAmwIgAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-20T12:35:01.651Z"
+              "WhenOpened": "2025-06-20T12:35:01.651Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "calculator.h",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\calculator.h",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\header\\grapher\\calculator.h",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\header\\grapher\\calculator.h",
               "RelativeToolTip": "DifferentialEquationGrapher\\header\\grapher\\calculator.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-20T12:22:23.379Z"
+              "WhenOpened": "2025-06-20T12:22:23.379Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 29,
               "Title": "default.frag",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\res\\Shaders\\default.frag",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\res\\Shaders\\default.frag",
@@ -428,7 +509,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 30,
               "Title": "default.vert",
               "DocumentMoniker": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\res\\Shaders\\default.vert",
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\res\\Shaders\\default.vert",
@@ -446,9 +527,10 @@
               "RelativeDocumentMoniker": "DifferentialEquationGrapher\\src\\main.cpp",
               "ToolTip": "C:\\Users\\X\\3D Objects\\Core\\Coding\\C\u002B\u002B\\Other\\DifferentialEquationGrapher\\DifferentialEquationGrapher\\src\\main.cpp",
               "RelativeToolTip": "DifferentialEquationGrapher\\src\\main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-17T14:58:13.435Z"
+              "WhenOpened": "2025-06-17T14:58:13.435Z",
+              "EditorCaption": ""
             }
           ]
         }

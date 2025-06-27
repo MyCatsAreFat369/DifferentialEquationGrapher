@@ -32,7 +32,7 @@ void GraphLines::loadNextLines()
 
 	linesLoaded++;
 
-	std::cout << "Taking a hell lot of time..." << std::endl;
+	//std::cout << "Taking a hell lot of time..." << std::endl;
 }
 
 bool GraphLines::allLinesLoaded()

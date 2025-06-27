@@ -89,5 +89,9 @@ void Curve::Delete(bool deletePoints)
 	delete VBO1;
 	delete EBO1;
 	if(shader != nullptr) delete shader;
-	if(deletePoints) delete points;
+	if (deletePoints)
+	{
+		points->Delete();
+		delete points;
+	}
 }

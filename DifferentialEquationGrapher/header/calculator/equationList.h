@@ -2,7 +2,10 @@
 #define EQUATION_LIST_CLASS_H
 
 #include <iostream>
-#include "calculator/equation.h"
+
+#include <vector>
+
+#include "calculator/calculatorDefs.h"
 
 class EquationList
 {
@@ -15,6 +18,8 @@ class EquationList
 		char* GetEquationName(int id);
 
 		int EquationCount();
+
+		bool variableNameExistsAsFunction(std::string name);
 
 		void Delete();
 	private:

@@ -1,5 +1,11 @@
 #include <calculator/equationList.h>
 
+#include <string>
+
+#include "calculator/equation.h"
+
+const std::string intDigits = "1234567890";
+
 EquationList::EquationList()
 {
 
@@ -14,9 +20,8 @@ void EquationList::AddEquation(Equation* equation)
 	std::string iStr = std::to_string(equations.size() + 1);
 	if (iStr.length() == 1)
 	{
-		std::cout << name[10] << " -> " << iStr[0] << std::endl;
-		name[10] = iStr[0];
-		std::cout << name[10] << std::endl;
+		name[9] = iStr[0];
+		name[10] = ' ';
 	}
 	else if (iStr.length() == 2)
 	{
@@ -50,14 +55,14 @@ void EquationList::RemoveEquation(int id)
 
 Equation* EquationList::GetEquation(int id)
 {
-	if(id < 0 || id >= equations.size()) return nullptr;
+	if(id < 0 || id >= equations.size()) return equations[0];
 
 	return equations[id];
 }
 
 char* EquationList::GetEquationName(int id)
 {
-	if(id < 0 || id >= equationNames.size()) return nullptr;
+	if(id < 0 || id >= equationNames.size()) return equationNames[0];
 
 	return equationNames[id];
 }
@@ -65,6 +70,21 @@ char* EquationList::GetEquationName(int id)
 int EquationList::EquationCount()
 {
 	return equations.size();
+}
+
+bool EquationList::variableNameExistsAsFunction(std::string name)
+{
+	// Return if it's in derivative form (y1, f5, etc)
+	if(intDigits.find(name[name.length() - 1]) != std::string::npos) return true;
+
+	// Check if function variable
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(equation->functionName == name) return true;
+	}
+
+	return false;
 }
 
 void EquationList::Delete()

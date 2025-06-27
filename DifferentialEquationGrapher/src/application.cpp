@@ -10,6 +10,11 @@
 
 #include <sstream>
 
+#include "calculator/variable.h"
+#include "calculator/variableList.h"
+#include "calculator/equation.h"
+#include "calculator/equationList.h"
+
 Application::Application()
 {
 	// Initialize GLFW
@@ -55,19 +60,28 @@ Application::Application()
 	vertexShader = Shader::CompileShader(GL_VERTEX_SHADER, "res/Shaders/default.vert");
 	fragmentShader = Shader::CompileShader(GL_FRAGMENT_SHADER, "res/Shaders/default.frag");
 
-	graphManager = new GraphManager(vertexShader, fragmentShader, input,
-									0.0f, 0.0f, 1.0f, 1.0f,
-									1.0f, 0.0f);
-
 	equationList = new EquationList();
-	variableList = new VariableList();
+	variableList = new VariableList(equationList);
 
-	Equation* someEquation = new Equation();
-	someEquation->SetFormula("10 * x");
+	calculator = new Calculator(equationList, variableList);
+
+	graphManager = new GraphManager(vertexShader, fragmentShader,
+									equationList, calculator, input,
+									0.0f, 0.0f, 1.0f, 1.0f);
+
+	Equation* someEquation = new Equation(equationList, variableList);
+	someEquation->SetFormula("-10 * x");
+	someEquation->setFunctionName("x");
+	someEquation->derivativeOrder = 1;
 	equationList->AddEquation(someEquation);
-	std::cout << "My beautiful equation is: " << someEquation->formula << ", " << someEquation->formulaChar << std::endl;
+	variableList->addFunctionVariableIfNotExists("x");
+	someEquation->Compile();
 
 	variableList->setVariable("kA", 19.0f);
+
+	std::cout << "Some equation's function name: " << someEquation->functionName << std::endl;
+
+	//graphManager->redrawCurves();
 
 	equationGUI = new EquationGUI(equationList, variableList, graphManager);
 }
@@ -132,7 +146,9 @@ void Application::loop()
 
 		ImGui::ShowDemoWindow();
 
-		graphManager->render(graphWidth, graphHeight, equationGUI->isHoveringImGui);
+		//graphManager->render(graphWidth, graphHeight, equationGUI->isHoveringImGui);
+
+		std::cout << "My equation's function name: " << equationList->GetEquation(0)->functionName << std::endl;
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

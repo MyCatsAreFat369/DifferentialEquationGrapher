@@ -7,15 +7,21 @@
 #include "grapher/graphLines.h"
 #include <string>
 
+#include "calculator/calculatorDefs.h"
+#include "grapher/calculator.h"
+
 //const int EQUATION_MAX_LENGTH = 4096;
+
+const int CURVE_MAXIMUM_AMOUNT = 99;
 
 class GraphManager
 {
 	public:
-		GraphManager(GLuint vertexShader, GLuint fragmentShader, Input* input,
-					 float initialX, float initialY, float initialZoomX, float initialZoomY,
-					 float x0, float v0);
+		GraphManager(GLuint vertexShader, GLuint fragmentShader,
+					 EquationList* equationList, Calculator* calculator, Input* input,
+					 float initialX, float initialY, float initialZoomX, float initialZoomY);
 
+		void redrawCurves();
 		void render(int width, int height, bool ignoreMouse);
 
 		void Delete();
@@ -24,12 +30,11 @@ class GraphManager
 		
 		float x, y, zoomX, zoomY;
 
-		bool drawCurve = true;
-		//char* equation = new char[EQUATION_MAX_LENGTH];
-		float prex0, prev0, x0, v0;
-		float color[3] = {1.0f, 1.0f, 1.0f};
+		//bool drawCurve = true;
+		//float prex0, prev0, x0, v0;
+		//float color[3] = {1.0f, 1.0f, 1.0f};
 
-		void ClearEquation();
+		//void ClearEquation();
 
 		enum PanningState
 		{
@@ -44,7 +49,11 @@ class GraphManager
 
 		Input* input;
 
-		Curve* curve;
+		EquationList* equationList;
+		Calculator* calculator;
+
+		std::vector<Curve*> curves;
+		//Curve* curve;
 
 		int width, height;
 

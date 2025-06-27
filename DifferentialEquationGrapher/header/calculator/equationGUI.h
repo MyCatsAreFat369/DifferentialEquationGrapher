@@ -1,8 +1,9 @@
 #ifndef EQUATION_GUI_CLASS_H
 #define EQUATION_GUI_CLASS_H
 
-#include "calculator/equationList.h"
 #include "grapher/graphManager.h"
+
+#include "calculator/calculatorDefs.h"
 
 class EquationGUI
 {
@@ -25,6 +26,10 @@ class EquationGUI
 		void CreateTooltip(const char* name, const char* desc);
 
 		void EquationDebugPanel(Equation* equation);
+
+		float expressionEvaluation = 0.0f;
+
+		void VariableListDebugPanel();
 };
 
 

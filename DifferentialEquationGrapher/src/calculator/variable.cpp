@@ -1,6 +1,9 @@
 #include <calculator/variable.h>
 
 
+char* generateNameChar(std::string nameStr);
+
+
 Variable::Variable()
 {
 
@@ -14,6 +17,12 @@ Variable::Variable(VariableType variableType, std::string name)
 	this->nameCache = generateNameChar(name);
 
 	this->value = 0.0f;
+}
+
+void Variable::renameVariable(std::string newName)
+{
+	this->nameChar = generateNameChar(newName);
+	this->nameCache = generateNameChar(newName);
 }
 
 

@@ -8,6 +8,8 @@
 #include "rendering/shaderClass.h"
 #include "points.h"
 
+#include "calculator/calculatorDefs.h"
+
 class Curve
 {
 	public:
@@ -20,6 +22,7 @@ class Curve
 		void Draw(float* color);
 		void Delete(bool deletePoints = false);
 
+		Equation* equation;
 		Points* points;
 
 		float scaleX = 1.0f, scaleY = 1.0f;

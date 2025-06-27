@@ -7,9 +7,8 @@
 
 #include "grapher/graphManager.h"
 #include "calculator/equationGUI.h"
-#include "calculator/equation.h"
-#include "calculator/equationList.h"
-#include "calculator/variableList.h"
+
+#include "grapher/calculator.h"
 
 class Application
 {
@@ -28,6 +27,8 @@ class Application
 
 		EquationList* equationList;
 		VariableList* variableList;
+
+		Calculator* calculator;
 
 		bool* keepWindowActive;
 		bool* keepLoadingWindowActive;
