@@ -32,6 +32,7 @@ class Variable
 
 		// For function variables, a set of values for all derivatives from 0-9
 		float derivativeValues[10];
+		float derivativeValuesTemp[10];
 		float initialValues[10];
 
 		void initializeDerivativeValues(int derivativeOrder)
@@ -43,13 +44,27 @@ class Variable
 		}
 		void changeDerivativeValues(int derivativeOrder, float a, float dt, bool direction)
 		{
-			if(direction) derivativeValues[derivativeOrder - 1] += a * dt;
-			else derivativeValues[derivativeOrder - 1] -= a * dt;
+			if(direction) derivativeValuesTemp[derivativeOrder - 1] += a * dt;
+			else derivativeValuesTemp[derivativeOrder - 1] -= a * dt;
 			for (int i = derivativeOrder - 1; i > 0;)
 			{
 				i--;
-				if(direction) derivativeValues[i] += direction * derivativeValues[i + 1] * dt;
-				else derivativeValues[i] -= direction * derivativeValues[i + 1] * dt;
+				if(direction) derivativeValuesTemp[i] += derivativeValues[i + 1] * dt;
+				else derivativeValuesTemp[i] -= derivativeValues[i + 1] * dt;
+			}
+		}
+		void copyCurrentToTemp(int derivativeOrder)
+		{
+			for (int i = 0; i < derivativeOrder; i++)
+			{
+				derivativeValuesTemp[i] = derivativeValues[i];
+			}
+		}
+		void copyTempToCurrent(int derivativeOrder)
+		{
+			for (int i = 0; i < derivativeOrder; i++)
+			{
+				derivativeValues[i] = derivativeValuesTemp[i];
 			}
 		}
 };

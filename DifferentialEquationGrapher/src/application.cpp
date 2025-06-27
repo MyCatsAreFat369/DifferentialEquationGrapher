@@ -66,22 +66,28 @@ Application::Application()
 	calculator = new Calculator(equationList, variableList);
 
 	graphManager = new GraphManager(vertexShader, fragmentShader,
-									equationList, calculator, input,
+									equationList, variableList,
+									calculator, input,
 									0.0f, 0.0f, 1.0f, 1.0f);
 
 	Equation* someEquation = new Equation(equationList, variableList);
 	someEquation->SetFormula("-10 * x");
 	someEquation->setFunctionName("x");
 	someEquation->derivativeOrder = 1;
+	someEquation->InitializeCurve(vertexShader, fragmentShader, graphManager->zoomX, graphManager->zoomY);
+
 	equationList->AddEquation(someEquation);
 	variableList->addFunctionVariableIfNotExists("x");
 	someEquation->Compile();
+
+	Variable* functionVariable = variableList->getFunctionVariable("x");
+	functionVariable->initialValues[0] = 1.0f;
 
 	variableList->setVariable("kA", 19.0f);
 
 	std::cout << "Some equation's function name: " << someEquation->functionName << std::endl;
 
-	//graphManager->redrawCurves();
+	graphManager->redrawCurves();
 
 	equationGUI = new EquationGUI(equationList, variableList, graphManager);
 }
@@ -146,9 +152,9 @@ void Application::loop()
 
 		ImGui::ShowDemoWindow();
 
-		//graphManager->render(graphWidth, graphHeight, equationGUI->isHoveringImGui);
+		graphManager->render(graphWidth, graphHeight, equationGUI->isHoveringImGui);
 
-		std::cout << "My equation's function name: " << equationList->GetEquation(0)->functionName << std::endl;
+		//std::cout << "My equation's function name: " << equationList->GetEquation(0)->functionName << std::endl;
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

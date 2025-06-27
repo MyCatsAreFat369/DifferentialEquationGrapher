@@ -2,7 +2,9 @@
 
 #include <string>
 
+#include "calculator/variable.h"
 #include "calculator/equation.h"
+#include "calculator/variableList.h"
 
 const std::string intDigits = "1234567890";
 
@@ -85,6 +87,41 @@ bool EquationList::variableNameExistsAsFunction(std::string name)
 	}
 
 	return false;
+}
+
+void EquationList::initializeFunctionVariables(VariableList* variableList)
+{
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(!equation->isValidEquation()) continue;
+
+		Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
+		functionVariable->initializeDerivativeValues(equation->derivativeOrder);
+	}
+}
+
+void EquationList::copyVariablesToTemp(VariableList* variableList)
+{
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(!equation->isValidEquation()) continue;
+
+		Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
+		functionVariable->copyCurrentToTemp(equation->derivativeOrder);
+	}
+}
+void EquationList::copyTempToVariables(VariableList* variableList)
+{
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(!equation->isValidEquation()) continue;
+
+		Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
+		functionVariable->copyTempToCurrent(equation->derivativeOrder);
+	}
 }
 
 void EquationList::Delete()

@@ -17,6 +17,17 @@ Variable::Variable(VariableType variableType, std::string name)
 	this->nameCache = generateNameChar(name);
 
 	this->value = 0.0f;
+
+	/*
+	if (variableType == FUNCTION_VARIABLE)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+
+		}
+	}
+	*/
+	
 }
 
 void Variable::renameVariable(std::string newName)

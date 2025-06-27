@@ -36,7 +36,11 @@ void EquationGUI::construct(int width, int height)
 	if (ImGui::Button("Create New Equation"))
 	{
 		Equation* newEquation = new Equation(equationList, variableList);
+		newEquation->InitializeCurve(graphManager->vertexShader, graphManager->fragmentShader,
+									 graphManager->zoomX, graphManager->zoomY);
+
 		equationList->AddEquation(newEquation);
+		graphManager->redrawCurves();
 	}
 	ImGui::SameLine();
 	CreateTooltip("(?)", equationTooltip);
@@ -96,6 +100,8 @@ bool EquationGUI::construct_equation_element(int id)
 			{
 				equation->equationType = Equation::FIRST_ORDER;
 				equation->derivativeOrder = 1;
+
+				graphManager->redrawCurves();
 			}
             ImGui::EndTabItem();
         }
@@ -105,6 +111,8 @@ bool EquationGUI::construct_equation_element(int id)
 			{
 				equation->equationType = Equation::SECOND_ORDER;
 				equation->derivativeOrder = 2;
+
+				graphManager->redrawCurves();
 			}
             ImGui::EndTabItem();
         }
@@ -114,6 +122,8 @@ bool EquationGUI::construct_equation_element(int id)
 			{
 				equation->equationType = Equation::MULTI_ORDER;
 				equation->derivativeOrder = 3;
+
+				graphManager->redrawCurves();
 			}
             ImGui::EndTabItem();
         }
@@ -121,6 +131,8 @@ bool EquationGUI::construct_equation_element(int id)
 		{
 			std::cout << "WILL DELETE THIS EQUATION!" << std::endl;
 			equationList->RemoveEquation(id);
+			graphManager->redrawCurves();
+
 			ImGui::EndTabBar();
 			return true;
 		}
@@ -136,7 +148,10 @@ bool EquationGUI::construct_equation_element(int id)
 	if (equation->equationType == Equation::MULTI_ORDER)
 	{
 		ImGui::SameLine();
-		ImGui::SliderInt("Derivative Order", &equation->derivativeOrder, 3, 10);
+		if (ImGui::SliderInt("Derivative Order", &equation->derivativeOrder, 3, 10))
+		{
+			graphManager->redrawCurves();
+		}
 	}
 	// Update equation's formula through input
 	ImGui::Text(equation->getEquationLeftSide());
@@ -164,6 +179,8 @@ bool EquationGUI::construct_equation_element(int id)
 		variableList->removeVariable(equation->functionName);
 
 		equation->Compile();
+
+		graphManager->redrawCurves();
 	}
 
 	// Variables
@@ -181,9 +198,11 @@ bool EquationGUI::construct_equation_element(int id)
 		variableName[j + 2] = '0';
 		variableName[j + 3] = ')';
 
-		if (ImGui::SliderFloat(variableName, &(functionVariable->derivativeValues[i]), -10.0f, 10.0f))
+		//std::cout << "I am initial values! " << functionVariable->derivativeValues[i] << std::endl;
+		if (ImGui::SliderFloat(variableName, &(functionVariable->initialValues[i]), -10.0f, 10.0f))
 		{
-			std::cout << "I am changed yay!\n";
+			//std::cout << "I am changed yay!\n";
+			graphManager->redrawCurves();
 		}
 	}
 
@@ -248,7 +267,10 @@ bool EquationGUI::construct_variable_element(int id)
 	}
 
 	// Variable Value
-	ImGui::SliderFloat("value", &variable->value, -10.0f, 10.0f);
+	if (ImGui::SliderFloat("value", &variable->value, -10.0f, 10.0f))
+	{
+		graphManager->redrawCurves();
+	}
 
 	// Add inputs for changing range
 	

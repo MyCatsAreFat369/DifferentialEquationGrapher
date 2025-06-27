@@ -161,6 +161,17 @@ void Equation::replaceVariableInEquation(std::string oldVariable, std::string ne
 	generateCharFromString(newFormula, this->formulaChar, EQUATION_MAX_LENGTH);
 }
 
+
+void Equation::InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float zoomX, float zoomY)
+{
+	Points* points = new Points();
+	curve = new Curve(points, zoomX, zoomY);
+	curve->Generate();
+	curve->AttachShaders(vertexShader, fragmentShader);
+
+	std::cout << "Equation " << formula << " has a curve that is " << curve << "\n";
+}
+
 // Consider passing in the variable list 
 void Equation::Compile()
 {
@@ -340,9 +351,20 @@ float Equation::Evaluate(float time)
 	return evalStack[0];
 }
 
+bool Equation::isValidEquation()
+{
+	// Maybe add a boolean that tells you if compilation was successful or not
+	return 
+		(variableList->functionVariableList.find(functionName) != variableList->functionVariableList.end()) &&
+		curve != nullptr;
+}
+
 void Equation::Delete()
 {
 	delete[] formulaChar;
+
+	if(curve != nullptr) curve->Delete(true);
+	delete curve;
 }
 
 void Equation::Tokenize()

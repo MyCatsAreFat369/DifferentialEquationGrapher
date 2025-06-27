@@ -8,7 +8,7 @@
 #include <string>
 
 #include "calculator/calculatorDefs.h"
-#include "grapher/calculator.h"
+#include "grapher/grapherDefs.h"
 
 //const int EQUATION_MAX_LENGTH = 4096;
 
@@ -18,15 +18,19 @@ class GraphManager
 {
 	public:
 		GraphManager(GLuint vertexShader, GLuint fragmentShader,
-					 EquationList* equationList, Calculator* calculator, Input* input,
+					 EquationList* equationList, VariableList* variableList,
+					 Calculator* calculator, Input* input,
 					 float initialX, float initialY, float initialZoomX, float initialZoomY);
 
+		void addCurve(Equation* equation);
 		void redrawCurves();
 		void render(int width, int height, bool ignoreMouse);
 
 		void Delete();
 
+		GLuint vertexShader, fragmentShader;
 		GraphLines* graphLines;
+		//std::vector<Curve*> curves;
 		
 		float x, y, zoomX, zoomY;
 
@@ -50,9 +54,9 @@ class GraphManager
 		Input* input;
 
 		EquationList* equationList;
+		VariableList* variableList;
 		Calculator* calculator;
 
-		std::vector<Curve*> curves;
 		//Curve* curve;
 
 		int width, height;

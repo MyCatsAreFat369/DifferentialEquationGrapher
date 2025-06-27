@@ -14,6 +14,8 @@ class Curve
 {
 	public:
 		Curve(Points* points, float initialScaleX, float initialScaleY);
+		void Flush();
+		void Generate();
 		void AttachShaders(GLuint vertexShader, GLuint fragmentShader);
 
 		void UpdatePosition(float x, float y);
@@ -22,7 +24,6 @@ class Curve
 		void Draw(float* color);
 		void Delete(bool deletePoints = false);
 
-		Equation* equation;
 		Points* points;
 
 		float scaleX = 1.0f, scaleY = 1.0f;

@@ -21,6 +21,10 @@ class EquationList
 
 		bool variableNameExistsAsFunction(std::string name);
 
+		void initializeFunctionVariables(VariableList* variableList);
+		void copyVariablesToTemp(VariableList* variableList);
+		void copyTempToVariables(VariableList* variableList);
+
 		void Delete();
 	private:
 		std::vector<Equation*> equations;

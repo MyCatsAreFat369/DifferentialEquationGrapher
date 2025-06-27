@@ -5,18 +5,18 @@
 #include "grapher/points.h"
 
 #include "calculator/calculatorDefs.h"
-
+#include "grapher/grapherDefs.h"
 
 class Calculator
 {
 	public:
 		Calculator(EquationList* equationList, VariableList* variableList);
-		Curve* redrawCurve(Curve* oldCurve, float t0);
+		void redrawCurves(float t0, float zoomX, float zoomY);
 
-		void getPointsFromOrigin(Points* points, Equation* equation, float t0, float zoomX, float zoomY);
-		void getPointsFromMiddle(Points* points, Equation* equation, float t0, float zoomX, float zoomY);
-		void getPointsFromLeft(Points* points, Equation* equation, float t0, float zoomX, float zoomY);
-		void getPointsFromRight(Points* points, Equation* equation, float t0, float zoomX, float zoomY);
+		void getPointsFromOrigin(float t0, float zoomX, float zoomY);
+		void getPointsFromMiddle(float t0, float zoomX, float zoomY);
+		void getPointsFromLeft(float t0, float zoomX, float zoomY);
+		void getPointsFromRight(float t0, float zoomX, float zoomY);
 
 	private:
 		EquationList* equationList;

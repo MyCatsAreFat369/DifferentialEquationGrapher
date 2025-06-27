@@ -3,6 +3,24 @@
 
 Curve::Curve(Points* points, float initialScaleX, float initialScaleY)
 {
+	// variables
+	this->points = points;
+
+	this->scaleX = initialScaleX;
+	this->scaleY = initialScaleY;
+
+	//delete indices;
+}
+
+void Curve::Flush()
+{
+	if(VAO1 != nullptr) delete VAO1;
+	if(VBO1 != nullptr) delete VBO1;
+	if(EBO1 != nullptr) delete EBO1;
+}
+
+void Curve::Generate()
+{
 	VAO1 = new VAO();
 	VAO1->Bind();
 
@@ -26,15 +44,6 @@ Curve::Curve(Points* points, float initialScaleX, float initialScaleY)
 	VAO1->Unbind();
 	VBO1->Unbind();
 	EBO1->Unbind();
-
-
-	// variables
-	this->points = points;
-
-	this->scaleX = initialScaleX;
-	this->scaleY = initialScaleY;
-
-	//delete indices;
 }
 
 void Curve::AttachShaders(GLuint vertexShader, GLuint fragmentShader)
@@ -91,7 +100,7 @@ void Curve::Delete(bool deletePoints)
 	if(shader != nullptr) delete shader;
 	if (deletePoints)
 	{
-		points->Delete();
+		//points->Delete();
 		delete points;
 	}
 }

@@ -184,6 +184,7 @@
     <ClInclude Include="header\calculator\tooltips.h" />
     <ClInclude Include="header\calculator\variable.h" />
     <ClInclude Include="header\calculator\variableList.h" />
+    <ClInclude Include="header\grapher\grapherDefs.h" />
     <ClInclude Include="header\grapher\graphManager.h" />
     <ClInclude Include="header\imgui\imconfig.h" />
     <ClInclude Include="header\imgui\imgui.h" />

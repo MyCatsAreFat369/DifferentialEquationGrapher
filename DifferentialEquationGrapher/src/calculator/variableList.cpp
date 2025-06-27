@@ -160,3 +160,27 @@ int VariableList::VariableCount()
 {
 	return variableOrder.size();
 }
+
+void VariableList::Delete()
+{
+	/*
+	for (int i = 0; i < variableOrder.size(); i++)
+	{
+		Variable* variable = variableList[variableOrder[i]];
+		delete variable;
+	}
+
+	variableOrder.clear();
+	variableList.clear();
+
+	std::unordered_map<std::string, Variable*>::iterator it;
+
+	for (it = functionVariableList.begin(); it != functionVariableList.end(); it++)
+	{
+		Variable* variable = it->second;
+		delete variable;
+	}
+
+	functionVariableList.clear();
+	*/
+}

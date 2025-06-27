@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "calculator/calculatorDefs.h"
+#include "grapher/curve.h"
 
 const int EQUATION_MAX_LENGTH = 4096;
 
@@ -47,8 +48,12 @@ class Equation
 
 		void replaceVariableInEquation(std::string oldVariable, std::string newVariable);
 
+		void InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float zoomX, float zoomY);
+
 		void Compile();
 		float Evaluate(float time);
+
+		bool isValidEquation();
 
 		void Delete();
 
@@ -61,6 +66,7 @@ class Equation
 		int derivativeOrder = 1;
 		char* derivativeOrderChar = new char[6];
 
+		Curve* curve;
 		bool drawCurve = true;
 		float color[3] = {1.0f, 1.0f, 1.0f};
 

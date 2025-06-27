@@ -29,6 +29,8 @@ class VariableList
 
 		int VariableCount();
 
+		void Delete();
+
 		std::unordered_map<std::string, Variable*> functionVariableList;
 	private:
 	/*

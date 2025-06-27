@@ -13,22 +13,22 @@ class Points
 	public:
 		Points()
 		{
-			points = new GLfloat[CURVE_POINTS_SIZE * 6];
-			indices = new GLuint[(CURVE_POINTS_SIZE - 1) * 2];
+			for (int i = 0; i < CURVE_POINTS_SIZE * 6; i++)
+			{
+				points[i] = 0.0f;
+			}
+			for (int i = 0; i < (CURVE_POINTS_SIZE - 1) * 2; i++)
+			{
+				indices[i] = 0.0f;
+			}
 
 			t0 = 0.0f;
 			t0_left = 0.0f;
 			t0_right = 0.0f;
 		}
 
-		void Delete()
-		{
-			delete[] points;
-			delete[] indices;
-		}
-
-		GLfloat* points;
-		GLuint* indices;
+		GLfloat points[CURVE_POINTS_SIZE * 6];
+		GLuint indices[(CURVE_POINTS_SIZE - 1) * 2];
 
 
 		float t0, t0_left, t0_right;

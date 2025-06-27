@@ -201,6 +201,9 @@
     <ClInclude Include="header\calculator\calculatorDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\grapher\grapherDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\myOpenGLImage.png">
