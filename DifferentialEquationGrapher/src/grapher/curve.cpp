@@ -1,10 +1,13 @@
 #include <grapher/curve.h>
 
 
-Curve::Curve(Points* points, float initialScaleX, float initialScaleY)
+Curve::Curve(Points* points, float initialX, float initialY, float initialScaleX, float initialScaleY)
 {
 	// variables
 	this->points = points;
+
+	this->x = initialX;
+	this->y = initialY;
 
 	this->scaleX = initialScaleX;
 	this->scaleY = initialScaleY;

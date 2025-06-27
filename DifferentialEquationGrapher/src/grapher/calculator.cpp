@@ -187,7 +187,7 @@ void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 			Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
 			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValues[0];
+			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
 			points->points[i * 6 + 2] = 0.0f;
 			points->points[i * 6 + 3] = 1.0f;
 			points->points[i * 6 + 4] = 1.0f;
@@ -234,7 +234,7 @@ void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 			}
 
 			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValues[0];
+			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
 			points->points[i * 6 + 2] = 0.0f;
 			points->points[i * 6 + 3] = 1.0f;
 			points->points[i * 6 + 4] = 1.0f;
@@ -264,7 +264,7 @@ void Calculator::getPointsFromLeft(float t0, float zoomX, float zoomY) // do thi
 			Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
 			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValues[0];
+			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
 			points->points[i * 6 + 2] = 0.0f;
 			points->points[i * 6 + 3] = 1.0f;
 			points->points[i * 6 + 4] = 1.0f;
@@ -332,7 +332,7 @@ void Calculator::getPointsFromRight(float t0, float zoomX, float zoomY) // do th
 			functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, false);
 		
 			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValues[0];
+			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
 			points->points[i * 6 + 2] = 0.0f;
 			points->points[i * 6 + 3] = 1.0f;
 			points->points[i * 6 + 4] = 1.0f;

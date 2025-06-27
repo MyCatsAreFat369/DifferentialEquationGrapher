@@ -83,6 +83,8 @@ void GraphManager::redrawCurves()
 {
 	//std::cout << "This works\n";
 	//std::cout << equationList << std::endl;
+	if(equationList->EquationCount() <= 0) return;
+
 	calculator->redrawCurves(-x / zoomX, zoomX, zoomY);
 	/*
 	for (int i = 0; i < equationList->EquationCount(); i++)
@@ -111,7 +113,7 @@ void GraphManager::render(int width, int height, bool ignoreMouse)
 
 	if(!ignoreMouse) pan();
 	if(!ignoreMouse) zoom();
-	//redraw();
+	redraw();
 
 	/// Draw graphLines
 	graphLines->Draw();

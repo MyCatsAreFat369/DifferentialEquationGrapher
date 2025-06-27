@@ -41,9 +41,11 @@ bool VariableList::addVariableIfNotExists(std::string name)
 
 bool VariableList::addFunctionVariableIfNotExists(std::string name)
 {
+	// Never ever
+	if(name == "") return false;
+
 	// Check if the function variable is inside of there before thinking about creating it
 	if(functionVariableList.find(name) != functionVariableList.end()) return true;
-
 
 	if(name.size() <= 0 || name.size() > VARIABLE_MAX_NAME_LENGTH) return false;
 
@@ -85,7 +87,10 @@ Variable* VariableList::getVariable(std::string name)
 
 Variable* VariableList::getFunctionVariable(std::string name)
 {
-	if(functionVariableList.find(name) == functionVariableList.end()) return functionVariableList[equationList->GetEquation(0)->functionName];
+	if(functionVariableList.find(name) == functionVariableList.end() || name == "")
+	{
+		return functionVariableList[equationList->GetEquation(0)->functionName];
+	}
 
 	return functionVariableList[name];
 }
@@ -140,7 +145,7 @@ void VariableList::removeVariable(std::string name)
 
 void VariableList::renameFunctionVariable(std::string oldName, std::string newName)
 {
-	if (functionVariableList.find(oldName) == functionVariableList.end())
+	if (functionVariableList.find(oldName) == functionVariableList.end() || oldName == "")
 	{
 		functionVariableList[newName] = new Variable(FUNCTION_VARIABLE, newName);
 		return;

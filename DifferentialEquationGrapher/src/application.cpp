@@ -74,7 +74,7 @@ Application::Application()
 	someEquation->SetFormula("-10 * x");
 	someEquation->setFunctionName("x");
 	someEquation->derivativeOrder = 1;
-	someEquation->InitializeCurve(vertexShader, fragmentShader, graphManager->zoomX, graphManager->zoomY);
+	someEquation->InitializeCurve(vertexShader, fragmentShader, graphManager->x, graphManager->y, graphManager->zoomX, graphManager->zoomY);
 
 	equationList->AddEquation(someEquation);
 	variableList->addFunctionVariableIfNotExists("x");

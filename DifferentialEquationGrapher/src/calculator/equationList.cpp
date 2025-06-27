@@ -49,6 +49,8 @@ void EquationList::RemoveEquation(int id)
 	equationNames.pop_back();
 	//equationNames.erase(std::next(std::begin(equationNames), id));
 
+	std::cout << "Heyo just removed equation " << id << "\n";
+
 	for (int i = 0; i < equations.size(); i++)
 	{
 		std::cout << equationNames[i] << ": " << equations[i]->formula << std::endl;
@@ -83,7 +85,7 @@ bool EquationList::variableNameExistsAsFunction(std::string name)
 	for (int i = 0; i < EquationCount(); i++)
 	{
 		Equation* equation = GetEquation(i);
-		if(equation->functionName == name) return true;
+		if(equation->functionName == name || "-" + equation->functionName == name) return true;
 	}
 
 	return false;

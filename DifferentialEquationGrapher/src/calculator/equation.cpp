@@ -162,10 +162,10 @@ void Equation::replaceVariableInEquation(std::string oldVariable, std::string ne
 }
 
 
-void Equation::InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float zoomX, float zoomY)
+void Equation::InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float x, float y, float zoomX, float zoomY)
 {
 	Points* points = new Points();
-	curve = new Curve(points, zoomX, zoomY);
+	curve = new Curve(points, x, y, zoomX, zoomY);
 	curve->Generate();
 	curve->AttachShaders(vertexShader, fragmentShader);
 
@@ -212,6 +212,7 @@ float Equation::Evaluate(float time)
 	//std::cout << "Queue size is " << queue.size() << std::endl;
 	for (int i = 0; i < queue.size(); i++)
 	{
+		//std::cout << "Queue[i] is " << &queue[i] << std::endl;
 		Token token = queue[i];
 		
 		//std::cout << "Token is " << token.tokenStr << std::endl;
@@ -304,19 +305,19 @@ float Equation::Evaluate(float time)
 			continue;
 		}
 
-		if (token.tokenStr == "t")
+		if (token.tokenStr == "t" || token.tokenStr == "-t")
 		{
-			evalStack.insert(evalStack.begin(), time);
+			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * time);
 			continue;
 		}
-		if (token.tokenStr == "e")
+		if (token.tokenStr == "e" || token.tokenStr == "-e")
 		{
-			evalStack.insert(evalStack.begin(), EulerConstant);
+			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * EulerConstant);
 			continue;
 		}
-		if (token.tokenStr == "pi")
+		if (token.tokenStr == "pi" || token.tokenStr == "-pi")
 		{
-			evalStack.insert(evalStack.begin(), M_PI);
+			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * M_PI);
 			continue;
 		}
 		if (token.tokenType == Token::VARIABLE)
@@ -324,14 +325,14 @@ float Equation::Evaluate(float time)
 			Variable* variable = variableList->getVariable(token.tokenStr); // Make special functionality in VariableList that works with y5 etc
 			//std::cout << "Trying to get variable " << token.tokenStr << std::endl;
 			//std::cout << variable->value << std::endl;
-			evalStack.insert(evalStack.begin(), variable->value);
+			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * variable->value);
 			continue;
 		}
 		if (token.tokenType == Token::FUNCTION)
 		{
 			//std::cout << "Derivative number is " << token.derivativeNumber << " and variable is " << token.tokenStr << std::endl;
 			Variable* variable = variableList->getFunctionVariable(token.functionName);
-			evalStack.insert(evalStack.begin(), variable->derivativeValues[token.derivativeNumber]);
+			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * variable->derivativeValues[token.derivativeNumber]);
 			continue;
 		}
 			
@@ -354,7 +355,8 @@ float Equation::Evaluate(float time)
 bool Equation::isValidEquation()
 {
 	// Maybe add a boolean that tells you if compilation was successful or not
-	return 
+	return
+		functionName != "" &&
 		(variableList->functionVariableList.find(functionName) != variableList->functionVariableList.end()) &&
 		curve != nullptr;
 }

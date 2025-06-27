@@ -37,9 +37,44 @@ void EquationGUI::construct(int width, int height)
 	{
 		Equation* newEquation = new Equation(equationList, variableList);
 		newEquation->InitializeCurve(graphManager->vertexShader, graphManager->fragmentShader,
+									 graphManager->x, graphManager->y,
 									 graphManager->zoomX, graphManager->zoomY);
+		newEquation->derivativeOrder = 1;
 
 		equationList->AddEquation(newEquation);
+		graphManager->redrawCurves();
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Compile All"))
+	{
+		// First deal with variables and stuff
+		for (int i = 0; i < equationList->EquationCount(); i++)
+		{
+			Equation* equation = equationList->GetEquation(i);
+
+			// Update equation text
+			equation->formula = equation->formulaChar;
+
+			// Update function name in case it changed
+			if (equation->functionName != equation->functionNameChar)
+			{
+				variableList->renameFunctionVariable(equation->functionName, equation->functionNameChar);
+			}
+			equation->functionName = equation->functionNameChar;
+
+			// Remove any variables that have the same name as the current function name
+			variableList->removeVariable(equation->functionName);
+		}
+
+		// Compile everything
+		for (int i = 0; i < equationList->EquationCount(); i++)
+		{
+			Equation* equation = equationList->GetEquation(i);
+
+			equation->Compile();
+		}
+
+		// Redraw curves
 		graphManager->redrawCurves();
 	}
 	ImGui::SameLine();
@@ -187,6 +222,7 @@ bool EquationGUI::construct_equation_element(int id)
 	Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 	for (int i = 0; i < equation->derivativeOrder; i++)
 	{
+		if(equation->functionName == "") break; // Break if the equation doesn't have a well-defined functionName
 		char variableName[8];
 		int j;
 		for (j = 0; j < equation->functionName.length(); j++)

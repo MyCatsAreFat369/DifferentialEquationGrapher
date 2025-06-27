@@ -13,7 +13,7 @@
 class Curve
 {
 	public:
-		Curve(Points* points, float initialScaleX, float initialScaleY);
+		Curve(Points* points, float initialX, float initialY, float initialScaleX, float initialScaleY);
 		void Flush();
 		void Generate();
 		void AttachShaders(GLuint vertexShader, GLuint fragmentShader);
