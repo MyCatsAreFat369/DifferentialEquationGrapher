@@ -30,7 +30,11 @@ void EquationList::AddEquation(Equation* equation)
 		name[9] = iStr[0];
 		name[10] = iStr[1];
 	}
-	else return; // Returns if something goes wrong
+	else
+	{
+		std::cout << "SOMETHING WENT WRONG AAAAAA\n";
+		return;
+	}// Returns if something goes wrong
 
 	equations.push_back(equation);
 	equationNames.push_back(name);
@@ -43,9 +47,8 @@ void EquationList::RemoveEquation(int id)
 	if(id < 0 || id >= equations.size()) return;
 
 	equations[id]->Delete();
-	delete equations[id];
 
-	equations.erase(std::next(std::begin(equations), id));
+	equations.erase(equations.begin() + id);
 	equationNames.pop_back();
 	//equationNames.erase(std::next(std::begin(equationNames), id));
 
@@ -123,6 +126,28 @@ void EquationList::copyTempToVariables(VariableList* variableList)
 
 		Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 		functionVariable->copyTempToCurrent(equation->derivativeOrder);
+	}
+}
+void EquationList::copyVariablesToCache(VariableList* variableList)
+{
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(!equation->isValidEquation()) continue;
+
+		Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
+		functionVariable->copyCurrentToCache(equation->derivativeOrder);
+	}
+}
+void EquationList::copyCacheToVariables(VariableList* variableList)
+{
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(!equation->isValidEquation()) continue;
+
+		Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
+		functionVariable->copyCacheToCurrent(equation->derivativeOrder);
 	}
 }
 

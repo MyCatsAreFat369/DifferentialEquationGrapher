@@ -2,10 +2,14 @@
 
 #include <future>
 
-GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, float initialPosX, float initialPosY, float initialZoomX, float initialZoomY)
+GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, TextManager* textManager,
+					   float initialPosX, float initialPosY, float initialZoomX, float initialZoomY)
 {
+	this->zoomX = initialZoomX;
+	this->zoomY = initialZoomY;
+
 	UpdatePosition(initialPosX, initialPosY);
-	UpdateZoom(initialZoomX, initialZoomY);
+	//UpdateZoom(800.0f, 800.0f, initialZoomX, initialZoomY);
 
 	// Initialize Axes
 	axisX = new Line(-1.0f, 0.0f, 2.0f, 0.0f, 0.5f, 0.2f, 0.2f);
@@ -19,6 +23,8 @@ GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, float initial
 	linesY = new Line[MAX_NUMBER_OF_LINES_PER_AXIS - 1];
 
 	this->vertexShader = vertexShader, this->fragmentShader = fragmentShader;
+
+	this->textManager = textManager;
 }
 
 void GraphLines::loadNextLines()
@@ -31,8 +37,6 @@ void GraphLines::loadNextLines()
 	linesY[linesLoaded].AttachShaders(vertexShader, fragmentShader);
 
 	linesLoaded++;
-
-	//std::cout << "Taking a hell lot of time..." << std::endl;
 }
 
 bool GraphLines::allLinesLoaded()
@@ -51,60 +55,71 @@ void GraphLines::UpdatePosition(float x, float y)
 	this->y = y;
 }
 
-void GraphLines::UpdateZoom(float zoomX, float zoomY)
+void GraphLines::UpdateZoom(int width, int height, float zoomX, float zoomY)
 {
 	x = (zoomX / this->zoomX) * x;
 	y = (zoomY / this->zoomY) * y;
+
+	float scaleRatio = (float)width / height;
 
 	/// Checks if spacing should be decremented (for each axis)
 	float numberOfLinesX;
 	do 
 	{
 		DecrementSpacingX();
-		numberOfLinesX = 2 / (spacingCoefficientX * spacingFactorX * zoomX);
+		numberOfLinesX = (2.0f * scaleRatio) / (spacingCoefficientX * spacingFactorX * zoomX);
 	} while (numberOfLinesX < MAX_PRIMARY_LINES_PER_AXIS);
 	IncrementSpacingX();
 	float numberOfLinesY;
 	do
 	{
 		DecrementSpacingY();
-		numberOfLinesY = 2 / (spacingCoefficientY * spacingFactorY * zoomY);
+		numberOfLinesY = (2.0f * scaleRatio) / (spacingCoefficientY * spacingFactorY * zoomY);
 	} while (numberOfLinesY < MAX_PRIMARY_LINES_PER_AXIS);
 	IncrementSpacingY();
 
 	/// Checks if spacing should be incremented (for each axis)
-	numberOfLinesX = 2 / (spacingCoefficientX * spacingFactorX * zoomX);
+	numberOfLinesX = (2.0f * scaleRatio) / (spacingCoefficientX * spacingFactorX * zoomX);
 	while (numberOfLinesX > MAX_PRIMARY_LINES_PER_AXIS)
 	{
 		IncrementSpacingX();
-		numberOfLinesX = 2 / (spacingCoefficientX * spacingFactorX * zoomX);
+		numberOfLinesX = (2.0f * scaleRatio) / (spacingCoefficientX * spacingFactorX * zoomX);
 	}
-	numberOfLinesY = 2 / (spacingCoefficientY * spacingFactorY * zoomY);
+	numberOfLinesY = (2.0f * scaleRatio) / (spacingCoefficientY * spacingFactorY * zoomY);
 	while (numberOfLinesY > MAX_PRIMARY_LINES_PER_AXIS)
 	{
 		IncrementSpacingY();
-		numberOfLinesY = 2 / (spacingCoefficientY * spacingFactorY * zoomY);
+		numberOfLinesY = (2.0f * scaleRatio) / (spacingCoefficientY * spacingFactorY * zoomY);
 	}
 
 	this->zoomX = zoomX;
 	this->zoomY = zoomY;
 }
 
-void GraphLines::Draw()
+void GraphLines::Draw(int width, int height)
 {
+	// draw 0 (even if it's offscreen)
+	textManager->renderFloatScientific("jetbrainsmono", 0.0f, (float)width / 2 + x * width / 2, (float)height / 2 + y * height / 2,
+									   glm::vec2(0.4f), glm::vec3(0.8f),
+									   glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
+
 	int elementidX = 0, elementidY = 0;
 
-	float prePos, currentPos;
+	float prePos, currentPos, currentValue;
 	bool isBehindAxis;
 
-	float spacingX = spacingCoefficientX * spacingFactorX * zoomX;
+	float scaleRatioX = (float)width / height;
+
+	float spacingX = spacingCoefficientX * spacingFactorX * zoomX / scaleRatioX;
 	int secondaryLineCountX = spacingCoefficientX == 2 ? 3 : 4;
 	float spacingSmallX = spacingX / (secondaryLineCountX + 1);
 	float startingPointX = fmod(x, spacingX);
 	currentPos = startingPointX;
+	currentValue = -(floorf(x / spacingX) + (x < 0 ? 1 : 0)) * spacingCoefficientX * spacingFactorX;
 	while (currentPos > -1.0f)
 	{
 		currentPos -= spacingX;
+		currentValue -= spacingCoefficientX * spacingFactorX;
 	}
 	isBehindAxis = (currentPos < x);
 	while (currentPos < 1.0f)
@@ -116,21 +131,32 @@ void GraphLines::Draw()
 		{
 			bool previousIsAxis = abs(x - prePos) < abs(x - currentPos);
 			axisY->x = previousIsAxis ? prePos : currentPos;
-			axisY->Draw();
+			axisY->Draw(800.0f, 800.0f);
 			isBehindAxis = (currentPos < x);
 			if (previousIsAxis && elementidX >= 1)
 			{
 				linesX[elementidX - 1].x = currentPos;
 				linesX[elementidX - 1].SetColor(0.4f, 0.4f, 0.4f);
 			}
+			else currentValue += spacingCoefficientX * spacingFactorX;
 			continue;
 		}
+		
 
 		Line* line = &linesX[elementidX];
 		line->x = currentPos;
-		if ((elementidX + 1 + !isBehindAxis) % (secondaryLineCountX + 1) == 0)
+		if ((elementidX + 1 + (!isBehindAxis && x >= -1.0f)) % (secondaryLineCountX + 1) == 0)
 		{
 			line->SetColor(0.6f, 0.6f, 0.6f);
+
+			currentValue += spacingCoefficientX * spacingFactorX;
+			if (isBehindAxis == (currentPos + spacingSmallX < x))
+			{
+				textManager->renderFloatScientific("jetbrainsmono", currentValue,
+											(float)width / 2 + currentPos * width / 2,
+											(float)height / 2 + y * height / 2,
+											glm::vec2(0.4f), glm::vec3(0.8f), glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
+			}
 		}
 		else
 		{
@@ -147,7 +173,7 @@ void GraphLines::Draw()
 
 	for (int i = 0; i < elementidX; i++)
 	{
-		linesX[i].Draw();
+		linesX[i].Draw(800.0f, 800.0f);
 	}
 
 	float spacingY = spacingCoefficientY * spacingFactorY * zoomY;
@@ -155,9 +181,11 @@ void GraphLines::Draw()
 	float spacingSmallY = spacingY / (secondaryLineCountY + 1);
 	float startingPointY = fmod(y, spacingY);
 	currentPos = startingPointY;
+	currentValue = -(floorf(y / spacingY) + (y < 0 ? 1 : 0)) * spacingCoefficientY * spacingFactorY;
 	while (currentPos > -1.0f)
 	{
 		currentPos -= spacingY;
+		currentValue -= spacingCoefficientY * spacingFactorY;
 	}
 	isBehindAxis = (currentPos < y);
 	while (currentPos < 1.0f)
@@ -168,22 +196,44 @@ void GraphLines::Draw()
 		if (currentPos == y || (isBehindAxis != (currentPos < y)))
 		{
 			bool previousIsAxis = abs(y - prePos) < abs(y - currentPos);
+
 			axisX->y = previousIsAxis ? prePos : currentPos;
-			axisX->Draw();
+			axisX->x = -scaleRatioX;
+			axisX->scaleX = scaleRatioX * 2.0f;
+			axisX->Draw(800.0f, 800.0f);
+
+			//currentValue += spacingCoefficientY * spacingFactorY;
+
 			isBehindAxis = (currentPos < y);
 			if (previousIsAxis && elementidY >= 1)
 			{
-				linesY[elementidY - 1].y = currentPos;
-				linesY[elementidY - 1].SetColor(0.4f, 0.4f, 0.4f);
+				Line* line = &linesY[elementidY - 1];
+				line->y = currentPos;
+				line->x = -scaleRatioX;
+				line->scaleX = scaleRatioX * 2.0f;
+				line->SetColor(0.4f, 0.4f, 0.4f);
 			}
+			else currentValue += spacingCoefficientY * spacingFactorY;
 			continue;
 		}
 
 		Line* line = &linesY[elementidY];
 		line->y = currentPos;
-		if ((elementidY + 1 + !isBehindAxis) % (secondaryLineCountY + 1) == 0)
+		line->x = -scaleRatioX;
+		line->scaleX = scaleRatioX * 2.0f;
+
+		if ((elementidY + 1 + (!isBehindAxis && y >= -1.0f)) % (secondaryLineCountY + 1) == 0)
 		{
 			line->SetColor(0.6f, 0.6f, 0.6f);
+			
+			currentValue += spacingCoefficientY * spacingFactorY;
+			if (isBehindAxis == (currentPos + spacingSmallY < y))
+			{
+				textManager->renderFloatScientific("jetbrainsmono", currentValue,
+											(float)width / 2 + x * width / 2,
+											(float)height / 2 + currentPos * height / 2,
+											glm::vec2(0.4f), glm::vec3(0.8f), glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
+			}
 		}
 		else
 		{
@@ -200,7 +250,7 @@ void GraphLines::Draw()
 
 	for (int i = 0; i < elementidY; i++)
 	{
-		linesY[i].Draw();
+		linesY[i].Draw(800.0f, 800.0f);
 	}
 }
 

@@ -21,7 +21,7 @@ class Curve
 		void UpdatePosition(float x, float y);
 		void UpdateScale(float scaleX, float scaleY);
 
-		void Draw(float* color);
+		void Draw(int width, int height, float* color);
 		void Delete(bool deletePoints = false);
 
 		Points* points;
@@ -36,6 +36,7 @@ class Curve
 		EBO* EBO1;
 		Shader* shader;
 		GLuint scalexID, scaleyID, xID, yID, colorID;
+		GLuint widthID, heightID;
 };
 
 #endif

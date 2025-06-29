@@ -29,11 +29,16 @@ class Variable
 
 		// For constant variables
 		float value;
+		float settings[3];
 
 		// For function variables, a set of values for all derivatives from 0-9
 		float derivativeValues[10];
 		float derivativeValuesTemp[10];
+		float derivativeValuesCache[10];
+
 		float initialValues[10];
+		float initialValueSettings[30];
+		int currentlyEditingID;
 
 		void initializeDerivativeValues(int derivativeOrder)
 		{
@@ -65,6 +70,20 @@ class Variable
 			for (int i = 0; i < derivativeOrder; i++)
 			{
 				derivativeValues[i] = derivativeValuesTemp[i];
+			}
+		}
+		void copyCurrentToCache(int derivativeOrder)
+		{
+			for (int i = 0; i < derivativeOrder; i++)
+			{
+				derivativeValuesCache[i] = derivativeValues[i];
+			}
+		}
+		void copyCacheToCurrent(int derivativeOrder)
+		{
+			for (int i = 0; i < derivativeOrder; i++)
+			{
+				derivativeValues[i] = derivativeValuesCache[i];
 			}
 		}
 };

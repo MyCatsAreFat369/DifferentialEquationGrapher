@@ -15,6 +15,8 @@
 #include "calculator/equation.h"
 #include "calculator/equationList.h"
 
+
+
 Application::Application()
 {
 	// Initialize GLFW
@@ -47,6 +49,35 @@ Application::Application()
 	// flip the image vertically because OpenGL and stb read images differently
 	stbi_set_flip_vertically_on_load(true);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Text Manager
+	textManager = new TextManager();
+
+	if (!textManager->initializeTextManager())
+	{
+		shouldTerminate = true;
+		return;
+	}
+
+	if (!textManager->loadFont("notosans", "res/Fonts/NotoSansJP-VF.ttf"))
+	{
+		shouldTerminate = true;
+		return;
+	}
+	if (!textManager->loadFont("comicsans", "res/Fonts/Qdbettercomicsansbold-511d8.ttf"))
+	{
+		shouldTerminate = true;
+		return;
+	}
+	if (!textManager->loadFont("jetbrainsmono", "res/Fonts/Jetbrains Mono/JetBrainsMono-Bold.ttf"))
+	{
+		shouldTerminate = true;
+		return;
+	}
+
+	textManager->doneWithFT();
 
 	/// IMGUI
 	IMGUI_CHECKVERSION();
@@ -56,7 +87,14 @@ Application::Application()
 	ImGui_ImplGlfw_InitForOpenGL(window->window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 
+	// Get window width and height
+	int width, height;
+	glfwGetWindowSize(window->window, &width, &height);
+	// set viewport
+	int graphWidth = width - 400;
+	int graphHeight = height - 100;
 
+	// Grapher and calculator
 	vertexShader = Shader::CompileShader(GL_VERTEX_SHADER, "res/Shaders/default.vert");
 	fragmentShader = Shader::CompileShader(GL_FRAGMENT_SHADER, "res/Shaders/default.frag");
 
@@ -68,7 +106,9 @@ Application::Application()
 	graphManager = new GraphManager(vertexShader, fragmentShader,
 									equationList, variableList,
 									calculator, input,
-									0.0f, 0.0f, 1.0f, 1.0f);
+									textManager,
+									0.0f, 0.0f, 0.5f, 0.5f,
+									graphWidth, graphHeight);
 
 	Equation* someEquation = new Equation(equationList, variableList);
 	someEquation->SetFormula("-10 * x");
@@ -85,20 +125,34 @@ Application::Application()
 
 	variableList->setVariable("kA", 19.0f);
 
-	std::cout << "Some equation's function name: " << someEquation->functionName << std::endl;
+	//std::cout << "Some equation's function name: " << someEquation->functionName << std::endl;
 
 	graphManager->redrawCurves();
 
+	menuGUI = new MenuGUI(equationList, variableList);
 	equationGUI = new EquationGUI(equationList, variableList, graphManager);
+
+	mySliderValue = 1.0f;
 }
 
 void Application::loop()
 {
 	if(shouldTerminate) return;
 
+	double prevTime = glfwGetTime();
+	double dt = 0.0;
+
+	variableLog["time"] = (double)0.0;
+
 	// Main loop
 	while (!glfwWindowShouldClose(window->window))
 	{
+		double currentTime = glfwGetTime();
+		dt = currentTime - prevTime;
+		prevTime = currentTime;
+
+		variableLog["time"] += dt;
+
 		// change bg color
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -114,6 +168,10 @@ void Application::loop()
 		int graphWidth = width - 400;
 		int graphHeight = height - 100;
 		glViewport(400, 0, graphWidth, graphHeight);
+
+		menuGUI->construct(width, height);
+
+		textManager->updateTextProjection(graphWidth, graphHeight);
 
 		if (!graphManager->graphLines->allLinesLoaded())
 		{
@@ -154,6 +212,26 @@ void Application::loop()
 
 		graphManager->render(graphWidth, graphHeight, equationGUI->isHoveringImGui);
 
+		if (input->getKeyDown(GLFW_KEY_E))
+		{
+			std::cout << variableLog["time"].val<double>() << std::endl;
+		}
+
+		/*
+		textManager->renderFloatScientific("jetbrainsmono", 100.0f, 0.0f, height, glm::vec2(0.5f, 0.5f), glm::vec3(0.9f, 0.9f, 0.9f),
+										   glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 0.0f),
+										   true);
+		*/
+		//textManager->renderFloatScientific("jetbrainsmono", 100.0f, (float)graphWidth / 2, (float)graphHeight / 2, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f),
+										   //glm::vec2(-1.0f, 1.0f), glm::vec2(0.0f),
+										   //false);
+
+		/*
+		ImGui::SetNextWindowSize(ImVec2(400.0f, 400.0f));
+		ImGui::Begin("My new window");
+		ImGui::SliderFloatWithSteps("My Slider", &mySliderValue, -10.0f, 10.0f, 0.1f, "%.3f");
+		ImGui::End();
+		*/
 		//std::cout << "My equation's function name: " << equationList->GetEquation(0)->functionName << std::endl;
 
 		ImGui::Render();
@@ -178,6 +256,10 @@ void Application::Delete()
 
 	// Destroy input object
 	delete input;
+
+	// Delete Text Manager
+	textManager->Delete();
+	delete textManager;
 
 	// Destroy graph
 	graphManager->Delete();

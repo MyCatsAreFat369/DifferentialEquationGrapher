@@ -16,7 +16,7 @@ class Line
 		void AttachShaders(GLuint vertexShader, GLuint fragmentShader);
 
 		void SetColor(float r, float g, float b);
-		void Draw();
+		void Draw(int width, int height);
 		void Delete();
 		float x = 0.0f, y = 0.0f, scaleX = 1.0f, scaleY = 1.0f, r = 1.0f, g = 1.0f, b = 1.0f;
 	private:
@@ -24,6 +24,7 @@ class Line
 		VBO* VBO1;
 		Shader* shader;
 		GLuint xID, yID, scalexID, scaleyID, colorID;
+		GLuint widthID, heightID;
 };
 
 

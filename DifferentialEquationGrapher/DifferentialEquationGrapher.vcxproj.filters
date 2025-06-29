@@ -96,16 +96,27 @@
     <ClCompile Include="src\calculator\equationList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\calculator\equationGUI.cpp">
+    <ClCompile Include="src\gui\equationGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\calculator\variable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\textManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\menuGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shaders\default.vert" />
     <None Include="res\Shaders\default.frag" />
+    <None Include="res\Shaders\text.vert" />
+    <None Include="res\Shaders\text.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\rendering\shaderClass.h">
@@ -139,9 +150,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\grapher\graphLines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\text_fonts_glyphs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\application.h">
@@ -189,7 +197,7 @@
     <ClInclude Include="header\calculator\equationList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\calculator\equationGUI.h">
+    <ClInclude Include="header\gui\equationGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\calculator\tooltips.h">
@@ -202,6 +210,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\grapher\grapherDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\rendering\text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utils\trie.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\rendering\textManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\gui\menuGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\plugins\ImFileBrowser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

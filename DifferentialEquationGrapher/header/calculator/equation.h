@@ -94,7 +94,7 @@ class Equation
 		void Postfix();
 		
 		void encloseInParenthesis(int i, bool ignoreNextToken);
-		void encloseSinudosialInParenthesis(int i);
+		void encloseFunctionInParenthesis(int i);
 
 		EquationList* equationList;
 		VariableList* variableList;

@@ -14,6 +14,7 @@ class Shader
 {
 	public:
 		GLuint ID;
+		Shader();
 		Shader(GLuint vertexShader, GLuint fragmentShader);
 
 		void Activate();

@@ -62,11 +62,13 @@ Calculator::Calculator(EquationList* equationList, VariableList* variableList)
 	this->variableList = variableList;
 }
 
-void Calculator::redrawCurves(float t0, float zoomX, float zoomY)
+void Calculator::redrawCurves(float t0, float zoomX, float zoomY, float scaleRatio)
 {
 	//std::cout << "redrawing curve from origin...\n";
 
-	getPointsFromOrigin(t0, zoomX, zoomY);
+	std::cout << "T0 IS " << t0 << std::endl;
+
+	getPointsFromOrigin(t0, zoomX, zoomY, scaleRatio);
 	
 	for (int i = 0; i < equationList->EquationCount(); i++)
 	{
@@ -91,17 +93,20 @@ void Calculator::redrawCurves(float t0, float zoomX, float zoomY)
 	}
 }
 
-void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY)
+void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY, float scaleRatio)
 {
 	// t0 is just at 0.0f, get points from middle as usual
-	if (t0 > -(CURVE_RADIUS_PER_WIDTH - 1.0f) / zoomX && t0 < (CURVE_RADIUS_PER_WIDTH - 1.0f) / zoomX) // draw in middle
+	if (t0 > -(CURVE_RADIUS_PER_WIDTH - scaleRatio) / zoomX && t0 < (CURVE_RADIUS_PER_WIDTH - scaleRatio) / zoomX) // draw in middle
 	{
 		//std::cout << "GETTING FROM MIDDLE\n";
+		equationList->initializeFunctionVariables(variableList);
 		getPointsFromMiddle(0.0f, zoomX, zoomY);
 		return;
 	}
 
-	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
+	float dt = (2.0f * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
+
+	//std::cout << "dt for origin is " << dt << std::endl;
 
 	// here, replace x with x[0], v with x[1], a with x[2] etc
 
@@ -131,12 +136,14 @@ void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY)
 		}
 
 		getPointsFromRight(time, zoomX, zoomY);
-		//std::cout << "Got from right, and t0 is now " << points->t0 << std::endl;
+		//std::cout << "Got from right, and t0 is now " << equationList->GetEquation(0)->curve->points->t0 << std::endl;
 		return;
 	}
 	else // Go from the left to the right
 	{
 		float target = t0 - (CURVE_RADIUS_PER_WIDTH / zoomX);
+		//equationList->GetEquation(0)->curve->points->Print(CURVE_POINTS_SIZE - 1);
+		//std::cout << "target: " << target << " -> t0: " << t0 << std::endl;
 		while (time < target)
 		{
 			equationList->copyVariablesToTemp(variableList);
@@ -154,7 +161,7 @@ void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY)
 
 			time += dt;
 		}
-
+		//std::cout << "..x(" << time << ") = " << variableList->getFunctionVariable(equationList->GetEquation(0)->functionName)->derivativeValues[0] << "\n";
 		getPointsFromLeft(time, zoomX, zoomY);
 		//std::cout << "Got from left, and t0 is now " << points->t0 << std::endl;
 		return;
@@ -169,7 +176,8 @@ void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 	//std::cout << "I'm not broken.\n";
 	//Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
-	equationList->initializeFunctionVariables(variableList);
+	//equationList->initializeFunctionVariables(variableList);
+	equationList->copyVariablesToCache(variableList);
 
 	float a;
 	//functionVariable->initializeDerivativeValues(equation->derivativeOrder);
@@ -205,12 +213,14 @@ void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 
 			a = equation->Evaluate(time);
 			functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, true);
+			//std::cout << "t: " << time << ", a: " << a << ", y: " << functionVariable->derivativeValuesTemp[0] << "\n";
 		}
 		equationList->copyTempToVariables(variableList);
 
 		time += dt;
 	}
-	equationList->initializeFunctionVariables(variableList);
+	equationList->copyCacheToVariables(variableList);
+	//equationList->initializeFunctionVariables(variableList);
 	time = t0;
 	for (int i = (CURVE_POINTS_SIZE - 1) / 2; i > 0;)
 	{
@@ -248,7 +258,9 @@ void Calculator::getPointsFromLeft(float t0, float zoomX, float zoomY) // do thi
 {
 	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
 
-	equationList->initializeFunctionVariables(variableList);
+	//equationList->initializeFunctionVariables(variableList);
+
+	//std::cout << "dt for left is " << dt << std::endl;
 
 	float a;
 	float time = t0;
@@ -277,6 +289,7 @@ void Calculator::getPointsFromLeft(float t0, float zoomX, float zoomY) // do thi
 			if (i == (CURVE_POINTS_SIZE - 1) / 2)
 			{
 				points->t0 = time;
+				std::cout << "x(" << time << ") = " << functionVariable->derivativeValuesTemp[0] << "\n";
 			}
 			if (i == CURVE_POINTS_SIZE - 1)
 			{
@@ -297,7 +310,7 @@ void Calculator::getPointsFromRight(float t0, float zoomX, float zoomY) // do th
 {
 	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
 
-	equationList->initializeFunctionVariables(variableList);
+	//equationList->initializeFunctionVariables(variableList);
 
 	float a;
 	float time = t0;

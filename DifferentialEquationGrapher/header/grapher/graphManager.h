@@ -20,9 +20,10 @@ class GraphManager
 		GraphManager(GLuint vertexShader, GLuint fragmentShader,
 					 EquationList* equationList, VariableList* variableList,
 					 Calculator* calculator, Input* input,
-					 float initialX, float initialY, float initialZoomX, float initialZoomY);
+					 TextManager* textManager,
+					 float initialX, float initialY, float initialZoomX, float initialZoomY,
+					 int width, int height);
 
-		void addCurve(Equation* equation);
 		void redrawCurves();
 		void render(int width, int height, bool ignoreMouse);
 

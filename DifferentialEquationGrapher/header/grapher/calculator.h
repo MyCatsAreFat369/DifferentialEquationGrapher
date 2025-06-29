@@ -11,9 +11,9 @@ class Calculator
 {
 	public:
 		Calculator(EquationList* equationList, VariableList* variableList);
-		void redrawCurves(float t0, float zoomX, float zoomY);
+		void redrawCurves(float t0, float zoomX, float zoomY, float scaleRatio);
 
-		void getPointsFromOrigin(float t0, float zoomX, float zoomY);
+		void getPointsFromOrigin(float t0, float zoomX, float zoomY, float scaleRatio);
 		void getPointsFromMiddle(float t0, float zoomX, float zoomY);
 		void getPointsFromLeft(float t0, float zoomX, float zoomY);
 		void getPointsFromRight(float t0, float zoomX, float zoomY);

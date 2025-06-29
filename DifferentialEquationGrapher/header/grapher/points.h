@@ -4,7 +4,10 @@
 #include <glad/glad.h>
 
 // this constant should always be odd, or else the program breaks!
-const int CURVE_POINTS_SIZE = 2047;
+// 2048 - 1
+// 4096 - 1
+// 8192 - 1
+const int CURVE_POINTS_SIZE = 8191;
 const double CURVE_RADIUS_PER_WIDTH = 5.0;
 const double CURVE_MAX_RADIUS_PER_WIDTH = 10.0;
 
@@ -32,6 +35,19 @@ class Points
 
 
 		float t0, t0_left, t0_right;
+
+		void Print()
+		{
+			for (int i = 0; i < CURVE_POINTS_SIZE; i++)
+			{
+				Print(i);
+			}
+		}
+		void Print(int id)
+		{
+			std::cout << points[id * 6] << ", " << points[id * 6 + 1] << ", " << points[id * 6 + 2] << ", "
+					<< points[id * 6 + 3] << ", " << points[id * 6 + 4] << ", " << points[id * 6 + 5] << ",\n";
+		}
 };
 
 #endif

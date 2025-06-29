@@ -39,11 +39,15 @@ Line::Line(float x, float y, float scaleX, float scaleY, float r, float g, float
 void Line::AttachShaders(GLuint vertexShader, GLuint fragmentShader)
 {
 	shader = new Shader(vertexShader, fragmentShader);
+
 	xID = glGetUniformLocation(shader->ID, "x");
 	yID = glGetUniformLocation(shader->ID, "y");
 	scalexID = glGetUniformLocation(shader->ID, "scalex");
 	scaleyID = glGetUniformLocation(shader->ID, "scaley");
 	colorID = glGetUniformLocation(shader->ID, "flatColor");
+
+	widthID = glGetUniformLocation(shader->ID, "width");
+	heightID = glGetUniformLocation(shader->ID, "height");
 }
 
 
@@ -55,7 +59,7 @@ void Line::SetColor(float r, float g, float b)
 }
 
 
-void Line::Draw()
+void Line::Draw(int width, int height)
 {
 	if (shader == nullptr)
 	{
@@ -63,11 +67,16 @@ void Line::Draw()
 		return;
 	}
 	shader->Activate();
+
 	glUniform1f(xID, x);
 	glUniform1f(yID, y);
 	glUniform1f(scalexID, scaleX);
 	glUniform1f(scaleyID, scaleY);
 	glUniform3f(colorID, r, g, b);
+
+	glUniform1f(widthID, width);
+	glUniform1f(heightID, height);
+
 	VAO1->Bind();
 	glDrawArrays(GL_LINES, 0, 2);
 	VAO1->Unbind();

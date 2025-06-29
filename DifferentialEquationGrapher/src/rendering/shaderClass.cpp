@@ -17,6 +17,10 @@ std::string get_file_contents(const char* filename)
 	throw(errno);
 }
 
+Shader::Shader()
+{
+
+}
 // TODO: Move shaders to some main class variable and instantiate using those instead of compiling everytime
 Shader::Shader(GLuint vertexShader, GLuint fragmentShader)
 {

@@ -17,9 +17,21 @@ Curve::Curve(Points* points, float initialX, float initialY, float initialScaleX
 
 void Curve::Flush()
 {
-	if(VAO1 != nullptr) delete VAO1;
-	if(VBO1 != nullptr) delete VBO1;
-	if(EBO1 != nullptr) delete EBO1;
+	if (VAO1 != nullptr)
+	{
+		VAO1->Delete();
+		delete VAO1;
+	}
+	if (VBO1 != nullptr)
+	{
+		VBO1->Delete();
+		delete VBO1;
+	}
+	if (EBO1 != nullptr)
+	{
+		EBO1->Delete();
+		delete EBO1;
+	}
 }
 
 void Curve::Generate()
@@ -52,11 +64,15 @@ void Curve::Generate()
 void Curve::AttachShaders(GLuint vertexShader, GLuint fragmentShader)
 {
 	shader = new Shader(vertexShader, fragmentShader);
+
 	scalexID = glGetUniformLocation(shader->ID, "scalex");
 	scaleyID = glGetUniformLocation(shader->ID, "scaley");
 	xID = glGetUniformLocation(shader->ID, "x");
 	yID = glGetUniformLocation(shader->ID, "y");
 	colorID = glGetUniformLocation(shader->ID, "flatColor");
+
+	widthID = glGetUniformLocation(shader->ID, "width");
+	heightID = glGetUniformLocation(shader->ID, "height");
 	
 	this->vertexShader = vertexShader;
 	this->fragmentShader = fragmentShader;
@@ -72,7 +88,7 @@ void Curve::UpdateScale(float scaleX, float scaleY)
 	this->scaleX = scaleX, this->scaleY = scaleY;
 }
 
-void Curve::Draw(float* color)
+void Curve::Draw(int width, int height, float* color)
 {
 	if (shader == nullptr)
 	{
@@ -80,11 +96,16 @@ void Curve::Draw(float* color)
 		return;
 	}
 	shader->Activate();
+
 	glUniform1f(scalexID, scaleX);
 	glUniform1f(scaleyID, scaleY);
 	glUniform1f(xID, x);
 	glUniform1f(yID, y);
 	glUniform3f(colorID, color[0], color[1], color[2]);
+
+	glUniform1f(widthID, width);
+	glUniform1f(heightID, height);
+
 	VAO1->Bind();
 	glDrawElements(GL_LINES, (CURVE_POINTS_SIZE - 1) * 2, GL_UNSIGNED_INT, 0);
 	VAO1->Unbind();

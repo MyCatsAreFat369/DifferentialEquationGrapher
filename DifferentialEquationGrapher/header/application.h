@@ -6,9 +6,16 @@
 #include "window.h"
 
 #include "grapher/graphManager.h"
-#include "calculator/equationGUI.h"
+
+#include "gui/menuGUI.h"
+#include "gui/equationGUI.h"
 
 #include "grapher/calculator.h"
+
+#include "rendering/textManager.h"
+
+#include <jsoncpp/json.hpp>
+
 
 class Application
 {
@@ -18,11 +25,17 @@ class Application
 		void loop();
 
 		void Delete();
+
+		jsoncpp::json variableLog;
+
+		
 	private:
 		Window* window;
 		Input* input;
 
 		GraphManager* graphManager;
+		
+		MenuGUI* menuGUI;
 		EquationGUI* equationGUI;
 
 		EquationList* equationList;
@@ -30,13 +43,19 @@ class Application
 
 		Calculator* calculator;
 
+		TextManager* textManager;
+
 		bool* keepWindowActive;
 		bool* keepLoadingWindowActive;
 		std::vector<char*> names;
 
+		float mySliderValue;
+
 		bool shouldTerminate = false;
 
 		GLuint vertexShader, fragmentShader;
+
+		
 };
 
 

@@ -15,12 +15,13 @@ const std::string intDigits = "1234567890";
 const std::string floatDigits = "1234567890.";
 const std::string variableRequirementStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
 const std::string basicOperatorStr = "()+-/*^";
-const int OPERATORS_COUNT = 17;
+const int OPERATORS_COUNT = 19;
 const std::string _operators[] = {
 	"+", "-", "*", "/", "^",
 	"sin", "-sin", "asin", "-asin",
 	"cos", "-cos", "acos", "-acos",
-	"tan", "-tan", "atan", "-atan"
+	"tan", "-tan", "atan", "-atan",
+	"ln", "-ln"
 };
 const int SINUSOIDALS_COUNT = 12;
 const std::string sinusoidals[] = {
@@ -31,9 +32,10 @@ const std::string sinusoidals[] = {
 
 std::string getArcSinusoidalFunc(std::string formula, int i);
 std::string getSinusoidalFunc(std::string formula, int i);
+std::string getLogarithmicFunc(std::string formula, int i);
 int getTickMarks(std::string formula, int i);
 bool isOperator(std::string token);
-bool isSinusoidal(std::string token);
+bool isFunction(std::string token);
 bool isFloat(std::string token);
 bool isVariable(std::string token);
 
@@ -209,7 +211,14 @@ float Equation::Evaluate(float time)
 {
 	evalStack.clear();
 
+	/*
+	std::cout << queue.size() << std::endl;
 	//std::cout << "Queue size is " << queue.size() << std::endl;
+	for (int i = 0; i < queue.size(); i++)
+	{
+		std::cout << queue[i].tokenStr << std::endl;
+	}
+	*/
 	for (int i = 0; i < queue.size(); i++)
 	{
 		//std::cout << "Queue[i] is " << &queue[i] << std::endl;
@@ -262,6 +271,12 @@ float Equation::Evaluate(float time)
 			{
 				evalStack.insert(evalStack.begin(), powf(stack2, stack1));
 				evalStack.erase(evalStack.begin() + 1, evalStack.begin() + 3);
+				continue;
+			}
+			if (token.tokenStr == "ln" || token.tokenStr == "-ln")
+			{
+				evalStack.insert(evalStack.begin(), log(stack1) * (token.tokenStr[0] == '-' ? -1 : 1));
+				evalStack.erase(evalStack.begin() + 1);
 				continue;
 			}
 			if (token.tokenStr == "sin" || token.tokenStr == "-sin")
@@ -331,7 +346,12 @@ float Equation::Evaluate(float time)
 		if (token.tokenType == Token::FUNCTION)
 		{
 			//std::cout << "Derivative number is " << token.derivativeNumber << " and variable is " << token.tokenStr << std::endl;
-			Variable* variable = variableList->getFunctionVariable(token.functionName);
+			std::string realFuncName = token.functionName;
+			if(realFuncName[0] == '-') realFuncName = realFuncName.substr(1, realFuncName.length() - 1);
+			Variable* variable = variableList->getFunctionVariable(realFuncName);
+			//std::cout << "functionName is " << token.functionName << "\n";
+			//std::cout << variable << "\n";
+			//std::cout << "token.derivativeNumber is " << token.derivativeNumber << "\n";
 			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * variable->derivativeValues[token.derivativeNumber]);
 			continue;
 		}
@@ -411,7 +431,7 @@ void Equation::Tokenize()
 				tokens.push_back(possibleArcfunc);
 			}
 			i += 3;
-			prevTokenType = "sincostan";
+			prevTokenType = "func";
 			continue;
 		}
 		std::string possibleFunc = getSinusoidalFunc(formula, i);
@@ -424,7 +444,21 @@ void Equation::Tokenize()
 				tokens.push_back(possibleFunc);
 			}
 			i += 2;
-			prevTokenType = "sincostan";
+			prevTokenType = "func";
+			continue;
+		}
+		std::string possibleLogFunc = getLogarithmicFunc(formula, i);
+		if (possibleLogFunc != "0")
+		{
+			std::cout << "Yas i got the logarithmic!\n";
+			if(prevTokenType == "negativeSign") tokens[tokens.size() - 1] += possibleLogFunc;
+			else
+			{
+				if (prevTokenType == "number" || prevTokenType == "variable") tokens.push_back("*");
+				tokens.push_back(possibleLogFunc);
+			}
+			i += 1;
+			prevTokenType = "func";
 			continue;
 		}
 
@@ -433,6 +467,7 @@ void Equation::Tokenize()
 		// Check if variable
 		if (variableRequirementStr.find(letter) != std::string::npos)
 		{
+			std::cout << "Got a variable for some reason\n";
 			if(prevTokenType == "variable" || prevTokenType == "negativeSign") tokens[tokens.size() - 1] += letter;
 			else
 			{
@@ -472,6 +507,27 @@ void Equation::Tokenize()
 		// Check if operator
 		if (basicOperatorStr.find(letter) != std::string::npos)
 		{
+			if (letter == '(' && prevTokenType == "negativeSign")
+			{
+				int insertIndex = tokens.size() - 1;
+				tokens.insert(tokens.begin() + insertIndex, "0");
+				tokens.insert(tokens.begin() + insertIndex, "(");
+				tokens.push_back("(");
+				int prei = i;
+				char nextLetter = ' ';
+				int nesting = 1;
+				while (i + 1 <= formula.length() - 1 && nesting != 0)
+				{
+					nextLetter = formula[i + 1];
+					if(nextLetter == '(') nesting += 1;
+					else if(nextLetter == ')') nesting -= 1;
+					i++;
+				}
+				formula.insert(formula.begin() + i, ')');
+				i = prei;
+				prevTokenType = "operator";
+				continue;
+			}
 			if (letter == '(' && (prevTokenType == "number" || prevTokenType == "variable" || lastToken == ")"))
 			{
 				tokens.push_back("*");
@@ -493,12 +549,12 @@ void Equation::Tokenize()
 
 void Equation::Pemdas()
 {
-	// Check for sinudosial
+	// Check for sinusoidal/logarithmic functions
 	for (int i = 0; i < tokens.size(); i++)
 	{
-		if (isSinusoidal(tokens[i]))
+		if (isFunction(tokens[i]))
 		{
-			encloseSinudosialInParenthesis(i);
+			encloseFunctionInParenthesis(i);
 			i++;
 		}
 	}
@@ -511,7 +567,7 @@ void Equation::Pemdas()
 		std::string nextToken = "";
 		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
 
-		if (isSinusoidal(nextToken))
+		if (isFunction(nextToken))
 		{
 			encloseInParenthesis(i, true);
 		}
@@ -528,7 +584,7 @@ void Equation::Pemdas()
 		std::string nextToken = "";
 		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
 
-		if (isSinusoidal(nextToken))
+		if (isFunction(nextToken))
 		{
 			encloseInParenthesis(i, true);
 		}
@@ -545,7 +601,7 @@ void Equation::Pemdas()
 		std::string nextToken = "";
 		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
 
-		if (isSinusoidal(nextToken))
+		if (isFunction(nextToken))
 		{
 			encloseInParenthesis(i, true);
 		}
@@ -635,7 +691,6 @@ void Equation::Postfix()
 			bool endOfTokenIsInt = intDigits.find(token[token.length() - 1]) != std::string::npos;
 			bool isFunction = equationList->variableNameExistsAsFunction(token) || endOfTokenIsInt;
 
-			std::cout << "isFunction = " << isFunction << std::endl;
 			queue.push_back(Token(isFunction ? Token::FUNCTION : Token::VARIABLE, token));
 
 			// do certain things
@@ -651,7 +706,6 @@ void Equation::Postfix()
 				queue[queue.size() - 1].derivativeNumber = 0;
 			}
 
-			std::cout << "functionName = " << queue[queue.size() - 1].functionName << std::endl;
 			continue;
 		}
 		if (isOperator(token))
@@ -692,7 +746,7 @@ void Equation::encloseInParenthesis(int i, bool ignoreNextToken)
 	std::string currentToken = "";
 	if(i >= 0) currentToken = tokens[i];
 
-	if (isSinusoidal(currentToken))
+	if (isFunction(currentToken))
 	{
 		tokens.insert(tokens.begin() + i, "(");
 	}
@@ -702,7 +756,7 @@ void Equation::encloseInParenthesis(int i, bool ignoreNextToken)
 	}
 }
 
-void Equation::encloseSinudosialInParenthesis(int i)
+void Equation::encloseFunctionInParenthesis(int i)
 {
 	int prei = i;
 	i++;
@@ -741,6 +795,17 @@ std::string getSinusoidalFunc(std::string formula, int i)
 	return "0";
 }
 
+std::string getLogarithmicFunc(std::string formula, int i)
+{
+	if(i + 1 > formula.length() - 1) return "0";
+
+	std::string possibleFunc = formula.substr(i, 2);
+
+	if(possibleFunc == "ln") return possibleFunc;
+
+	return "0";
+}
+
 int getTickMarks(std::string formula, int i)
 {
 	int tickMarkCount = 0;
@@ -764,12 +829,13 @@ bool isOperator(std::string token)
 	return false;
 }
 
-bool isSinusoidal(std::string token)
+bool isFunction(std::string token)
 {
 	for (int i = 0; i < SINUSOIDALS_COUNT; i++)
 	{
 		if(token == sinusoidals[i]) return true;
 	}
+	if(token == "ln" || token == "-ln") return true;
 	return false;
 }
 
@@ -795,7 +861,7 @@ bool isVariable(std::string token)
 	if(token.empty()) return false;
 
 	// Check if it has letters but is actually sinusoidal
-	if(isSinusoidal(token)) return false;
+	if(isFunction(token)) return false;
 
 	// Check second digit in case it's a -kA or -bM_a
 	// but if it's a y5 or something, don't do it

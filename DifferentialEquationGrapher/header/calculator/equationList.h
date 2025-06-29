@@ -24,6 +24,8 @@ class EquationList
 		void initializeFunctionVariables(VariableList* variableList);
 		void copyVariablesToTemp(VariableList* variableList);
 		void copyTempToVariables(VariableList* variableList);
+		void copyVariablesToCache(VariableList* variableList);
+		void copyCacheToVariables(VariableList* variableList);
 
 		void Delete();
 	private:

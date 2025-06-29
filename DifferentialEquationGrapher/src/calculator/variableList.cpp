@@ -15,21 +15,21 @@ VariableList::VariableList(EquationList* equationList)
 
 bool VariableList::addVariableIfNotExists(std::string name)
 {
-	// Check if the variable is inside of there before thinking about creating it
-	if (variableList.find(name) != variableList.end()) return true;
-
 	if(name.size() > VARIABLE_MAX_NAME_LENGTH) return false;
 
-	if(name == "t") return false;
+	if(name == "t" || name == "-t") return false;
 
 	// Returns if it's a constant type (e, pi)
 	for (int i = 0; i < CONSTANTS_COUNT; i++)
 	{
-		if(name == constants[i]) return false;
+		if(name == constants[i] || name == "-" + constants[i]) return false;
 	}
 
 	// Return if it's a function variable already
 	if(functionVariableList.find(name) != functionVariableList.end()) return false;
+
+	// Check if the variable is inside of there before thinking about creating it
+	if (variableList.find(name) != variableList.end()) return true;
 
 	// Add it
 	variableOrder.push_back(name);
@@ -89,7 +89,7 @@ Variable* VariableList::getFunctionVariable(std::string name)
 {
 	if(functionVariableList.find(name) == functionVariableList.end() || name == "")
 	{
-		return functionVariableList[equationList->GetEquation(0)->functionName];
+		return nullptr;
 	}
 
 	return functionVariableList[name];
@@ -129,9 +129,7 @@ void VariableList::removeVariable(std::string name)
 	if(variableList.find(name) == variableList.end()) return;
 
 	std::cout << "I am gonna remove " << name << std::endl;
-	Variable* variable = variableList[name];
 	variableList.erase(name);
-	delete variable;
 
 	for (int i = 0; i < variableOrder.size(); i++)
 	{
@@ -157,6 +155,13 @@ void VariableList::renameFunctionVariable(std::string oldName, std::string newNa
 	functionVariableList[newName] = variable;
 }
 
+void VariableList::removeFunctionVariable(std::string name)
+{
+	if(functionVariableList.find(name) == functionVariableList.end()) return;
+
+	std::cout << "I am gonna remove function variable " << name << std::endl;
+	functionVariableList.erase(name);
+}
 
 
 
@@ -164,28 +169,4 @@ void VariableList::renameFunctionVariable(std::string oldName, std::string newNa
 int VariableList::VariableCount()
 {
 	return variableOrder.size();
-}
-
-void VariableList::Delete()
-{
-	/*
-	for (int i = 0; i < variableOrder.size(); i++)
-	{
-		Variable* variable = variableList[variableOrder[i]];
-		delete variable;
-	}
-
-	variableOrder.clear();
-	variableList.clear();
-
-	std::unordered_map<std::string, Variable*>::iterator it;
-
-	for (it = functionVariableList.begin(); it != functionVariableList.end(); it++)
-	{
-		Variable* variable = it->second;
-		delete variable;
-	}
-
-	functionVariableList.clear();
-	*/
 }

@@ -11,7 +11,9 @@
 GraphManager::GraphManager(GLuint vertexShader, GLuint fragmentShader,
 						   EquationList* equationList, VariableList* variableList,
 						   Calculator* calculator, Input* input,
-						   float initialX, float initialY, float initialZoomX, float initialZoomY)
+						   TextManager* textManager,
+						   float initialX, float initialY, float initialZoomX, float initialZoomY,
+						   int width, int height)
 {
 	this->vertexShader = vertexShader;
 	this->fragmentShader = fragmentShader;
@@ -26,21 +28,10 @@ GraphManager::GraphManager(GLuint vertexShader, GLuint fragmentShader,
 	if(zoomX == 0.0f) zoomX = 1.0f; // just to be safe
 
 	// Consider moving GraphLines creation before Curve
-	graphLines = new GraphLines(vertexShader, fragmentShader, x, y, zoomX, zoomY);
+	graphLines = new GraphLines(vertexShader, fragmentShader, textManager,
+								x, y, zoomX, zoomY);
 	graphLines->UpdatePosition(x, y);
-
-	// Initialize Curve
-
-	//this->prex0 = x0, this->prev0 = v0;
-	//this->x0 = x0, this->v0 = v0;
-	
-	//float t0 = x / zoomX;
-	//Points* points = new Points();
-	//getPointsFromOrigin(points, t0, x0, v0, zoomX, zoomY);
-
-	//curve = new Curve(points, zoomX, zoomY);
-	//curve->AttachShaders(vertexShader, fragmentShader);
-	//curve->x = initialX, curve->y = initialY;
+	graphLines->UpdateZoom(width, height, zoomX, zoomY);
 
 	// Initialize pre-positions for panning
 	preX = x, preY = y;
@@ -49,74 +40,27 @@ GraphManager::GraphManager(GLuint vertexShader, GLuint fragmentShader,
 
 	width = 800;
 	height = 800;
-
-	/*
-	for (int i = 0; i < CURVE_MAXIMUM_AMOUNT; i++)
-	{
-		//std::cout << "Creating a new Curve object...\n";
-		Points* points = new Points();
-		Curve* curve = new Curve(points, initialZoomX, initialZoomY);
-		curve->Generate();
-		curve->AttachShaders(vertexShader, fragmentShader);
-		//std::cout << curve->points << std::endl;
-
-		curves.push_back(curve);
-	}
-	*/
-	
 }
-
-/*
-void GraphManager::addCurve(Equation* equation)
-{
-	Points* points = new Points();
-	Curve* curve = new Curve(points, zoomX, zoomY);
-	curve->Generate();
-	curve->AttachShaders(vertexShader, fragmentShader);
-
-	curves.push_back(curve);
-}
-*/
 
 
 void GraphManager::redrawCurves()
 {
-	//std::cout << "This works\n";
-	//std::cout << equationList << std::endl;
 	if(equationList->EquationCount() <= 0) return;
 
-	calculator->redrawCurves(-x / zoomX, zoomX, zoomY);
-	/*
-	for (int i = 0; i < equationList->EquationCount(); i++)
-	{
-		//std::cout << i << " : " << equationList->EquationCount();
-		Equation* equation = equationList->GetEquation(i);
-		//std::cout << " : " << equation << std::endl;
-		Curve* curve = equation->curve;
-
-		if(variableList->functionVariableList.find(equation->functionName) == variableList->functionVariableList.end()) continue;
-
-		std::cout << "Function is still gonna run: " << equation->functionName << std::endl;
-
-		//std::cout << "Points: " << curve->points << std::endl;
-
-		//std::cout << "Points: " << curve->points << std::endl;
-	}
-	*/
+	float scaleRatio = (float)width / height;
+	calculator->redrawCurves(-x * scaleRatio / zoomX, zoomX, zoomY, scaleRatio);
 }
 
 void GraphManager::render(int width, int height, bool ignoreMouse)
 {
 	this->width = width, this->height = height;
-	
-	//std::cout << "I am a bad person: " << curves[0]->points << std::endl;
 
 	if(!ignoreMouse) pan();
 	if(!ignoreMouse) zoom();
 	redraw();
 
 	/// Draw graphLines
-	graphLines->Draw();
+	graphLines->Draw(width, height);
 
 	/// Draw curve
 	for (int i = 0; i < equationList->EquationCount(); i++)
@@ -125,7 +69,7 @@ void GraphManager::render(int width, int height, bool ignoreMouse)
 		if(!equation->isValidEquation()) continue;
 		if(!equation->drawCurve) continue;
 
-		equation->curve->Draw(equation->color);
+		equation->curve->Draw(width, height, equation->color);
 	}
 }
 
@@ -194,7 +138,7 @@ void GraphManager::zoom()
 			zoomY += scalingFactor * zoomY;
 		}
 
-		graphLines->UpdateZoom(zoomX, zoomY);
+		graphLines->UpdateZoom(width, height, zoomX, zoomY);
 		for (int i = 0; i < equationList->EquationCount(); i++)
 		{
 			Equation* equation = equationList->GetEquation(i);
@@ -218,36 +162,30 @@ void GraphManager::redraw()
 
 		if(variableList->functionVariableList.find(equation->functionName) == variableList->functionVariableList.end()) continue;
 
-		bool curveRedraw_isTooZoomed = ((curve->points->t0_right - curve->points->t0_left) * curve->scaleX >= 2 * CURVE_MAX_RADIUS_PER_WIDTH);
-		bool curveRedraw_middleShows = (abs(curve->points->t0 * curve->scaleX + curve->x) <= 1.0f);
-		bool curveRedraw_leftShows = (curve->points->t0_left * curve->scaleX + curve->x >= -1.0f);
-		bool curveRedraw_rightShows = (curve->points->t0_right * curve->scaleX + curve->x <= 1.0);
+		float scaleRatio = (float)width / height;
 
-		if (curveRedraw_leftShows || curveRedraw_rightShows ||
-			curveRedraw_isTooZoomed ||
+		bool curveRedraw_isTooZoomed = ((curve->points->t0_right - curve->points->t0_left) * curve->scaleX >= 2.0f * CURVE_MAX_RADIUS_PER_WIDTH);
+		bool curveRedraw_middleShows = (abs(curve->points->t0 * curve->scaleX + curve->x * scaleRatio) <= scaleRatio);
+		bool curveRedraw_leftShows = (curve->points->t0_left * curve->scaleX + curve->x * scaleRatio >= -scaleRatio);
+		bool curveRedraw_rightShows = (curve->points->t0_right * curve->scaleX + curve->x * scaleRatio <= scaleRatio);
+
+		if (curveRedraw_isTooZoomed ||
 			(curveRedraw_middleShows && (curveRedraw_leftShows || curveRedraw_rightShows)))
 		{
-			calculator->redrawCurves(-x / zoomX, zoomX, zoomY);
-		}
-
-		break;
-
-		/*
-		if ((curveRedraw_leftShows && curveRedraw_rightShows) ||
-			(curveRedraw_isTooZoomed) ||
-			(curveRedraw_middleShows && (curveRedraw_leftShows || curveRedraw_rightShows)))
-		{
-			calculator->redrawCurves(-x / zoomX, zoomX, zoomY);
+			std::cout << "I run\n";
+			calculator->redrawCurves(-curve->x * scaleRatio / zoomX, zoomX, zoomY, scaleRatio);
 		}
 		else if (curveRedraw_leftShows)
 		{
-			calculator->redrawCurves(-x / zoomX, zoomX, zoomY);
+			std::cout << "Gonna draw left\n";
+			calculator->redrawCurves(curve->points->t0 - (CURVE_RADIUS_PER_WIDTH / zoomX), zoomX, zoomY, scaleRatio);
 		}
 		else if (curveRedraw_rightShows)
 		{
-			calculator->redrawCurves(-x / zoomX, zoomX, zoomY);
+			std::cout << "Gonna draw right\n";
+			calculator->redrawCurves(curve->points->t0 + (CURVE_RADIUS_PER_WIDTH / zoomX), zoomX, zoomY, scaleRatio);
 		}
-		*/
-		
+
+		break;
 	}
 }

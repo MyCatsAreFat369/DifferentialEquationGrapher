@@ -26,10 +26,9 @@ class VariableList
 		void removeVariable(std::string name);
 
 		void renameFunctionVariable(std::string oldName, std::string newName);
+		void removeFunctionVariable(std::string name);
 
 		int VariableCount();
-
-		void Delete();
 
 		std::unordered_map<std::string, Variable*> functionVariableList;
 	private:
