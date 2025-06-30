@@ -139,6 +139,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>freetype/freetype.lib;GLFW/glfw3.lib;opengl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -202,7 +203,6 @@
     <ClInclude Include="header\imgui\imstb_rectpack.h" />
     <ClInclude Include="header\imgui\imstb_textedit.h" />
     <ClInclude Include="header\imgui\imstb_truetype.h" />
-    <ClInclude Include="header\plugins\ImFileBrowser.h" />
     <ClInclude Include="header\rendering\EBO.h" />
     <ClInclude Include="header\grapher\calculator.h" />
     <ClInclude Include="header\grapher\curve.h" />
@@ -222,6 +222,10 @@
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\myOpenGLImage.png" />
     <Image Include="res\Textures\crepe_girl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\config\config.txt" />
+    <Text Include="res\Graphs\myGraph.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

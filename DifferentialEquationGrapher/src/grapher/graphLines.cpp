@@ -100,7 +100,7 @@ void GraphLines::Draw(int width, int height)
 {
 	// draw 0 (even if it's offscreen)
 	textManager->renderFloatScientific("jetbrainsmono", 0.0f, (float)width / 2 + x * width / 2, (float)height / 2 + y * height / 2,
-									   glm::vec2(0.4f), glm::vec3(0.8f),
+									   glm::vec2(0.5f), glm::vec3(0.8f),
 									   glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
 
 	int elementidX = 0, elementidY = 0;
@@ -155,7 +155,7 @@ void GraphLines::Draw(int width, int height)
 				textManager->renderFloatScientific("jetbrainsmono", currentValue,
 											(float)width / 2 + currentPos * width / 2,
 											(float)height / 2 + y * height / 2,
-											glm::vec2(0.4f), glm::vec3(0.8f), glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
+											glm::vec2(0.5f), glm::vec3(0.8f), glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
 			}
 		}
 		else
@@ -232,7 +232,7 @@ void GraphLines::Draw(int width, int height)
 				textManager->renderFloatScientific("jetbrainsmono", currentValue,
 											(float)width / 2 + x * width / 2,
 											(float)height / 2 + currentPos * height / 2,
-											glm::vec2(0.4f), glm::vec3(0.8f), glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
+											glm::vec2(0.5f), glm::vec3(0.8f), glm::vec2(1.0f, 1.0f), glm::vec2(5.0f), true);
 			}
 		}
 		else

@@ -117,19 +117,17 @@ Application::Application()
 	someEquation->InitializeCurve(vertexShader, fragmentShader, graphManager->x, graphManager->y, graphManager->zoomX, graphManager->zoomY);
 
 	equationList->AddEquation(someEquation);
-	variableList->addFunctionVariableIfNotExists("x");
+	variableList->renameFunctionVariable("", "x");
 	someEquation->Compile();
 
 	Variable* functionVariable = variableList->getFunctionVariable("x");
 	functionVariable->initialValues[0] = 1.0f;
 
-	variableList->setVariable("kA", 19.0f);
-
-	//std::cout << "Some equation's function name: " << someEquation->functionName << std::endl;
+	variableList->setVariable("kA", 3.0f); // Used to be 19.0f :)
 
 	graphManager->redrawCurves();
 
-	menuGUI = new MenuGUI(equationList, variableList);
+	menuGUI = new MenuGUI(equationList, variableList, graphManager);
 	equationGUI = new EquationGUI(equationList, variableList, graphManager);
 
 	mySliderValue = 1.0f;
@@ -166,10 +164,8 @@ void Application::loop()
 		glfwGetWindowSize(window->window, &width, &height);
 		// set viewport
 		int graphWidth = width - 400;
-		int graphHeight = height - 100;
+		int graphHeight = height - 40;
 		glViewport(400, 0, graphWidth, graphHeight);
-
-		menuGUI->construct(width, height);
 
 		textManager->updateTextProjection(graphWidth, graphHeight);
 
@@ -206,33 +202,13 @@ void Application::loop()
 			continue;
 		}
 
+		menuGUI->construct(width, height);
+
 		equationGUI->construct(width, height);
 
-		ImGui::ShowDemoWindow();
+		//ImGui::ShowDemoWindow();
 
 		graphManager->render(graphWidth, graphHeight, equationGUI->isHoveringImGui);
-
-		if (input->getKeyDown(GLFW_KEY_E))
-		{
-			std::cout << variableLog["time"].val<double>() << std::endl;
-		}
-
-		/*
-		textManager->renderFloatScientific("jetbrainsmono", 100.0f, 0.0f, height, glm::vec2(0.5f, 0.5f), glm::vec3(0.9f, 0.9f, 0.9f),
-										   glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 0.0f),
-										   true);
-		*/
-		//textManager->renderFloatScientific("jetbrainsmono", 100.0f, (float)graphWidth / 2, (float)graphHeight / 2, glm::vec2(1.0f, 1.0f), glm::vec3(1.0f),
-										   //glm::vec2(-1.0f, 1.0f), glm::vec2(0.0f),
-										   //false);
-
-		/*
-		ImGui::SetNextWindowSize(ImVec2(400.0f, 400.0f));
-		ImGui::Begin("My new window");
-		ImGui::SliderFloatWithSteps("My Slider", &mySliderValue, -10.0f, 10.0f, 0.1f, "%.3f");
-		ImGui::End();
-		*/
-		//std::cout << "My equation's function name: " << equationList->GetEquation(0)->functionName << std::endl;
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -14,7 +14,10 @@ class VariableList
 		VariableList(EquationList* equationList);
 
 		bool addVariableIfNotExists(std::string name);
+		bool addVariableIfNotExists(Variable* variable);
+
 		bool addFunctionVariableIfNotExists(std::string name);
+		bool addFunctionVariableIfNotExists(Variable* functionVariable);
 
 		void setVariable(std::string name, float value);
 		void changeVariableBy(std::string name, float value);
@@ -29,6 +32,8 @@ class VariableList
 		void removeFunctionVariable(std::string name);
 
 		int VariableCount();
+
+		void Clear();
 
 		std::unordered_map<std::string, Variable*> functionVariableList;
 	private:

@@ -1,0 +1,2 @@
+[Equation]
+x + 1

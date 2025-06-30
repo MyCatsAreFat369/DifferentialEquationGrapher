@@ -35,25 +35,29 @@ bool VariableList::addVariableIfNotExists(std::string name)
 	variableOrder.push_back(name);
 	variableList[name] = new Variable(CONSTANT_VARIABLE, name);
 
-	std::cout << "WHY AM I ADDING!\n";
 	return true;
 }
 
+/*
+
+*/
 bool VariableList::addFunctionVariableIfNotExists(std::string name)
 {
 	// Never ever
 	if(name == "") return false;
 
-	// Check if the function variable is inside of there before thinking about creating it
-	if(functionVariableList.find(name) != functionVariableList.end()) return true;
-
 	if(name.size() <= 0 || name.size() > VARIABLE_MAX_NAME_LENGTH) return false;
+
+	if(name == "t" || name == "-t") return false;
 
 	// Returns if it's a constant type (e, pi)
 	for (int i = 0; i < CONSTANTS_COUNT; i++)
 	{
 		if(name == constants[i]) return false;
 	}
+
+	// Check if the function variable is inside of there before thinking about creating it
+	if(functionVariableList.find(name) != functionVariableList.end()) return true;
 
 	// Add it
 	functionVariableList[name] = new Variable(FUNCTION_VARIABLE, name);
@@ -112,6 +116,13 @@ int VariableList::updateVariableName(int id, char* newName)
 	if (variableList.find(newName) != variableList.end() ||
 		functionVariableList.find(newName) != functionVariableList.end()) return 1;
 
+	if(newName == "t" || newName == "-t") return 1;
+
+	for (int i = 0; i < CONSTANTS_COUNT; i++)
+	{
+		if(newName == constants[i] || newName == "-" + constants[i]) return 1;
+	}
+
 	Variable* variable = variableList[variableOrder[id]];
 
 	variableList.erase(variableOrder[id]);
@@ -169,4 +180,12 @@ void VariableList::removeFunctionVariable(std::string name)
 int VariableList::VariableCount()
 {
 	return variableOrder.size();
+}
+
+
+void VariableList::Clear()
+{
+	functionVariableList.clear();
+	variableList.clear();
+	variableOrder.clear();
 }

@@ -224,9 +224,6 @@
     <ClInclude Include="header\gui\menuGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\plugins\ImFileBrowser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\myOpenGLImage.png">
@@ -235,5 +232,9 @@
     <Image Include="res\Textures\crepe_girl.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\Graphs\myGraph.txt" />
+    <Text Include="res\config\config.txt" />
   </ItemGroup>
 </Project>

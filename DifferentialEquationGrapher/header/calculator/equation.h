@@ -44,6 +44,8 @@ class Equation
 		void setFunctionName(char* functionName);
 		void setFunctionName(std::string functionName);
 
+		void generateCharFromString(std::string str, char* charArray, int size);
+
 		char* getEquationLeftSide();
 
 		void replaceVariableInEquation(std::string oldVariable, std::string newVariable);
@@ -55,7 +57,7 @@ class Equation
 
 		bool isValidEquation();
 
-		void Delete();
+		void Delete(); 
 
 		std::string formula = "";
 		char* formulaChar = new char[4096];

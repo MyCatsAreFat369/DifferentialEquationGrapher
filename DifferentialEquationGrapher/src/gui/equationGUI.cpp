@@ -30,8 +30,8 @@ void EquationGUI::construct(int width, int height)
 	keepWindowActive = NULL;
 
 	isHoveringImGui = false;
-	ImGui::SetNextWindowSize(ImVec2(400.0f, (height - 100.0f) / 2));
-	ImGui::SetNextWindowPos(ImVec2(0.0f, 100.0f));
+	ImGui::SetNextWindowSize(ImVec2(400.0f, (height - 40.0f) / 2));
+	ImGui::SetNextWindowPos(ImVec2(0.0f, 40.0f));
 	ImGui::Begin("Equations", keepWindowActive, window_flags);
 	if (ImGui::Button("Create New Equation"))
 	{
@@ -66,8 +66,8 @@ void EquationGUI::construct(int width, int height)
 	ImGui::EndChild();
 	ImGui::End();
 
-	ImGui::SetNextWindowSize(ImVec2(400.0f, (height - 100.0f) / 2));
-	ImGui::SetNextWindowPos(ImVec2(0.0f, (height + 100.0f) / 2));
+	ImGui::SetNextWindowSize(ImVec2(400.0f, (height - 40.0f) / 2));
+	ImGui::SetNextWindowPos(ImVec2(0.0f, (height + 40.0f) / 2));
 	ImGui::Begin("Variables", keepWindowActive, window_flags);
 	if (ImGui::Button("Create New Variable"))
 	{

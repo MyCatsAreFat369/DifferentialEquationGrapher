@@ -39,8 +39,6 @@ bool isFunction(std::string token);
 bool isFloat(std::string token);
 bool isVariable(std::string token);
 
-void generateCharFromString(std::string str, char* charArray, int size);
-
 Equation::Equation(EquationList* equationList, VariableList* variableList)
 {
 	this->formula = "";
@@ -874,7 +872,7 @@ bool isVariable(std::string token)
 	return variableRequirementStr.find(token[0]) != std::string::npos;
 }
 
-void generateCharFromString(std::string str, char* charArray, int size)
+void Equation::generateCharFromString(std::string str, char* charArray, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
