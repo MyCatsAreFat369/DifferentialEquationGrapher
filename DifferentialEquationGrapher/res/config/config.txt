@@ -1,5 +1,5 @@
 [Recent]
-my last graph for now.txt
-my favorite spaced file.txt
-myFavoriteGraph.txt
+my test graph for normals.txt
+new air friction.txt
+this becomes the same.txt
 

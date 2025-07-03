@@ -97,7 +97,7 @@ void MenuGUI::construct(int width, int height)
         filesCurrentlyOpen.clear();
         for (const auto& entry : fs::directory_iterator("res/Graphs/"))
         {
-            std::cout << entry.path().string() << std::endl;
+            std::cout << entry.path().filename().string() << std::endl;
             filesCurrentlyOpen.push_back(entry.path());
         }
     }
@@ -152,9 +152,9 @@ void MenuGUI::construct_popup_openfile()
 
         if (ImGui::Button("Open", ImVec2(120, 0)))
         {
-            read_file_contents(filesCurrentlyOpen[selectedFileID].string());
+            read_file_contents(filesCurrentlyOpen[selectedFileID].filename().string());
             // add open_file() function when you're finished making it
-            open_file(filesCurrentlyOpen[selectedFileID].string());
+            open_file(filesCurrentlyOpen[selectedFileID].filename().string());
             ImGui::CloseCurrentPopup();
         }
         ImGui::SetItemDefaultFocus();
@@ -226,7 +226,7 @@ void MenuGUI::construct_popup_savefile()
 void MenuGUI::read_file_contents(std::string filename)
 {
     std::string line;
-	std::ifstream in(filename);
+	std::ifstream in("res/Graphs/" + filename);
 
     fileReadLines.clear();
     
@@ -282,19 +282,31 @@ void MenuGUI::open_file(std::string filename)
     std::string line;
     std::string mode;
     std::vector<std::string> tokens;
-    int phase = 0;
+    int phase = -2;
     for (int i = 0; i < fileReadLines.size(); i++)
     {
         line = fileReadLines[i];
 
         if (line == "[Equation]")
         {
+            if (phase != -2)
+            {
+                phase = -1;
+                i -= 2; // Will become i - 1 on the next frame, where phase = -1 will be run. Then, when that phase is done, will become i and see this
+                continue;
+            }
             mode = "Equation";
             phase = 0;
             continue;
         }
         if (line == "[Variable]")
         {
+            if (phase != -2)
+            {
+                phase = -1;
+                i -= 2; // same note as above
+                continue;
+            }
             mode = "Variable";
             phase = 0;
             continue;
@@ -314,16 +326,30 @@ void MenuGUI::open_file(std::string filename)
                         break;
                     }
                     newEquation = new Equation(equationList, variableList);
-                    newEquation->SetFormula(tempEquation->formula);
                     newEquation->setFunctionName(tempEquation->functionName);
+                    newEquation->SetFormula(tempEquation->formula);
+                    newEquation->equationType = tempEquation->equationType;
+                    std::cout << newEquation->equationType << " is the equationType for this equation!\n";
                     newEquation->derivativeOrder = tempEquation->derivativeOrder;
                     newEquation->InitializeCurve(graphManager->vertexShader, graphManager->fragmentShader,
                                                  graphManager->x, graphManager->y,
                                                  graphManager->zoomX, graphManager->zoomY);
+                    newEquation->drawCurve = tempEquation->drawCurve;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        newEquation->color[i] = tempEquation->color[i];
+                    }
                     equationList->AddEquation(newEquation);
 
                     variableList->renameFunctionVariable("", tempFunctionVariable->nameChar);
                     newFunctionVariable = variableList->getFunctionVariable(tempFunctionVariable->nameChar);
+                    if (newFunctionVariable == nullptr)
+                    {
+                        std::cout << "New function variable couldn't be initialized for some reason.\n";
+                        equationList->RemoveEquation(equationList->EquationCount() - 1);
+                        phase = -2;
+                        break;
+                    }
                     for (int i = 0; i < 10; i++)
                     {
                         newFunctionVariable->initialValues[i] = tempFunctionVariable->initialValues[i];
@@ -342,8 +368,7 @@ void MenuGUI::open_file(std::string filename)
                         tempEquation->functionName = line;
                         tempEquation->generateCharFromString(tempEquation->functionName, tempEquation->functionNameChar, VARIABLE_MAX_NAME_LENGTH);
 
-                        strcpy_s(tempFunctionVariable->nameChar, VARIABLE_MAX_NAME_LENGTH, line.c_str());
-                        strcpy_s(tempFunctionVariable->nameCache, VARIABLE_MAX_NAME_LENGTH, line.c_str());
+                        tempFunctionVariable->renameVariable(line);
                     }
                     else
                     {
@@ -378,6 +403,10 @@ void MenuGUI::open_file(std::string filename)
                         case 2:
                             tempEquation->equationType = Equation::MULTI_ORDER;
                             break;
+                        case 3:
+                            std::cout << "Loaded a NORMAL EQUATION!!\n";
+                            tempEquation->equationType = Equation::NORMAL_EQUATION;
+                            break;
                         default:
                             std::cout << "Couldn't load equation type; defaulting to FIRST_ORDER..." << std::endl;
                             tempEquation->equationType = Equation::FIRST_ORDER;
@@ -391,14 +420,14 @@ void MenuGUI::open_file(std::string filename)
                     if(tmpInt >= 0 && tmpInt <= 10) tempEquation->derivativeOrder = tmpInt;
                     else
                     {
-                        std::cout << "derivativeOrder not found for line " << line << " and int " << tmpInt << std::endl;
+                        std::cout << "derivativeOrder not found for line " << line << " and int " << tmpInt << "\n";
                     }
                     phase++;
                     break;
                 case 4:
                     // drawCurve
-                    if(line == "1") tempEquation->drawCurve = true;
-                    else tempEquation->drawCurve = false;
+                    tempEquation->drawCurve = (line == "1");
+                    std::cout << "drawCurve = " << tempEquation->drawCurve << "\n";
                     phase++;
                     break;
                 case 5:
@@ -447,10 +476,16 @@ void MenuGUI::open_file(std::string filename)
                         tempFunctionVariable->initialValueSettings[i] = std::stof(tokens[i]);
                         std::cout << "Setting initialValueSettings[" << i << "] to " << tempFunctionVariable->initialValueSettings[i] << "\n";
                     }
+                    phase++;
+                    break;
+                case 8:
+                    // Collapse
+                    tempEquation->collapse = (line == "1");
+                    std::cout << "collapse = " << tempEquation->collapse << "\n";
                     phase = -1;
                     break;
                 default:
-                    std::cout << "Uh oh, something went wrong.\n";
+                    if(phase != -2) std::cout << "Uh oh, something went wrong.\n";
                     break;
             }
         }
@@ -468,6 +503,12 @@ void MenuGUI::open_file(std::string filename)
 
                     variableList->setVariable(tempVariable->nameChar, tempVariable->value);
                     newVariable = variableList->getVariable(tempVariable->nameChar);
+                    if (newVariable == nullptr)
+                    {
+                        std::cout << "New variable couldn't be initialized for some reason.\n";
+                        phase = -2;
+                        break;
+                    }
 
                     for (int i = 0; i < 3; i++)
                     {
@@ -478,8 +519,8 @@ void MenuGUI::open_file(std::string filename)
                 case 0:
                     if (line.length() >= 1 && line.length() <= VARIABLE_MAX_NAME_LENGTH)
                     {
-                        strcpy_s(tempVariable->nameChar, VARIABLE_MAX_NAME_LENGTH, line.c_str());
-                        strcpy_s(tempVariable->nameCache, VARIABLE_MAX_NAME_LENGTH, line.c_str());
+                        tempVariable->renameVariable(line);
+                        std::cout << "Variable name: " << line << "\n";
                     }
                     else
                     {
@@ -506,11 +547,33 @@ void MenuGUI::open_file(std::string filename)
                         std::cout << "Setting value for settings[" << i << "] to " << tempVariable->settings[i] << "\n";
                     }
                     phase = -1;
+                    if(i + 1 == fileReadLines.size()) fileReadLines.push_back("\n");
                     break;
             }
         }
     }
     // Compile everything at the end
+
+	for (int i = 0; i < equationList->EquationCount(); i++)
+	{
+		Equation* equation = equationList->GetEquation(i);
+
+        std::cout << "equationType = " << equation->equationType << "\n";
+
+		equation->Compile();
+	}
+
+	// Redraw curves
+	graphManager->redrawCurves();
+
+    tempEquation->Delete();
+    delete tempEquation;
+    delete tempFunctionVariable;
+    delete tempVariable;
+
+    make_file_recent(filename);
+    
+    write_config();
 }
 
 bool MenuGUI::isValidEquation(Equation* equation, Variable* functionVariable)
@@ -571,6 +634,11 @@ bool MenuGUI::save_file(std::string filename)
     for (int i = 0; i < variableList->VariableCount(); i++)
     {
         Variable* variable = variableList->getVariable(variableList->getVariableNameStr(i));
+        if (variable == nullptr)
+        {
+            std::cout << "Couldn't save variable with name " << variableList->getVariableNameStr(i) << " for some reason.\n";
+            continue;
+        }
 
         fileWriteLines.push_back("[Variable]");
         
@@ -586,23 +654,8 @@ bool MenuGUI::save_file(std::string filename)
     bool success = write_to_file(filename);
     if(!success) return false;
 
-    for (int i = 0; i < recentFiles.size(); i++)
-    {
-        if (recentFiles[i] == filename)
-        {
-            if(i == 0) break;
-
-            recentFiles.erase(recentFiles.begin() + i);
-            recentFiles.insert(recentFiles.begin(), filename);
-            break;
-        }
-        if (i + 1 == recentFiles.size())
-        {
-            if(recentFiles.size() >= RECENT_FILES_MAX_COUNT) recentFiles.erase(recentFiles.begin() + i);
-            recentFiles.insert(recentFiles.begin(), filename);
-            break;
-        }
-    }
+    make_file_recent(filename);
+    
     write_config();
     return true;
 }
@@ -612,10 +665,35 @@ void MenuGUI::split(std::vector<std::string>* vec, std::string str, char regex)
     std::string tmpStr;
     for (int i = 0; i < str.length(); i++)
     {
-        if(str[i] == regex && tmpStr != "") vec->push_back(tmpStr);
+        if(str[i] == regex && tmpStr != "")
+        {
+            vec->push_back(tmpStr);
+            tmpStr = "";
+        }
         else tmpStr += str[i];
     }
     if(tmpStr != "") vec->push_back(tmpStr);
+}
+
+void MenuGUI::make_file_recent(std::string filename)
+{
+    for (int i = 0; i < recentFiles.size(); i++)
+    {
+        if (recentFiles[i] == filename)
+        {
+            if(i == 0) return;
+
+            recentFiles.erase(recentFiles.begin() + i);
+            recentFiles.insert(recentFiles.begin(), filename);
+            return;
+        }
+        if (i + 1 == recentFiles.size())
+        {
+            if(recentFiles.size() >= RECENT_FILES_MAX_COUNT) recentFiles.erase(recentFiles.begin() + i);
+            recentFiles.insert(recentFiles.begin(), filename);
+            return;
+        }
+    }
 }
 
 void MenuGUI::read_config_recent()

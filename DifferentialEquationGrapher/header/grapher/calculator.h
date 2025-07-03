@@ -17,6 +17,7 @@ class Calculator
 		void getPointsFromMiddle(float t0, float zoomX, float zoomY);
 		void getPointsFromLeft(float t0, float zoomX, float zoomY);
 		void getPointsFromRight(float t0, float zoomX, float zoomY);
+		void getNormalPoints(float t0_left, float zoomX, float zoomY);
 
 	private:
 		EquationList* equationList;

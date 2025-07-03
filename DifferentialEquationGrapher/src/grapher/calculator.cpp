@@ -7,6 +7,8 @@
 
 #include "grapher/graphManager.h"
 
+const int REPEAT_CALCULATIONS = 1;
+
 Calculator::Calculator(EquationList* equationList, VariableList* variableList)
 {
 	this->equationList = equationList;
@@ -16,6 +18,7 @@ Calculator::Calculator(EquationList* equationList, VariableList* variableList)
 void Calculator::redrawCurves(float t0, float zoomX, float zoomY, float scaleRatio)
 {
 	getPointsFromOrigin(t0, zoomX, zoomY, scaleRatio);
+	getNormalPoints(t0, zoomX, zoomY);
 	
 	for (int i = 0; i < equationList->EquationCount(); i++)
 	{
@@ -24,7 +27,6 @@ void Calculator::redrawCurves(float t0, float zoomX, float zoomY, float scaleRat
 
 		Curve* curve = equation->curve;
 		
-		curve->Flush();
 		curve->Generate();
 	}
 }
@@ -39,7 +41,7 @@ void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY, float s
 		return;
 	}
 
-	float dt = (2.0f * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
+	float dt = (2.0f * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1) / REPEAT_CALCULATIONS;
 
 	equationList->initializeFunctionVariables(variableList);
 	
@@ -59,6 +61,8 @@ void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY, float s
 				Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
 				a = equation->Evaluate(time);
+				if(time == 0.0f) functionVariable->pre_a = a;
+				 
 				functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, false);
 			}
 			equationList->copyTempToVariables(variableList);
@@ -83,6 +87,8 @@ void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY, float s
 				Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
 				a = equation->Evaluate(time);
+				if(time == 0.0f) functionVariable->pre_a = a;
+
 				functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, true);
 			}
 			equationList->copyTempToVariables(variableList);
@@ -96,29 +102,34 @@ void Calculator::getPointsFromOrigin(float t0, float zoomX, float zoomY, float s
 
 void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 {
-	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
+	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1) / REPEAT_CALCULATIONS;
 
 	equationList->copyVariablesToCache(variableList);
 
 	float a;
 	float time = t0;
-	for (int i = (CURVE_POINTS_SIZE - 1) / 2; i < CURVE_POINTS_SIZE; i++)
+	int repeater = 0;
+	for (int i = (CURVE_POINTS_SIZE - 1) / 2; i < CURVE_POINTS_SIZE;)
 	{
 		equationList->copyVariablesToTemp(variableList);
 		for (int j = 0; j < equationList->EquationCount(); j++)
 		{
 			Equation* equation = equationList->GetEquation(j);
 			if(!equation->isValidEquation()) continue;
+			if(equation->equationType == Equation::NORMAL_EQUATION) continue;
 
 			Points* points = equation->curve->points;
 			Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
-			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
-			points->points[i * 6 + 2] = 0.0f;
-			points->points[i * 6 + 3] = 1.0f;
-			points->points[i * 6 + 4] = 1.0f;
-			points->points[i * 6 + 5] = 1.0f;
+			if (repeater % REPEAT_CALCULATIONS == 0)
+			{
+				points->points[i * 6] = time;
+				points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
+				points->points[i * 6 + 2] = 0.0f;
+				points->points[i * 6 + 3] = 1.0f;
+				points->points[i * 6 + 4] = 1.0f;
+				points->points[i * 6 + 5] = 1.0f;
+			}
 
 			if (i == (CURVE_POINTS_SIZE - 1) / 2)
 			{
@@ -131,28 +142,40 @@ void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 			}
 
 			a = equation->Evaluate(time);
+			if(i == (CURVE_POINTS_SIZE - 1) / 2) functionVariable->pre_a = a;
+
 			functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, true);
 		}
 		equationList->copyTempToVariables(variableList);
 
 		time += dt;
+
+		if (repeater % REPEAT_CALCULATIONS == 0)
+		{
+			repeater = 0;
+			i++;
+		}
+		repeater++;
 	}
 	equationList->copyCacheToVariables(variableList);
 	time = t0;
-	for (int i = (CURVE_POINTS_SIZE - 1) / 2; i > 0;)
+	repeater = 0;
+	for (int i = (CURVE_POINTS_SIZE - 1) / 2 - 1; i >= 0;)
 	{
-		i--;
 		time -= dt;
 		equationList->copyVariablesToTemp(variableList);
 		for (int j = 0; j < equationList->EquationCount(); j++)
 		{
 			Equation* equation = equationList->GetEquation(j);
 			if(!equation->isValidEquation()) continue;
+			if(equation->equationType == Equation::NORMAL_EQUATION) continue;
 
 			Points* points = equation->curve->points;
 			Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
 			a = equation->Evaluate(time);
+			if(i == (CURVE_POINTS_SIZE - 1) / 2 - 1) functionVariable->pre_a = a;
+
 			functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, false);
 
 			if (i == 0)
@@ -160,40 +183,56 @@ void Calculator::getPointsFromMiddle(float t0, float zoomX, float zoomY)
 				points->t0_left = time;
 			}
 
-			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
-			points->points[i * 6 + 2] = 0.0f;
-			points->points[i * 6 + 3] = 1.0f;
-			points->points[i * 6 + 4] = 1.0f;
-			points->points[i * 6 + 5] = 1.0f;
+			if (repeater % REPEAT_CALCULATIONS == 0)
+			{
+				points->points[i * 6] = time;
+				points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
+				points->points[i * 6 + 2] = 0.0f;
+				points->points[i * 6 + 3] = 1.0f;
+				points->points[i * 6 + 4] = 1.0f;
+				points->points[i * 6 + 5] = 1.0f;
+			}
 		}
 		equationList->copyTempToVariables(variableList);
+
+		if (repeater % REPEAT_CALCULATIONS == 0)
+		{
+			repeater = 0;
+			i--;
+			if(i < 0) break;
+		}
+		repeater++;
 	}
 }
 
 void Calculator::getPointsFromLeft(float t0, float zoomX, float zoomY) // do this when panning to the right
 {
-	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1);
+	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1) / REPEAT_CALCULATIONS;
 
 	float a;
 	float time = t0;
-	for (int i = 0; i < CURVE_POINTS_SIZE; i++)
+	int repeater = 0;
+	for (int i = 0; i < CURVE_POINTS_SIZE;)
 	{
 		equationList->copyVariablesToTemp(variableList);
 		for (int j = 0; j < equationList->EquationCount(); j++)
 		{
 			Equation* equation = equationList->GetEquation(j);
 			if(!equation->isValidEquation()) continue;
+			if(equation->equationType == Equation::NORMAL_EQUATION) continue;
 
 			Points* points = equation->curve->points;
 			Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
 
-			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
-			points->points[i * 6 + 2] = 0.0f;
-			points->points[i * 6 + 3] = 1.0f;
-			points->points[i * 6 + 4] = 1.0f;
-			points->points[i * 6 + 5] = 1.0f;
+			if (repeater % REPEAT_CALCULATIONS == 0)
+			{
+				points->points[i * 6] = time;
+				points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
+				points->points[i * 6 + 2] = 0.0f;
+				points->points[i * 6 + 3] = 1.0f;
+				points->points[i * 6 + 4] = 1.0f;
+				points->points[i * 6 + 5] = 1.0f;
+			}
 
 			if (i == 0)
 			{
@@ -210,11 +249,20 @@ void Calculator::getPointsFromLeft(float t0, float zoomX, float zoomY) // do thi
 			}
 
 			a = equation->Evaluate(time);
+			if(i == 0) functionVariable->pre_a = a;
+
 			functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, true);
 		}
 		equationList->copyTempToVariables(variableList);
 		
 		time += dt;
+
+		if (repeater % REPEAT_CALCULATIONS == 0)
+		{
+			repeater = 0;
+			i++;
+		}
+		repeater++;
 	}
 }
 
@@ -224,9 +272,9 @@ void Calculator::getPointsFromRight(float t0, float zoomX, float zoomY) // do th
 
 	float a;
 	float time = t0;
-	for (int i = CURVE_POINTS_SIZE; i > 0;)
+	int repeater = 0;
+	for (int i = CURVE_POINTS_SIZE - 1; i >= 0;)
 	{
-		i--;
 		time -= dt;
 
 		equationList->copyVariablesToTemp(variableList);
@@ -234,6 +282,7 @@ void Calculator::getPointsFromRight(float t0, float zoomX, float zoomY) // do th
 		{
 			Equation* equation = equationList->GetEquation(j);
 			if(!equation->isValidEquation()) continue;
+			if(equation->equationType == Equation::NORMAL_EQUATION) continue;
 
 			Points* points = equation->curve->points;
 			Variable* functionVariable = variableList->getFunctionVariable(equation->functionName);
@@ -252,15 +301,69 @@ void Calculator::getPointsFromRight(float t0, float zoomX, float zoomY) // do th
 			}
 
 			a = equation->Evaluate(time);
+			if(i + 1 == CURVE_POINTS_SIZE) functionVariable->pre_a = a;
+
 			functionVariable->changeDerivativeValues(equation->derivativeOrder, a, dt, false);
 		
+			if (repeater % REPEAT_CALCULATIONS == 0)
+			{
+				points->points[i * 6] = time;
+				points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
+				points->points[i * 6 + 2] = 0.0f;
+				points->points[i * 6 + 3] = 1.0f;
+				points->points[i * 6 + 4] = 1.0f;
+				points->points[i * 6 + 5] = 1.0f;
+			}
+		}
+		equationList->copyTempToVariables(variableList);
+
+		if (repeater % REPEAT_CALCULATIONS == 0)
+		{
+			repeater = 0;
+			i--;
+			if(i < 0) break;
+		}
+		repeater++;
+	}
+}
+
+void Calculator::getNormalPoints(float t0, float zoomX, float zoomY)
+{
+	float dt = (2 * CURVE_RADIUS_PER_WIDTH / zoomX) / (CURVE_POINTS_SIZE - 1) / REPEAT_CALCULATIONS;
+
+	float time = t0 - (CURVE_RADIUS_PER_WIDTH / zoomX);
+	for (int i = 0; i < CURVE_POINTS_SIZE; i++)
+	{
+		for (int j = 0; j < equationList->EquationCount(); j++)
+		{
+			Equation* equation = equationList->GetEquation(j);
+			if(!equation->isValidEquation()) continue;
+			if(equation->equationType != Equation::NORMAL_EQUATION) continue;
+
+			Points* points = equation->curve->points;
+
 			points->points[i * 6] = time;
-			points->points[i * 6 + 1] = functionVariable->derivativeValuesTemp[0];
+			points->points[i * 6 + 1] = equation->Evaluate(time);
 			points->points[i * 6 + 2] = 0.0f;
 			points->points[i * 6 + 3] = 1.0f;
 			points->points[i * 6 + 4] = 1.0f;
 			points->points[i * 6 + 5] = 1.0f;
+
+			if (i == 0)
+			{
+				points->t0_left = time;
+			}
+			if (i == (CURVE_POINTS_SIZE - 1) / 2)
+			{
+				points->t0 = time;
+			}
+			if (i == CURVE_POINTS_SIZE - 1)
+			{
+				points->t0_right = time;
+				continue;
+			}
 		}
-		equationList->copyTempToVariables(variableList);
+		
+		time += dt;
 	}
 }

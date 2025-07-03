@@ -67,6 +67,16 @@ Equation* EquationList::GetEquation(int id)
 	return equations[id];
 }
 
+Equation* EquationList::GetEquation(std::string functionName)
+{
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(equation->functionName == functionName || "-" + equation->functionName == functionName) return equation;
+	}
+	return nullptr;
+}
+
 char* EquationList::GetEquationName(int id)
 {
 	if(id < 0 || id >= equationNames.size()) return equationNames[0];
@@ -79,7 +89,7 @@ int EquationList::EquationCount()
 	return equations.size();
 }
 
-bool EquationList::variableNameExistsAsFunction(std::string name)
+bool EquationList::variableNameExistsAsDifferentialEquation(std::string name)
 {
 	// Return if it's in derivative form (y1, f5, etc)
 	if(intDigits.find(name[name.length() - 1]) != std::string::npos) return true;
@@ -88,7 +98,22 @@ bool EquationList::variableNameExistsAsFunction(std::string name)
 	for (int i = 0; i < EquationCount(); i++)
 	{
 		Equation* equation = GetEquation(i);
-		if(equation->functionName == name || "-" + equation->functionName == name) return true;
+		if ((equation->functionName == name || "-" + equation->functionName == name) &&
+			equation->equationType != Equation::NORMAL_EQUATION) return true;
+	}
+
+	return false;
+}
+
+bool EquationList::variableNameExistsAsNormalEquation(std::string name)
+{
+	// Check if normal equation
+	for (int i = 0; i < EquationCount(); i++)
+	{
+		Equation* equation = GetEquation(i);
+		if(equation->functionName == "") continue;
+		if(equation->equationType != Equation::NORMAL_EQUATION) continue;
+		if (equation->functionName == name || "-" + equation->functionName == name) return true;
 	}
 
 	return false;

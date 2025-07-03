@@ -28,6 +28,7 @@ void EquationGUI::construct(int width, int height)
 	window_flags |= ImGuiWindowFlags_NoCollapse;
 	window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
 	keepWindowActive = NULL;
+	keepTabsActive = NULL;
 
 	isHoveringImGui = false;
 	ImGui::SetNextWindowSize(ImVec2(400.0f, (height - 40.0f) / 2));
@@ -97,53 +98,49 @@ bool EquationGUI::construct_equation_element(int id)
 {
 	Equation* equation = equationList->GetEquation(id);
 	int derivativeOrder = equation->derivativeOrder;
-	if (!ImGui::CollapsingHeader(equationList->GetEquationName(id), ImGuiTreeNodeFlags_DefaultOpen)) return false;
+	if (!ImGui::CollapsingHeader(equationList->GetEquationName(id), ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		equation->init = true;
+		return false;
+	}
 
 	// Type of differential equation (First-Order, Second-Order, etc)
 	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+	static const char* equationTypeNames[4] = {"First-Order", "Second-Order", "Multi-Order", "Normal"};
     if (ImGui::BeginTabBar("Differential Equation Types", tab_bar_flags))
     {
-        if (ImGui::BeginTabItem("First-Order"))
-        {
-			if (equation->equationType != Equation::FIRST_ORDER)
+		int equationTypeID = equation->equationType;
+		for (int i = 0; i < 4; i++)
+		{
+			bool itemClicked = false;
+			if (ImGui::BeginTabItem(equationTypeNames[i], keepTabsActive,
+				equationTypeID == i && !equation->init ? ImGuiTabItemFlags_SetSelected : ImGuiTabItemFlags_None))
 			{
-				equation->equationType = Equation::FIRST_ORDER;
-				equation->derivativeOrder = 1;
+				itemClicked = ImGui::IsItemClicked() || itemClicked;
+				ImGui::EndTabItem();
+			}
+			itemClicked = ImGui::IsItemClicked() || itemClicked;
+			if (itemClicked && equation->equationType != i)
+			{
+				std::cout << "prev equationType was " << equation->equationType << " and now it is " << i << "\n";
+				equation->setEquationType(i);
+				equation->derivativeOrder = (i == 3 ? 0 : i + 1); // derivativeOrder is 0 when NORMAL_EQUATION otherwise 1, 2, or 3
 
 				graphManager->redrawCurves();
 			}
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Second-Order"))
-        {
-			if (equation->equationType != Equation::SECOND_ORDER)
-			{
-				equation->equationType = Equation::SECOND_ORDER;
-				equation->derivativeOrder = 2;
-
-				graphManager->redrawCurves();
-			}
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Multi-Order"))
-        {
-			if (equation->equationType != Equation::MULTI_ORDER)
-			{
-				equation->equationType = Equation::MULTI_ORDER;
-				equation->derivativeOrder = 3;
-
-				graphManager->redrawCurves();
-			}
-            ImGui::EndTabItem();
-        }
+			
+		}
+		// consider changing this to use equationTypeID and a loop!
 		if (ImGui::TabItemButton("x"))
 		{
 			std::cout << "WILL DELETE THIS EQUATION!" << std::endl;
 			variableList->removeFunctionVariable(equation->functionName);
 			equationList->RemoveEquation(id);
-			graphManager->redrawCurves();
+			compile_all_equations();
 
 			ImGui::EndTabBar();
+
+			equation->init = true;
 			return true;
 		}
         ImGui::EndTabBar();
@@ -181,6 +178,16 @@ bool EquationGUI::construct_equation_element(int id)
 			// notify user of error (make error GUI popups)
 			std::cout << "Not letting ya!\n";
 		}
+	}
+	ImGui::SameLine();
+	if (ImGui::Button(equation->collapse ? "Expand" : "Collapse"))
+	{
+		equation->collapse = !equation->collapse;
+	}
+	if (equation->collapse)
+	{
+		equation->init = true;
+		return false;
 	}
 
 	// Variables
@@ -250,6 +257,7 @@ bool EquationGUI::construct_equation_element(int id)
 	ImGui::ColorEdit3("color", equation->color);
 	isHoveringImGui = isHoveringImGui || ImGui::IsWindowHovered() || ImGui::IsAnyItemHovered();
 
+	equation->init = true;
 	return false;
 }
 
@@ -257,6 +265,7 @@ bool EquationGUI::construct_variable_element(int id)
 {
 	std::string variableNameStr = variableList->getVariableNameStr(id);
 	Variable* variable = variableList->getVariable(variableNameStr);
+	if(variable == nullptr) return false;
 	if(variable->variableType == FUNCTION_VARIABLE) return false;
 
 	// Make sure header name isn't x, because we have an x button
@@ -306,8 +315,6 @@ bool EquationGUI::construct_variable_element(int id)
 		}
 	}
 
-	
-
 	if (variable->currentlyEditingID == 1)
 	{
 		if (ImGui::InputFloat("value ", &(variable->value)))
@@ -315,6 +322,8 @@ bool EquationGUI::construct_variable_element(int id)
 			variable->value = variable->settings[2] * floorf(variable->value / variable->settings[2]);
 			if(variable->value > variable->settings[1]) variable->value = variable->settings[1];
 			if(variable->value < variable->settings[0]) variable->value = variable->settings[0];
+
+			graphManager->redrawCurves();
 		}
 	}
 	else if (ImGui::SliderFloatWithSteps("value", &variable->value, variable->settings[0], variable->settings[1], variable->settings[2], "%.3f"))
@@ -372,6 +381,14 @@ void EquationGUI::compile_all_equations()
 		Equation* equation = equationList->GetEquation(i);
 
 		equation->Compile();
+	}
+
+	// Check for errors
+	for (int i = 0; i < equationList->EquationCount(); i++)
+	{
+		Equation* equation = equationList->GetEquation(i);
+
+		equation->ErrorCheck();
 	}
 
 	// Redraw curves
@@ -447,6 +464,7 @@ void EquationGUI::VariableListDebugPanel()
 		for (int i = 0; i < variableList->VariableCount(); i++)
 		{
 			Variable* variable = variableList->getVariable(variableList->getVariableNameStr(i));
+			if(variable == nullptr) continue;
 			ImGui::Text(variable->nameChar);
 		}
 	}

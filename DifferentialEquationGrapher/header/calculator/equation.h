@@ -16,6 +16,7 @@ class Token
 		{
 			CONSTANT,
 			VARIABLE,
+			FUNCTION_VARIABLE,
 			FUNCTION,
 			OPERATOR
 		};
@@ -44,6 +45,8 @@ class Equation
 		void setFunctionName(char* functionName);
 		void setFunctionName(std::string functionName);
 
+		void setEquationType(int typeID);
+
 		void generateCharFromString(std::string str, char* charArray, int size);
 
 		char* getEquationLeftSide();
@@ -53,11 +56,15 @@ class Equation
 		void InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float x, float y, float zoomX, float zoomY);
 
 		void Compile();
+		void ErrorCheck();
+		bool CheckForCircularDependency(std::vector<std::string> dependencies);
 		float Evaluate(float time);
 
 		bool isValidEquation();
 
 		void Delete(); 
+
+		bool init = false;
 
 		std::string formula = "";
 		char* formulaChar = new char[4096];
@@ -71,12 +78,14 @@ class Equation
 		Curve* curve;
 		bool drawCurve = true;
 		float color[3] = {1.0f, 1.0f, 1.0f};
+		bool collapse = false;
 
 		enum EquationType
 		{
 			FIRST_ORDER,
 			SECOND_ORDER,
-			MULTI_ORDER
+			MULTI_ORDER,
+			NORMAL_EQUATION
 		};
 
 		EquationType equationType = FIRST_ORDER;
@@ -86,6 +95,9 @@ class Equation
 		std::vector<std::string> preQueue;
 		std::vector<Token> queue;
 		std::vector<float> evalStack;
+		std::vector<std::string> dependencies;
+		bool invalidEquation;
+		//std::vector<std::string> tmpDependencies;
 
 		std::vector<char*> tokensChar;
 		std::vector<char*> queueChar;
@@ -98,9 +110,18 @@ class Equation
 		void encloseInParenthesis(int i, bool ignoreNextToken);
 		void encloseFunctionInParenthesis(int i);
 
+		std::string getPossibleFunction(std::string formula, int i);
+		
+		int getTickMarks(std::string formula, int i);
+		bool isOperator(std::string token);
+		bool isFloat(std::string token);
+		bool isPredefinedFunction(std::string token);
+		bool isFunction(std::string token);
+		bool isVariable(std::string token);
+
 		EquationList* equationList;
 		VariableList* variableList;
-		char equationLeftSide[8];
+		//char equationLeftSide[8];
 };
 
 #endif

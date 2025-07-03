@@ -12,38 +12,13 @@ Curve::Curve(Points* points, float initialX, float initialY, float initialScaleX
 	this->scaleX = initialScaleX;
 	this->scaleY = initialScaleY;
 
-	//delete indices;
-}
-
-void Curve::Flush()
-{
-	if (VAO1 != nullptr)
-	{
-		VAO1->Delete();
-		delete VAO1;
-	}
-	if (VBO1 != nullptr)
-	{
-		VBO1->Delete();
-		delete VBO1;
-	}
-	if (EBO1 != nullptr)
-	{
-		EBO1->Delete();
-		delete EBO1;
-	}
-}
-
-void Curve::Generate()
-{
 	VAO1 = new VAO();
-	VAO1->Bind();
 
 	GLsizeiptr size = sizeof(points->points);
+	VBO1 = new VBO(size);
 
-	VBO1 = new VBO(points->points, size);
-
-	//GLuint* indices = new GLuint[(CURVE_POINTS_SIZE - 1) * 2];
+	GLsizeiptr sizeIndices = sizeof(points->indices);
+	EBO1 = new EBO(sizeIndices);
 
 	for (int i = 0; i < CURVE_POINTS_SIZE - 1; i++)
 	{
@@ -51,8 +26,19 @@ void Curve::Generate()
 		points->indices[(2 * i) + 1] = i + 1;
 	}
 
-	GLsizeiptr sizeIndices = sizeof(points->indices);
-	EBO1 = new EBO(points->indices, sizeIndices);
+	EBO1->Bind();
+	EBO1->Buffer(points->indices);
+	EBO1->Unbind();
+}
+
+void Curve::Generate()
+{
+	VAO1->Bind();
+
+	VBO1->Bind();
+	VBO1->Buffer(points->points);
+
+	EBO1->Bind();
 
 	VAO1->LinkAttrib(*VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1->LinkAttrib(*VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));

@@ -35,6 +35,7 @@ class Variable
 		float derivativeValues[10];
 		float derivativeValuesTemp[10];
 		float derivativeValuesCache[10];
+		float pre_a;
 
 		float initialValues[10];
 		float initialValueSettings[30];
@@ -49,14 +50,16 @@ class Variable
 		}
 		void changeDerivativeValues(int derivativeOrder, float a, float dt, bool direction)
 		{
-			if(direction) derivativeValuesTemp[derivativeOrder - 1] += a * dt;
-			else derivativeValuesTemp[derivativeOrder - 1] -= a * dt;
+			if(direction) derivativeValuesTemp[derivativeOrder - 1] += (pre_a + a) * dt / 2;
+			else derivativeValuesTemp[derivativeOrder - 1] -= (pre_a + a) * dt / 2;
 			for (int i = derivativeOrder - 1; i > 0;)
 			{
 				i--;
-				if(direction) derivativeValuesTemp[i] += derivativeValues[i + 1] * dt;
-				else derivativeValuesTemp[i] -= derivativeValues[i + 1] * dt;
+				if (direction) derivativeValuesTemp[i] += (derivativeValues[i + 1] + derivativeValuesTemp[i + 1]) * dt / 2;
+				else derivativeValuesTemp[i] -= (derivativeValues[i + 1] + derivativeValuesTemp[i + 1]) * dt / 2;
 			}
+
+			pre_a = a;
 		}
 		void copyCurrentToTemp(int derivativeOrder)
 		{

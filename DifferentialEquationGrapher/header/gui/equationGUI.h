@@ -19,6 +19,7 @@ class EquationGUI
 		GraphManager* graphManager;
 
 		bool* keepWindowActive;
+		bool* keepTabsActive;
 
 		bool construct_equation_element(int id);
 		bool construct_variable_element(int id);

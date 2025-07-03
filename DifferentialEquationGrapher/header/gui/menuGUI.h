@@ -38,6 +38,8 @@ class MenuGUI
 
 		void split(std::vector<std::string>* vec, std::string str, char regex);
 
+		void make_file_recent(std::string filename);
+
 		void read_config_recent();
 		void write_config();
 

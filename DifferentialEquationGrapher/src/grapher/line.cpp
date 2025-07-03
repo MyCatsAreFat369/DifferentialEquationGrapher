@@ -23,7 +23,9 @@ Line::Line(float x, float y, float scaleX, float scaleY, float r, float g, float
 		1.0f, 1.0f, 0.0f,		r, g, b
 	};
 
-	VBO1 = new VBO(points, sizeof(points));
+	VBO1 = new VBO(sizeof(points));
+	VBO1->Bind();
+	VBO1->Buffer(points);
 
 	VAO1->LinkAttrib(*VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1->LinkAttrib(*VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));

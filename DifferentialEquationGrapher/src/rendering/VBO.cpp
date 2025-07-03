@@ -1,10 +1,19 @@
 #include "rendering/VBO.h"
 
-VBO::VBO(GLfloat* vertices, GLsizeiptr size)
+VBO::VBO(GLsizeiptr size)
 {
+	this->size = size;
+
 	glGenBuffers(1, &ID);
-	glBindBuffer(GL_ARRAY_BUFFER, ID);
-	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+
+	Bind();
+	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_STATIC_DRAW);
+	Unbind();
+}
+
+void VBO::Buffer(GLfloat* vertices)
+{
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, vertices);
 }
 
 void VBO::Bind()

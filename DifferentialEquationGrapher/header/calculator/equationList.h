@@ -15,11 +15,13 @@ class EquationList
 		void AddEquation(Equation* equation);
 		void RemoveEquation(int id);
 		Equation* GetEquation(int id);
+		Equation* GetEquation(std::string functionName);
 		char* GetEquationName(int id);
 
 		int EquationCount();
 
-		bool variableNameExistsAsFunction(std::string name);
+		bool variableNameExistsAsDifferentialEquation(std::string name);
+		bool variableNameExistsAsNormalEquation(std::string name);
 
 		void initializeFunctionVariables(VariableList* variableList);
 		void copyVariablesToTemp(VariableList* variableList);

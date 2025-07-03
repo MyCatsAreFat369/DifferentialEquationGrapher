@@ -84,7 +84,7 @@ void VariableList::changeVariableBy(std::string name, float value)
 
 Variable* VariableList::getVariable(std::string name)
 {
-	if(!addVariableIfNotExists(name)) return variableList[variableOrder[0]];
+	if(!addVariableIfNotExists(name)) return nullptr;
 
 	return variableList[name];
 }
@@ -154,6 +154,7 @@ void VariableList::removeVariable(std::string name)
 
 void VariableList::renameFunctionVariable(std::string oldName, std::string newName)
 {
+	if(variableList.find(newName) != variableList.end()) return;
 	if (functionVariableList.find(oldName) == functionVariableList.end() || oldName == "")
 	{
 		functionVariableList[newName] = new Variable(FUNCTION_VARIABLE, newName);

@@ -1,6 +1,6 @@
 [Equation]
 x
--5 * x
+-x
 0
 1
 1
