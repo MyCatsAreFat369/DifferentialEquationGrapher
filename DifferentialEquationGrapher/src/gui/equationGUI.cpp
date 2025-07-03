@@ -88,8 +88,8 @@ void EquationGUI::construct(int width, int height)
 	ImGui::EndChild();
 	ImGui::End();
 
-	//if(equationList->EquationCount() <= 0) return;
-	//EquationDebugPanel(equationList->GetEquation(0));
+	if(equationList->EquationCount() <= 0) return;
+	EquationDebugPanel(equationList->GetEquation(0));
 
 	//VariableListDebugPanel();
 }

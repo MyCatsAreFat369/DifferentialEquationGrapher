@@ -783,6 +783,24 @@ void Equation::Pemdas()
 		i++;
 	}
 
+	// Check for subtraction ( PEMDAS applies! see: -1 - (1 - 3) vs (-1 - 1) - 3 )
+	for (int i = 0; i < tokens.size(); i++)
+	{
+		if(tokens[i] != "-") continue;
+
+		std::string nextToken = "";
+		if(i + 1 <= tokens.size() - 1) nextToken = tokens[i + 1];
+
+		if (isFunction(nextToken))
+		{
+			encloseInParenthesis(i, true);
+		}
+		else encloseInParenthesis(i, false);
+
+		i++;
+	}
+
+
 	// Done!
 }
 
@@ -1034,9 +1052,10 @@ bool Equation::isOperator(std::string token)
 
 std::string Equation::getPossibleFunction(std::string formula, int i)
 {
-	for (int j = 1; j <= 4; j++)
+	// Start with big and end with small
+	for (int j = 5; j >= 2; j--)
 	{
-		if(i + j - 1 > formula.length() - 1) return "0";
+		if(i + j - 1 > formula.length() - 1) continue; // remainder of formula doesn't contain a string that long? continue
 
 		std::string possibleFunc = formula.substr(i, j);
 
@@ -1044,8 +1063,8 @@ std::string Equation::getPossibleFunction(std::string formula, int i)
 		if(j == 3 && (possibleFunc == "sin" || possibleFunc == "cos" || possibleFunc == "tan")) return possibleFunc;
 		if(j == 4 && (possibleFunc == "asin" || possibleFunc == "acos" || possibleFunc == "atan" ||
 						possibleFunc == "sinh" || possibleFunc == "cosh" || possibleFunc == "tanh")) return possibleFunc;
-		if(j == 5 && (possibleFunc == "asinh" || possibleFunc == "acosh" || possibleFunc == "atanh")) return possibleFunc;
-		if(j == 5) return "0"; // returns if j == 5 for custom functions, since the character limit for names is 4
+		if(j == 5 && (possibleFunc == "asinh" || possibleFunc == "acosh" || possibleFunc == "atanh")) return possibleFunc; // These run first
+		if(j == 5) continue; // continues if j == 5 for custom functions, since the character limit for names is 4
 
 		if(equationList->variableNameExistsAsNormalEquation(possibleFunc)) return possibleFunc;
 	}
