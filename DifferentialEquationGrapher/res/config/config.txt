@@ -1,5 +1,5 @@
 [Recent]
+the first graph that features functions.txt
+this graph is x^2 somehow.txt
 in progress1.txt
-my test graph for normals.txt
-new air friction.txt
 

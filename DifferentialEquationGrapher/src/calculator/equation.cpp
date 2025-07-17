@@ -227,6 +227,7 @@ void Equation::Compile()
 	// Get token characters
 	for (int i = 0; i < tokens.size(); i++)
 	{
+		std::cout << tokens[i] << "\n";
 		char* tokenChar = new char [tokens[i].length() + 1];
 		strcpy_s(tokenChar, (tokens[i].length() + 1) * sizeof(char), tokens[i].c_str());
 		tokensChar.push_back(tokenChar);
@@ -292,37 +293,19 @@ float Equation::Evaluate(float time)
 {
 	evalStack.clear();
 
-	/*
-	std::cout << queue.size() << std::endl;
-	//std::cout << "Queue size is " << queue.size() << std::endl;
 	for (int i = 0; i < queue.size(); i++)
 	{
-		std::cout << queue[i].tokenStr << std::endl;
-	}
-	*/
-	for (int i = 0; i < queue.size(); i++)
-	{
-		//std::cout << "Queue[i] is " << &queue[i] << std::endl;
+		//if(time == 0) std::cout << "Queue[i] is " << &queue[i] << std::endl;
 		Token token = queue[i];
 		
-		//std::cout << "Token is " << token.tokenStr << std::endl;
+		//if(time == 0) std::cout << "Token is " << token.tokenStr << std::endl;
 
 		if (token.tokenType == Token::OPERATOR)
 		{
-			//std::cout << "I am an operator.\n";
-
 			// Gets two previous stack elements
 			float stack1 = 0.0f, stack2 = 0.0f;
 			if(evalStack.size() >= 1) stack1 = evalStack[0];
 			if(evalStack.size() >= 2) stack2 = evalStack[1];
-
-			//std::cout << "stack1: " << stack1 << ", stack2: " << stack2 << std::endl;
-
-			//for (int j = 0; j < evalStack.size(); j++)
-			//{
-			//	std::cout << evalStack[j] << ", ";
-			//}
-			//std::cout << std::endl;
 
 			if (token.tokenStr == "+")
 			{
@@ -355,7 +338,6 @@ float Equation::Evaluate(float time)
 				continue;
 			}
 
-			//std::cout << "NO OPERATORS MATCHED...\n";
 			continue;
 		}
 
@@ -484,8 +466,6 @@ float Equation::Evaluate(float time)
 		if (token.tokenType == Token::VARIABLE)
 		{
 			Variable* variable = variableList->getVariable(token.tokenStr); // Make special functionality in VariableList that works with y5 etc
-			//std::cout << "Trying to get variable " << token.tokenStr << std::endl;
-			//std::cout << variable->value << std::endl;
 			if (variable == nullptr)
 			{
 				evalStack.insert(evalStack.begin(), 0.0f);
@@ -497,7 +477,6 @@ float Equation::Evaluate(float time)
 
 		if (token.tokenType == Token::FUNCTION_VARIABLE)
 		{
-			//std::cout << "Derivative number is " << token.derivativeNumber << " and variable is " << token.tokenStr << std::endl;
 			std::string realFuncName = token.functionName;
 			if(realFuncName[0] == '-') realFuncName = realFuncName.substr(1, realFuncName.length() - 1);
 			Variable* variable = variableList->getFunctionVariable(realFuncName);
@@ -506,9 +485,6 @@ float Equation::Evaluate(float time)
 				evalStack.insert(evalStack.begin(), 0.0f);
 				continue;
 			}
-			//std::cout << "functionName is " << token.functionName << "\n";
-			//std::cout << variable << "\n";
-			//std::cout << "token.derivativeNumber is " << token.derivativeNumber << "\n";
 			evalStack.insert(evalStack.begin(), (token.tokenStr[0] == '-' ? -1 : 1) * variable->derivativeValues[token.derivativeNumber]);
 			continue;
 		}
@@ -518,14 +494,14 @@ float Equation::Evaluate(float time)
 
 	if (evalStack.size() <= 0)
 	{
-		std::cout << "SOMETHING WENT WRONG, evalStack SIZE IS 0\n";
+		if(time == 0) std::cout << "SOMETHING WENT WRONG, evalStack SIZE IS 0\n";
 		return 0.0f;
 	}
 
 	//std::string evalResult = std::to_string(evalStack[0]);
 	//resultChar = new char [evalResult.length() + 1];
 	//strcpy_s(resultChar, (evalResult.length() + 1) * sizeof(char), evalResult.c_str());
-
+	
 	return evalStack[0];
 }
 
@@ -718,6 +694,14 @@ void Equation::Tokenize()
 	}
 
 	// Done tokenizing!
+
+	/*
+	std::cout << "formula is " << formula << ", here're the primitive tokens:\n";
+	for (int i = 0; i < tokens.size(); i++)
+	{
+		std::cout << tokens[i] << "\n";
+	}
+	*/
 }
 
 void Equation::Pemdas()
@@ -1053,7 +1037,7 @@ bool Equation::isOperator(std::string token)
 std::string Equation::getPossibleFunction(std::string formula, int i)
 {
 	// Start with big and end with small
-	for (int j = 5; j >= 2; j--)
+	for (int j = 5; j >= 1; j--)
 	{
 		if(i + j - 1 > formula.length() - 1) continue; // remainder of formula doesn't contain a string that long? continue
 

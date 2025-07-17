@@ -375,6 +375,15 @@ void EquationGUI::compile_all_equations()
 		variableList->removeVariable(equation->functionName);
 	}
 
+	/*
+	// Compile Normal Equations
+	for (int i = 0; i < equationList->EquationCount(); i++)
+	{
+		Equation* 
+	}
+	*/
+	
+
 	// Compile everything
 	for (int i = 0; i < equationList->EquationCount(); i++)
 	{
