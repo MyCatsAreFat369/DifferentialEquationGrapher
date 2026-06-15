@@ -21,6 +21,10 @@ Some limitations include:
 - Using Forward-Euler to solve all equations, which imposes limitations on the precision of the solutions
 - Can't solve boundary condition problems
 
+### Running the software
+
+You may go to the Releases section and download the latest release (there will probably be only one for now). Unzip the file and run the executable. Windows will probably warn you but that's because I haven't registered this software with Windows, probably won't do for the C++ version. You should get a screen that looks similar to the one below.
+
 ## How to use the grapher to solve ODEs
 
 Upon entering the grapher, you should see this view:
