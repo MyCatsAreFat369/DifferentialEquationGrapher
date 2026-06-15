@@ -120,6 +120,14 @@ There are a few designated function names, designed to make your life easier. Th
 - atanh
 - ln
 
+To use any sort of function, be it designated or user-defined, you may simply use the function name followed by parenthesis. The following syntax works:
+- sin(t)
+- ln(1 + f(t))
+- sin(t) * cos(t)
+
+However, you may not do:
+- sin(t)cos(t)
+
 All ODEs in this grapher use the variable **t** to describe the independent variable of the ODE. This is reminiscient of the "time" variable in physics equations, but is just flavour syntax. Unfortunately
 the grapher doesn't give you the ability to change the name of the independent variable.
 
