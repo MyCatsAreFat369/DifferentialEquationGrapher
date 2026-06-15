@@ -53,7 +53,7 @@ class Equation
 
 		void replaceVariableInEquation(std::string oldVariable, std::string newVariable);
 
-		void InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float x, float y, float zoomX, float zoomY);
+		void InitializeCurve(Shader* shader, float x, float y, float zoomX, float zoomY);
 
 		void Compile();
 		void ErrorCheck();

@@ -8,11 +8,13 @@ namespace fs = std::filesystem;
 #include "calculator/variableList.h"
 
 
-MenuGUI::MenuGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager)
+MenuGUI::MenuGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager, Shader* shader)
 {
     this->equationList = equationList;
     this->variableList = variableList;
     this->graphManager = graphManager;
+
+    this->shader = shader;
 
     //mCurrentFile = "< ... >";
 
@@ -42,7 +44,8 @@ void MenuGUI::construct(int width, int height)
             if (ImGui::MenuItem("New"))
             {
                 std::cout << "Should clear the board, or make a new one!\n";
-                // Add clearing board logic
+
+                create_default_project();
             }
             if (ImGui::MenuItem("Open"))
             {
@@ -56,7 +59,8 @@ void MenuGUI::construct(int width, int height)
                     if (ImGui::Selectable(recentFiles[i].c_str()))
                     {
                         std::cout << "Should open that recent file!\n";
-                        // Add opening recent file logic
+                        read_file_contents(recentFiles[i]);
+                        open_file(recentFiles[i]);
                     }
                 }
                 ImGui::EndMenu();
@@ -99,6 +103,7 @@ void MenuGUI::construct(int width, int height)
         {
             std::cout << entry.path().filename().string() << std::endl;
             filesCurrentlyOpen.push_back(entry.path());
+            std::cout << entry.path() << std::endl;
         }
     }
     construct_popup_openfile();
@@ -119,6 +124,37 @@ void MenuGUI::construct(int width, int height)
     construct_popup_savefile();
 
 	ImGui::End();
+}
+
+void MenuGUI::clear_project()
+{
+    while (equationList->EquationCount() >= 1)
+    {
+        equationList->RemoveEquation(0);
+    }
+    variableList->Clear();
+}
+
+void MenuGUI::create_default_project()
+{
+    clear_project();
+
+    Equation* someEquation = new Equation(equationList, variableList);
+    someEquation->SetFormula("-10 * x");
+    someEquation->setFunctionName("x");
+    someEquation->derivativeOrder = 1;
+    someEquation->InitializeCurve(shader, graphManager->x, graphManager->y, graphManager->zoomX, graphManager->zoomY);
+
+    equationList->AddEquation(someEquation);
+    variableList->renameFunctionVariable("", "x");
+    someEquation->Compile();
+
+    Variable* functionVariable = variableList->getFunctionVariable("x");
+    functionVariable->initialValues[0] = 1.0f;
+
+    variableList->setVariable("kA", 3.0f); // Used to be 19.0f :)
+
+    graphManager->redrawCurves();
 }
 
 void MenuGUI::construct_popup_openfile()
@@ -267,11 +303,7 @@ bool MenuGUI::write_to_file(std::string filename)
 
 void MenuGUI::open_file(std::string filename)
 {
-    while (equationList->EquationCount() >= 1)
-	{
-        equationList->RemoveEquation(0);
-	}
-    variableList->Clear();
+    clear_project();
 
     read_file_contents(filename);
 
@@ -331,7 +363,7 @@ void MenuGUI::open_file(std::string filename)
                     newEquation->equationType = tempEquation->equationType;
                     std::cout << newEquation->equationType << " is the equationType for this equation!\n";
                     newEquation->derivativeOrder = tempEquation->derivativeOrder;
-                    newEquation->InitializeCurve(graphManager->vertexShader, graphManager->fragmentShader,
+                    newEquation->InitializeCurve(shader,
                                                  graphManager->x, graphManager->y,
                                                  graphManager->zoomX, graphManager->zoomY);
                     newEquation->drawCurve = tempEquation->drawCurve;

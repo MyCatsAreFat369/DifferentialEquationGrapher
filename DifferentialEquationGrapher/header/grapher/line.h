@@ -13,7 +13,7 @@ class Line
 		Line();
 		Line(float x, float y, float scaleX, float scaleY);
 		Line(float x, float y, float scaleX, float scaleY, float r, float g, float b);
-		void AttachShaders(GLuint vertexShader, GLuint fragmentShader);
+		void AttachShaders(Shader* shader);
 
 		void SetColor(float r, float g, float b);
 		void Draw(int width, int height);

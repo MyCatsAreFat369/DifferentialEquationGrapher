@@ -17,8 +17,7 @@ const int CURVE_MAXIMUM_AMOUNT = 99;
 class GraphManager
 {
 	public:
-		GraphManager(GLuint vertexShader, GLuint fragmentShader,
-					 EquationList* equationList, VariableList* variableList,
+		GraphManager(Shader* shader, EquationList* equationList, VariableList* variableList,
 					 Calculator* calculator, Input* input,
 					 TextManager* textManager,
 					 float initialX, float initialY, float initialZoomX, float initialZoomY,
@@ -29,7 +28,7 @@ class GraphManager
 
 		void Delete();
 
-		GLuint vertexShader, fragmentShader;
+		Shader* shader;
 		GraphLines* graphLines;
 		//std::vector<Curve*> curves;
 		

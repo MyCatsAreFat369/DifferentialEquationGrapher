@@ -2,7 +2,7 @@
 
 #include <future>
 
-GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, TextManager* textManager,
+GraphLines::GraphLines(Shader* shader, TextManager* textManager,
 					   float initialPosX, float initialPosY, float initialZoomX, float initialZoomY)
 {
 	this->zoomX = initialZoomX;
@@ -13,20 +13,32 @@ GraphLines::GraphLines(GLuint vertexShader, GLuint fragmentShader, TextManager* 
 
 	// Initialize Axes
 	axisX = new Line(-1.0f, 0.0f, 2.0f, 0.0f, 0.5f, 0.2f, 0.2f);
-	axisX->AttachShaders(vertexShader, fragmentShader);
+	axisX->AttachShaders(shader);
 
 	axisY = new Line(0.0f, -1.0f, 0.0f, 2.0f, 0.5f, 0.2f, 0.2f);
-	axisY->AttachShaders(vertexShader, fragmentShader);
+	axisY->AttachShaders(shader);
 
 	// Initialize Lines
 	linesX = new Line[MAX_NUMBER_OF_LINES_PER_AXIS - 1];
 	linesY = new Line[MAX_NUMBER_OF_LINES_PER_AXIS - 1];
 
-	this->vertexShader = vertexShader, this->fragmentShader = fragmentShader;
+	for (int i = 0; i < MAX_NUMBER_OF_LINES_PER_AXIS - 1; i++)
+	{
+		linesX[i] = Line(0.0f, -1.0f, 0.0f, 2.0f);
+		linesY[i] = Line(-1.0f, 0.0f, 2.0f, 0.0f);
+
+		std::cout << "Loading lines with shader " << shader << "\n";
+
+		linesX[i].AttachShaders(shader);
+		linesY[i].AttachShaders(shader);
+	}
+
+	this->shader = shader;
 
 	this->textManager = textManager;
 }
 
+/*
 void GraphLines::loadNextLines()
 {
 	if(allLinesLoaded()) return;
@@ -38,6 +50,7 @@ void GraphLines::loadNextLines()
 
 	linesLoaded++;
 }
+*/
 
 bool GraphLines::allLinesLoaded()
 {

@@ -16,7 +16,7 @@ class Curve
 		Curve(Points* points, float initialX, float initialY, float initialScaleX, float initialScaleY);
 		void Flush();
 		void Generate();
-		void AttachShaders(GLuint vertexShader, GLuint fragmentShader);
+		void AttachShaders(Shader* shader);
 
 		void UpdatePosition(float x, float y);
 		void UpdateScale(float scaleX, float scaleY);

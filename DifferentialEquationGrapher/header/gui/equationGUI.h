@@ -8,7 +8,7 @@
 class EquationGUI
 {
 	public:
-		EquationGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager);
+		EquationGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager, Shader* shader);
 		void construct(int width, int height);
 
 		bool isHoveringImGui = false;
@@ -17,6 +17,8 @@ class EquationGUI
 		EquationList* equationList;
 		VariableList* variableList;
 		GraphManager* graphManager;
+
+		Shader* shader;
 
 		bool* keepWindowActive;
 		bool* keepTabsActive;

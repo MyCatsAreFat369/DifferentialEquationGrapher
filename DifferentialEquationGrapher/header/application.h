@@ -55,7 +55,8 @@ class Application
 
 		GLuint vertexShader, fragmentShader;
 
-		
+		Shader* shader;
+
 };
 
 

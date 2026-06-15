@@ -20,10 +20,12 @@ const int RECENT_FILES_MAX_COUNT = 3;
 class MenuGUI
 {
 	public:
-		MenuGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager);
-		void setEquationShaders(GLuint vertexShader, GLuint fragmentShader);
+		MenuGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager, Shader* shader);
 		void construct(int width, int height);
+		void create_default_project();
 	private:
+		void clear_project();
+
 		void construct_popup_openfile();
 		void construct_popup_savefile();
 
@@ -46,6 +48,8 @@ class MenuGUI
 		EquationList* equationList;
 		VariableList* variableList;
 		GraphManager* graphManager;
+
+		Shader* shader;
 
 		std::vector<std::string> fileReadLines;
 		std::vector<std::string> fileWriteLines;

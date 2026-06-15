@@ -11,11 +11,13 @@
 
 #include "calculator/tooltips.h"
 
-EquationGUI::EquationGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager)
+EquationGUI::EquationGUI(EquationList* equationList, VariableList* variableList, GraphManager* graphManager, Shader* shader)
 {
 	this->equationList = equationList;
 	this->variableList = variableList;
 	this->graphManager = graphManager;
+
+	this->shader = shader;
 
 	keepWindowActive = NULL;
 }
@@ -37,7 +39,7 @@ void EquationGUI::construct(int width, int height)
 	if (ImGui::Button("Create New Equation"))
 	{
 		Equation* newEquation = new Equation(equationList, variableList);
-		newEquation->InitializeCurve(graphManager->vertexShader, graphManager->fragmentShader,
+		newEquation->InitializeCurve(shader,
 									 graphManager->x, graphManager->y,
 									 graphManager->zoomX, graphManager->zoomY);
 		newEquation->derivativeOrder = 1;

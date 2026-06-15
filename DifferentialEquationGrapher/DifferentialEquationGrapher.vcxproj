@@ -177,6 +177,9 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="freetype.dll" />
+    <None Include="glfw3.dll" />
+    <None Include="imgui.ini" />
     <None Include="res\Shaders\default.frag" />
     <None Include="res\Shaders\default.vert" />
     <None Include="res\Shaders\text.frag" />

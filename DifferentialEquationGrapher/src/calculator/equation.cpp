@@ -197,12 +197,12 @@ void Equation::replaceVariableInEquation(std::string oldVariable, std::string ne
 }
 
 
-void Equation::InitializeCurve(GLuint vertexShader, GLuint fragmentShader, float x, float y, float zoomX, float zoomY)
+void Equation::InitializeCurve(Shader* shader, float x, float y, float zoomX, float zoomY)
 {
 	Points* points = new Points();
 	curve = new Curve(points, x, y, zoomX, zoomY);
 	curve->Generate();
-	curve->AttachShaders(vertexShader, fragmentShader);
+	curve->AttachShaders(shader);
 
 	std::cout << "Equation " << formula << " has a curve that is " << curve << "\n";
 }

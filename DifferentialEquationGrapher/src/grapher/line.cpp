@@ -38,9 +38,9 @@ Line::Line(float x, float y, float scaleX, float scaleY, float r, float g, float
 	this->scaleY = scaleY;
 }
 
-void Line::AttachShaders(GLuint vertexShader, GLuint fragmentShader)
+void Line::AttachShaders(Shader* shader)
 {
-	shader = new Shader(vertexShader, fragmentShader);
+	this->shader = shader;
 
 	xID = glGetUniformLocation(shader->ID, "x");
 	yID = glGetUniformLocation(shader->ID, "y");
@@ -88,9 +88,7 @@ void Line::Delete()
 {
 	VAO1->Delete();
 	VBO1->Delete();
-	if(shader != nullptr) shader->Delete();
 
 	delete VAO1;
 	delete VBO1;
-	if(shader != nullptr) delete shader;
 }

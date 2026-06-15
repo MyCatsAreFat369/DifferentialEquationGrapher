@@ -8,15 +8,13 @@
 
 #include <cstring>
 
-GraphManager::GraphManager(GLuint vertexShader, GLuint fragmentShader,
-						   EquationList* equationList, VariableList* variableList,
+GraphManager::GraphManager(Shader* shader, EquationList* equationList, VariableList* variableList,
 						   Calculator* calculator, Input* input,
 						   TextManager* textManager,
 						   float initialX, float initialY, float initialZoomX, float initialZoomY,
 						   int width, int height)
 {
-	this->vertexShader = vertexShader;
-	this->fragmentShader = fragmentShader;
+	this->shader = shader;
 
 	this->equationList = equationList;
 	this->variableList = variableList;
@@ -28,7 +26,7 @@ GraphManager::GraphManager(GLuint vertexShader, GLuint fragmentShader,
 	if(zoomX == 0.0f) zoomX = 1.0f; // just to be safe
 
 	// Consider moving GraphLines creation before Curve
-	graphLines = new GraphLines(vertexShader, fragmentShader, textManager,
+	graphLines = new GraphLines(shader, textManager,
 								x, y, zoomX, zoomY);
 	graphLines->UpdatePosition(x, y);
 	graphLines->UpdateZoom(width, height, zoomX, zoomY);

@@ -104,18 +104,20 @@ Application::Application()
 	vertexShader = Shader::CompileShader(GL_VERTEX_SHADER, "res/Shaders/default.vert");
 	fragmentShader = Shader::CompileShader(GL_FRAGMENT_SHADER, "res/Shaders/default.frag");
 
+	shader = new Shader(vertexShader, fragmentShader);
+
 	equationList = new EquationList();
 	variableList = new VariableList(equationList);
 
 	calculator = new Calculator(equationList, variableList);
 
-	graphManager = new GraphManager(vertexShader, fragmentShader,
-									equationList, variableList,
+	graphManager = new GraphManager(shader, equationList, variableList,
 									calculator, input,
 									textManager,
 									0.0f, 0.0f, 0.5f, 0.5f,
 									graphWidth, graphHeight);
 
+	/*
 	Equation* someEquation = new Equation(equationList, variableList);
 	someEquation->SetFormula("-10 * x");
 	someEquation->setFunctionName("x");
@@ -130,11 +132,14 @@ Application::Application()
 	functionVariable->initialValues[0] = 1.0f;
 
 	variableList->setVariable("kA", 3.0f); // Used to be 19.0f :)
+	*/
 
 	graphManager->redrawCurves();
 
-	menuGUI = new MenuGUI(equationList, variableList, graphManager);
-	equationGUI = new EquationGUI(equationList, variableList, graphManager);
+	menuGUI = new MenuGUI(equationList, variableList, graphManager, shader);
+	equationGUI = new EquationGUI(equationList, variableList, graphManager, shader);
+
+	menuGUI->create_default_project();
 
 	mySliderValue = 1.0f;
 }
@@ -175,6 +180,7 @@ void Application::loop()
 
 		textManager->updateTextProjection(graphWidth, graphHeight);
 
+		/*
 		if (!graphManager->graphLines->allLinesLoaded())
 		{
 			graphManager->graphLines->loadNextLines();
@@ -207,6 +213,7 @@ void Application::loop()
 			glfwPollEvents();
 			continue;
 		}
+		*/
 
 		menuGUI->construct(width, height);
 

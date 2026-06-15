@@ -12,7 +12,7 @@ const int MAX_NUMBER_OF_LINES_PER_AXIS = 5 * (MAX_PRIMARY_LINES_PER_AXIS + 1) - 
 class GraphLines
 {
 	public:
-		GraphLines(GLuint vertexShader, GLuint fragmentShader, TextManager* textManager,
+		GraphLines(Shader* shader, TextManager* textManager,
 				   float initialPosX, float initialPosY, float initialZoomX, float initialZoomY);
 
 		float x = 0.0f, y = 0.0f;
@@ -42,7 +42,7 @@ class GraphLines
 		Line* linesX;
 		Line* linesY;
 
-		GLuint vertexShader, fragmentShader;
+		Shader* shader;
 		TextManager* textManager;
 
 		// Increment/Decrement spacing for each axis

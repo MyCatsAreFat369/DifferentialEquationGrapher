@@ -47,9 +47,9 @@ void Curve::Generate()
 	EBO1->Unbind();
 }
 
-void Curve::AttachShaders(GLuint vertexShader, GLuint fragmentShader)
+void Curve::AttachShaders(Shader* shader)
 {
-	shader = new Shader(vertexShader, fragmentShader);
+	this->shader = shader;
 
 	scalexID = glGetUniformLocation(shader->ID, "scalex");
 	scaleyID = glGetUniformLocation(shader->ID, "scaley");
@@ -59,9 +59,6 @@ void Curve::AttachShaders(GLuint vertexShader, GLuint fragmentShader)
 
 	widthID = glGetUniformLocation(shader->ID, "width");
 	heightID = glGetUniformLocation(shader->ID, "height");
-	
-	this->vertexShader = vertexShader;
-	this->fragmentShader = fragmentShader;
 }
 
 void Curve::UpdatePosition(float x, float y)
@@ -102,12 +99,10 @@ void Curve::Delete(bool deletePoints)
 	VAO1->Delete();
 	VBO1->Delete();
 	EBO1->Delete();
-	if(shader != nullptr) shader->Delete();
 
 	delete VAO1;
 	delete VBO1;
 	delete EBO1;
-	if(shader != nullptr) delete shader;
 	if (deletePoints)
 	{
 		//points->Delete();
