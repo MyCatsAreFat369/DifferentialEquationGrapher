@@ -38,11 +38,11 @@ You may type a differential equation using proper syntax (as will be described i
 If you select **First-Order**, it will solve equations of the form y' = f(t, y), whereas **Second-Order** would solve equations of the form y'' = f(t, y, y'). Of course, **Multi-Order** lets you graph higher-order ODEs,
 as seen with the slider:
 
+<img width="386" height="428" alt="image" src="https://github.com/user-attachments/assets/1fddd1f7-35a3-4ff2-b35d-348400d71381" />
+
 To graph the differential equation, simply click **Compile**.
 To hide extra options (initial conditions, color) and show only the equation itself, click **Collapse**. You may click **Expand** to show it again after.
 You may also hide the specific curve by unchecking **Draw Curve**.
-
-<img width="386" height="428" alt="image" src="https://github.com/user-attachments/assets/1fddd1f7-35a3-4ff2-b35d-348400d71381" />
 
 By manipulating initial conditions, we may seek different solutions to the initial-value problem:
 
